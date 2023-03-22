@@ -18,20 +18,20 @@ the seedlings, seeds, matrix trees and shelves.
 
 ## Login page:
 
-![Alt text](./src/img/design/Login.png?raw=true "Title")
+![Alt text](./public/img/design/Login.png?raw=true 'Login')
 
 ## Collection page:
 
-![Alt text](./src/img/design/Acervo.png?raw=true "Title")
+![Alt text](./public/img/design/Acervo.png?raw=true 'Collection')
 
 ## Register page:
 
-![Alt text](./src/img/design/Cadastro.png?raw=true "Title")
+![Alt text](./public/img/design/Cadastro.png?raw=true 'Register')
 
 ## Shelves page:
 
-![Alt text](./src/img/design/Bancadas.png?raw=true "Title")
+![Alt text](./public/img/design/Bancadas.png?raw=true 'Shelves')
 
 ## Search page:
 
-![Alt text](./src/img/design/Pesquisa.png?raw=true "Title")
+![Alt text](./public/img/design/Pesquisa.png?raw=true 'Search')
