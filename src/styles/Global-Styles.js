@@ -15,6 +15,10 @@ export const GlobalStyles = createGlobalStyle`
     list-style: none;
   }
 
+  a {
+    color: black;
+  }
+
   ${'' /* end of reset */}
 
   html {
@@ -23,6 +27,7 @@ export const GlobalStyles = createGlobalStyle`
 
   body{
     font-size: ${theme.fonts.sizes.small};
+    font-family: ${theme.fonts.family.primaryFont};
   }
 
 `;
