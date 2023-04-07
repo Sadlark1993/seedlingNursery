@@ -6,7 +6,7 @@ export const Footer = ({ children }) => {
   return (
     <Styled.compStyle>
       {text.map((line) => {
-        return <p key={Math.random}>{line}</p>;
+        return <p key={Math.random()}>{line}</p>;
       })}
     </Styled.compStyle>
   );

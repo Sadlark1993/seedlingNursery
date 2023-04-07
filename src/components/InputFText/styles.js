@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const compStyle = styled.input`
   ${({ theme, fieldW }) => css`
     display: block;
-    height: 4rem;
+    height: 6.4rem;
     width: ${fieldW}rem;
     padding: 0.6rem;
     font-size: ${theme.fonts.sizes.small};

@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 export const compStyle = styled.button`
   ${({ theme }) => css`
     display: block;
-    height: 4.8rem;
-    width: 30rem;
+    height: 6.4rem;
+    width: 36rem;
     padding: 0.6rem;
     border: none;
     border-radius: 5px;
