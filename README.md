@@ -24,9 +24,13 @@ the seedlings, seeds, matrix trees and shelves.
 
 ![Alt text](./public/img/design/Acervo.png?raw=true 'Collection')
 
-## Register page:
+## Register page models:
 
-![Alt text](./public/img/design/Cadastro.png?raw=true 'Register')
+![Alt text](./public/img/design/Cadastro_Matrizes.png?raw=true 'Register')
+
+![Alt text](./public/img/design/Cadastro_Mudas.png?raw=true 'Register')
+
+![Alt text](./public/img/design/Cadastro_Sementes.png?raw=true 'Register')
 
 ## Shelves page:
 
