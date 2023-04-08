@@ -19,6 +19,7 @@ export const pageStyle = styled.div`
       display: block;
       text-align: center;
       margin-top: 2rem;
+      font-size: ${theme.fonts.sizes.xsmall};
     }
   `}
 `;

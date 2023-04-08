@@ -28,8 +28,8 @@ function Home() {
       <Section background={true}>
         <Container>
           <WelcomeTitle>Bem Vindo!</WelcomeTitle>
-          <InputFText fieldW={36} placeHolder="email" />
-          <InputFText fieldW={36} placeHolder="password" />
+          <InputFText fieldW={36} placeHolder="email" type="email" />
+          <InputFText fieldW={36} placeHolder="password" type="password" />
           <SubmitBtn onClick={handleLogin}>Login</SubmitBtn>
           <span>*você precisa estar logado para acessar os dados do viveiro</span>
         </Container>
