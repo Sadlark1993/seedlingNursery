@@ -8,5 +8,6 @@ export const compStyle = styled.div`
     display: flex;
     align-content: center;
     flex-wrap: wrap;
+    width: 100%;
   `}
 `;
