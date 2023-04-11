@@ -30,6 +30,7 @@ export const SpecieDesc = ({ srcImg, name, scienName, description }) => {
         <Styled.hintText>
           Clique aqui para ver as mudas, sementes e matrizes dessa espécie cadastradas no sistema
         </Styled.hintText>
+        <Styled.fullSeparator />
       </Styled.sectionStyle>
     </Container>
   );

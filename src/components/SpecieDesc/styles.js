@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import * as BtnStyle from '../SubmitBtn/styles';
 
 export const sectionStyle = styled.div`
+  width: 100%;
+
   ${BtnStyle.compStyle} {
     margin: 6rem auto 2rem auto;
   }
@@ -83,4 +85,15 @@ export const hintText = styled.span`
   display: block;
   text-align: center;
   margin-bottom: 4rem;
+`;
+
+export const fullSeparator = styled.div`
+  ${({ theme }) => css`
+    display: block;
+    background: ${theme.colors.primaryColor};
+    width: 96rem;
+    height: 2rem;
+    border-radius: 3px;
+    margin: 0 auto;
+  `};
 `;
