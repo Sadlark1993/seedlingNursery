@@ -4,7 +4,7 @@ export const containerStyle = styled.div`
   ${({ theme }) => css`
     display: flex;
     width: 100%;
-    height: 100%;
+    height: fit-content;
     flex-wrap: wrap;
     gap: 4rem 2rem;
 

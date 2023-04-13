@@ -1,10 +1,16 @@
 import styled, { css } from 'styled-components';
+import * as CheckboxStyle from '../PlantStageCheckbox/styles';
 
 export const compStyle = styled.div`
   ${({ theme }) => css`
     display: grid;
     grid-template-columns: 7rem 12rem 12rem 1fr;
     row-gap: 1rem;
+
+    & ${CheckboxStyle.compStyle} {
+      margin-top: -4rem;
+      margin-bottom: 4rem;
+    }
   `}
 `;
 

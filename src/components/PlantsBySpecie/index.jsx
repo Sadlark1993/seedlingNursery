@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Container } from '../Container';
 import { ContentNavigation } from '../ContentNavigation';
+import { PlantStageCheckbox } from '../PlantStageCheckbox';
 
 export const PlantsBySpecie = ({
   datas,
@@ -15,6 +16,7 @@ export const PlantsBySpecie = ({
   return (
     <Container>
       <Styled.compStyle>
+        <PlantStageCheckbox />
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.stage>estágio</Styled.stage>
         <Styled.plantingDate>data de plantio</Styled.plantingDate>
@@ -36,6 +38,16 @@ export const PlantsBySpecie = ({
             <Styled.locationCell>{row.location}</Styled.locationCell>
           </Styled.row>
         ))}
+        <Styled.wrapper>
+          <Styled.location></Styled.location>
+          <ContentNavigation
+            handleFirst={handleFirst}
+            handleBack={handleBack}
+            handleNext={handleNext}
+            handleLast={handleLast}
+            page={page}
+          />
+        </Styled.wrapper>
       </Styled.compStyle>
     </Container>
   );
