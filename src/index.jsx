@@ -7,11 +7,12 @@ import { theme } from './styles/theme';
 
 import Home from './pages/Home';
 import Collection from './pages/Collection';
+import RegistrationForm from './pages/RegistrationForm';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <ThemeProvider theme={theme}>
     <GlobalStyles />
-    <Home />
+    <RegistrationForm />
   </ThemeProvider>
 );
