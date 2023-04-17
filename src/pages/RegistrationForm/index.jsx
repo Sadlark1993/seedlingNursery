@@ -90,7 +90,7 @@ const RegistrationForm = () => {
       </Header>
       <Section background={true}>
         <Container>
-          <PageTitle>Cadastro de {stageName}</PageTitle>
+          <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>
           <ImgLoader srcImg="./img/mock/noPhoto.png" />
         </Container>
       </Section>
