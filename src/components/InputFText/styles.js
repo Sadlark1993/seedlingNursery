@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 
 export const compStyle = styled.input`
-  ${({ theme, fieldW }) => css`
-    display: block;
+  ${({ theme, fieldW, visible }) => css`
+    display: ${visible ? 'block' : 'none'};
     height: 6.4rem;
     width: ${fieldW}rem;
     padding: 0.6rem;

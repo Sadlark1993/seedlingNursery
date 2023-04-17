@@ -4,10 +4,12 @@ export default {
   title: 'InputFText',
   component: InputFText,
   args: {
-    fieldW: 40
+    fieldW: 40,
+    visible: true
   },
   argTypes: {
-    fieldW: { type: 'number' }
+    fieldW: { type: 'number' },
+    visible: { type: 'boolean' }
   }
 };
 
