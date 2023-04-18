@@ -1,4 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useEffect } from 'react';
+
+import * as Styled from './styles';
 import { Container } from '../../components/Container';
 import { Header } from '../../components/Header';
 import Links from '../../components/Header/LinksMock';
@@ -7,9 +10,13 @@ import { Logo } from '../../components/Logo';
 import { Navigation } from '../../components/Navigation';
 import { PageTitle } from '../../components/PageTitle';
 import { Section } from '../../components/Section';
-import { useEffect } from 'react';
+import { InputFText } from '../../components/InputFText';
+import { SubmitBtn } from '../../components/SubmitBtn';
 
 /* 
+--> The input fields are separated by groups. They will display:none or display:block depending to the stage 
+of the plant (seed, seedling, matrix). Right below we have the groups:
+
 inputFieldGroups: {
   a: { //it's shown in all register pages
     foto,
@@ -41,10 +48,10 @@ inputFieldGroups: {
     número de folhas;
     data de doação;
   }
-  e: {//it's shown in matrix and seedling register pages
+  d: {//it's shown in matrix and seedling register pages
     altura;
   },
-  f: {//its shown in seedling and seeds register pages
+  e: {//its shown in seedling and seeds register pages
     Árvore matriz;
     bancada;
     registro de doenças e pragas;
@@ -67,24 +74,42 @@ const RegistrationForm = () => {
   }
   */
   const [stage, setStage] = useState(0);
-  let stageName = 'Matriz';
+  const [stageName, setStageName] = useState('Matriz');
+
+  /* To understand this, read the inputFieldGroups comment above */
+  //a is always true. No reason to exist.
+  //[b, c, d, e]: matrix, seedling, matrix and seedling, seedling and seeds
+  const [inputGroup, setInputGroup] = useState([true, false, true, false]);
+
+  const stageRef = useRef();
+
+  const species = ['Jatobá', 'Copaíba', 'Cajueiro', 'Guarantã'];
 
   useEffect(() => {
     switch (stage) {
-      case 0:
-        stageName = 'Matriz';
+      case 0: //matrix
+        setInputGroup([true, false, true, false]);
+        setStageName('matriz');
         break;
-      case 1:
-        stageName = 'Mudas';
+      case 1: //seedling
+        setInputGroup([false, true, true, true]);
+        setStageName('mudas');
         break;
-      case 2:
-        stageName = 'Sementes';
+      case 2: //seed
+        setInputGroup([false, false, false, true]);
+        setStageName('sementes');
         break;
+      default:
+        console.log('no one');
     }
-  }, [stage]);
+  }, [stage, stageRef]);
+
+  const handleStageChange = () => {
+    setStage(+stageRef.current.value);
+  };
 
   return (
-    <>
+    <Styled.pageStyle>
       <Header>
         {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={Links} />]}
       </Header>
@@ -92,9 +117,123 @@ const RegistrationForm = () => {
         <Container>
           <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>
           <ImgLoader srcImg="./img/mock/noPhoto.png" />
+          <Styled.gridFourColumns>
+            <Styled.gridCell cStart="1" cEnd="2" visible={true}>
+              <label>Estágio da Planta</label>
+              <Styled.selectInput
+                defaultValue={stage}
+                fieldW={22}
+                ref={stageRef}
+                onChange={handleStageChange}>
+                <option value={0}>matriz</option>
+                <option value={1}>muda</option>
+                <option value={2}>semente</option>
+              </Styled.selectInput>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
+              <label>CAP</label>
+              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
+              <span>centímetros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>espécie</label>
+              <Styled.selectInput fieldW={46}>
+                {species.map((specie, index) => {
+                  return (
+                    <option key={index} value={index}>
+                      {specie}
+                    </option>
+                  );
+                })}
+              </Styled.selectInput>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[0]}>
+              <label>altura da planta</label>
+              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
+              <label>altura do fuste</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>formação da copa</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>formação do tronco</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>município</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>tipo de solo</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>endereço</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>tipo de vegetação</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
+              <label>latitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>graus</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
+              <label>longitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>graus</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>nome do determinador</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
+              <label>altitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
+              <label>densidade de ocorrência</label>
+              <InputFText fieldW={22} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>inst. determinador</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>outras espécies associadas</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCellUp cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>área de coleta</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCellUp>
+            <Styled.gridCell cStart="3" cEnd="5" visible={true}>
+              <label>observações</label>
+              <Styled.textAreaStyle rows="5" cols="60" />
+            </Styled.gridCell>
+
+            <Styled.gridCell cStart="2" cEnd="4" visible={true}>
+              <SubmitBtn
+                onClick={(e) => {
+                  e.preventDefault();
+                  console.log('Cadastrado');
+                }}>
+                cadastrar/atualizar
+              </SubmitBtn>
+            </Styled.gridCell>
+          </Styled.gridFourColumns>
         </Container>
       </Section>
-    </>
+    </Styled.pageStyle>
   );
 };
 

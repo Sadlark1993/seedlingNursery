@@ -1,8 +1,14 @@
 import styled, { css } from 'styled-components';
 
+const after = (mesure) => css`
+  &::after {
+    content: ${mesure};
+  }
+`;
+
 export const compStyle = styled.input`
-  ${({ theme, fieldW, visible }) => css`
-    display: ${visible ? 'block' : 'none'};
+  ${({ theme, fieldW, mesure }) => css`
+    display: block;
     height: 6.4rem;
     width: ${fieldW}rem;
     padding: 0.6rem;
