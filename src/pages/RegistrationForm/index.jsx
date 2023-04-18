@@ -12,6 +12,9 @@ import { PageTitle } from '../../components/PageTitle';
 import { Section } from '../../components/Section';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
+import fertRecord from './fertRecMock';
+import { FertilizationRecord } from '../../components/FertilizationRecord';
+import { Footer } from '../../components/Footer';
 
 /* 
 --> The input fields are separated by groups. They will display:none or display:block depending to the stage 
@@ -131,9 +134,50 @@ const RegistrationForm = () => {
               </Styled.selectInput>
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
+              <label>densidade de ocorrência</label>
+              <InputFText fieldW={22} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
+              <label>latitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>graus</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
+              <label>longitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>graus</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[0]}>
+              <label>altura da planta</label>
+              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
+              <label>altura do fuste</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
+              <label>altitude</label>
+              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
+              <span>metros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
               <label>CAP</label>
               <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
               <span>centímetros</span>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>formação do tronco</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>formação da copa</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
+              <label>tipo de solo</label>
+              <InputFText fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>espécie</label>
@@ -147,22 +191,8 @@ const RegistrationForm = () => {
                 })}
               </Styled.selectInput>
             </Styled.gridCell>
-            <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[0]}>
-              <label>altura da planta</label>
-              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
-              <span>metros</span>
-            </Styled.gridCell>
-            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
-              <label>altura do fuste</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>metros</span>
-            </Styled.gridCell>
-            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
-              <label>formação da copa</label>
-              <InputFText fieldW={46} type="text" />
-            </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
-              <label>formação do tronco</label>
+              <label>tipo de vegetação</label>
               <InputFText fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
@@ -170,39 +200,12 @@ const RegistrationForm = () => {
               <InputFText fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
-              <label>tipo de solo</label>
+              <label>nome do determinador</label>
               <InputFText fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>endereço</label>
               <InputFText fieldW={46} type="text" />
-            </Styled.gridCell>
-            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
-              <label>tipo de vegetação</label>
-              <InputFText fieldW={46} type="text" />
-            </Styled.gridCell>
-            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
-              <label>latitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>graus</span>
-            </Styled.gridCell>
-            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
-              <label>longitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>graus</span>
-            </Styled.gridCell>
-            <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
-              <label>nome do determinador</label>
-              <InputFText fieldW={46} type="text" />
-            </Styled.gridCell>
-            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
-              <label>altitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>metros</span>
-            </Styled.gridCell>
-            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
-              <label>densidade de ocorrência</label>
-              <InputFText fieldW={22} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>inst. determinador</label>
@@ -220,6 +223,10 @@ const RegistrationForm = () => {
               <label>observações</label>
               <Styled.textAreaStyle rows="5" cols="60" />
             </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[0]}>
+              <label>registro de adubação</label>
+              <FertilizationRecord records={fertRecord} />
+            </Styled.gridCell>
 
             <Styled.gridCell cStart="2" cEnd="4" visible={true}>
               <SubmitBtn
@@ -233,6 +240,11 @@ const RegistrationForm = () => {
           </Styled.gridFourColumns>
         </Container>
       </Section>
+      <Footer>
+        {
+          'Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso\nAvenida Sen. Filinto Müller, 953 - Bairro: Quilombo - CEP: 78043-409\nTelefone: (65) 3616-4100\nCuiabá/MT'
+        }
+      </Footer>
     </Styled.pageStyle>
   );
 };

@@ -7,8 +7,21 @@ export const compStyle = styled.div`
     height: 30rem;
     background: ${background ? theme.colors.bgPrimaryColor : 'white'};
     overflow: auto;
-    border: solid 0.3rem ${theme.colors.primaryColor};
+    border: solid 0.1rem ${theme.colors.primaryColor};
     padding: 1.4rem;
+
+    &::-webkit-scrollbar {
+      width: 18px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: #b9b9b9;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: ${theme.colors.primaryColor};
+      border-radius: 5px;
+    }
   `}
 `;
 
@@ -32,6 +45,21 @@ export const rowStyle = styled.div`
       color: ${theme.colors.primaryColor};
       border: solid 3px;
       border-radius: 5px;
+      cursor: pointer;
+    }
+  `}
+`;
+
+export const inputWrapper = styled.div`
+  ${({ theme, background }) => css`
+    position: relative;
+    height: fit-content;
+    &::after {
+      content: 'kg';
+      position: absolute;
+      z-index: 2;
+      bottom: 5px;
+      right: 10px;
     }
   `}
 `;

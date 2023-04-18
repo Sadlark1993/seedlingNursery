@@ -5,24 +5,26 @@ import { InputFText } from '../InputFText';
 export const FertilizationRecord = ({ records = [], handlePlus = () => console.log('plus') }) => {
   return (
     <Styled.compStyle>
-      <form>
-        {records.length > 0 &&
-          records.map((record, index) => {
-            return (
-              <Styled.rowStyle key={index}>
-                <InputFText fieldW={54} type="text" defaultValue={record.type} />
+      {records.length > 0 &&
+        records.map((record, index) => {
+          return (
+            <Styled.rowStyle key={index}>
+              <InputFText fieldW={54} type="text" defaultValue={record.type} />
+              <Styled.inputWrapper>
                 <InputFText fieldW={8} type="number" defaultValue={record.quant} />
-                <InputFText fieldW={14} type="date" defaultValue={record.date} />
-              </Styled.rowStyle>
-            );
-          })}
-        <Styled.rowStyle key={-1}>
-          <InputFText fieldW={54} type="text" placeholder="tipo" />
+              </Styled.inputWrapper>
+              <InputFText fieldW={14} type="date" defaultValue={record.date} />
+            </Styled.rowStyle>
+          );
+        })}
+      <Styled.rowStyle key={-1}>
+        <InputFText fieldW={54} type="text" placeholder="tipo" />
+        <Styled.inputWrapper>
           <InputFText fieldW={8} type="number" placeholder="XX.XX" />
-          <InputFText fieldW={14} type="date" />
-          <button onClick={handlePlus}>+</button>
-        </Styled.rowStyle>
-      </form>
+        </Styled.inputWrapper>
+        <InputFText fieldW={14} type="date" />
+        <button onClick={handlePlus}>+</button>
+      </Styled.rowStyle>
     </Styled.compStyle>
   );
 };
