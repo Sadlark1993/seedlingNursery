@@ -51,7 +51,7 @@ export const rowStyle = styled.div`
 `;
 
 export const inputWrapper = styled.div`
-  ${({ theme, background }) => css`
+  ${({ theme }) => css`
     position: relative;
     height: fit-content;
     &::after {

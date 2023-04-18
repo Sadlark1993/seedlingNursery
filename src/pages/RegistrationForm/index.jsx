@@ -48,16 +48,17 @@ inputFieldGroups: {
 
   },
   c: {//it's shown only in seedling register page
-    número de folhas;
-    data de doação;
+    número de folhas,
+    data de doação,
   }
   d: {//it's shown in matrix and seedling register pages
-    altura;
+    altura,
+    endereço,
   },
   e: {//its shown in seedling and seeds register pages
-    Árvore matriz;
-    bancada;
-    registro de doenças e pragas;
+    Árvore matriz,
+    bancada,
+    registro de doenças e pragas,
 
   }
 }
@@ -120,9 +121,12 @@ const RegistrationForm = () => {
         <Container>
           <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>
           <ImgLoader srcImg="./img/mock/noPhoto.png" />
+
+          {/* Start of the form */}
           <Styled.gridFourColumns>
+            {/* Plant stage selection */}
             <Styled.gridCell cStart="1" cEnd="2" visible={true}>
-              <label>Estágio da Planta</label>
+              <label>estágio da Planta</label>
               <Styled.selectInput
                 defaultValue={stage}
                 fieldW={22}
@@ -133,39 +137,47 @@ const RegistrationForm = () => {
                 <option value={2}>semente</option>
               </Styled.selectInput>
             </Styled.gridCell>
+
+            {/* Matrix inputs */}
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>densidade de ocorrência</label>
               <InputFText fieldW={22} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
               <label>latitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>graus</span>
+              <Styled.inputWrapper2 suffix="graus">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
               <label>longitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>graus</span>
+              <Styled.inputWrapper2 suffix="graus">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[0]}>
               <label>altura da planta</label>
-              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
-              <span>metros</span>
+              <Styled.inputWrapper2 suffix="metros">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>altura do fuste</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>metros</span>
+              <Styled.inputWrapper2 suffix="metros">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
               <label>altitude</label>
-              <InputFText fieldW={11} type="number" placeHolder="XX.XX" />
-              <span>metros</span>
+              <Styled.inputWrapper2 suffix="metros">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
               <label>CAP</label>
-              <InputFText fieldW={11} type="number" min="0" placeHolder="XX.XX" />
-              <span>centímetros</span>
+              <Styled.inputWrapper2 suffix="metros">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>formação do tronco</label>
@@ -203,9 +215,13 @@ const RegistrationForm = () => {
               <label>nome do determinador</label>
               <InputFText fieldW={46} type="text" />
             </Styled.gridCell>
-            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
+            <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[2]}>
               <label>endereço</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText
+                fieldW={46}
+                type="text"
+                placeholder={stage === 1 ? 'lugar para onde a muda foi doada' : ''}
+              />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>inst. determinador</label>
@@ -219,6 +235,18 @@ const RegistrationForm = () => {
               <label>área de coleta</label>
               <InputFText fieldW={46} type="text" />
             </Styled.gridCellUp>
+
+            {/* Seedling inputs */}
+            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[3]}>
+              <label>id da matriz de origem</label>
+              <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+            </Styled.gridCell>
+            <Styled.gridCellUp cStart="3" cEnd="5" visible={inputGroup[0]}>
+              <label>endereço</label>
+              <InputFText fieldW={46} type="text" />
+            </Styled.gridCellUp>
+
+            {/* Observações */}
             <Styled.gridCell cStart="3" cEnd="5" visible={true}>
               <label>observações</label>
               <Styled.textAreaStyle rows="5" cols="60" />

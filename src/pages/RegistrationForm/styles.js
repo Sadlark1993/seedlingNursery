@@ -30,6 +30,7 @@ export const gridFourColumns = styled.form`
     column-gap: 2rem;
     row-gap: 2rem;
     margin-top: 4rem;
+    grid-auto-flow: column; /* thats new to me. */
   `}
 `;
 
@@ -87,5 +88,19 @@ export const textAreaStyle = styled.textarea`
     padding: 1rem;
     font-size: ${theme.fonts.sizes.small};
     font-family: ${theme.fonts.family.primaryFont};
+  `}
+`;
+
+export const inputWrapper2 = styled.div`
+  ${({ suffix }) => css`
+    position: relative;
+    height: fit-content;
+    &::after {
+      content: ${`"${suffix}"`}; //o man...
+      position: absolute;
+      z-index: 10;
+      bottom: 5px;
+      right: 10px;
+    }
   `}
 `;

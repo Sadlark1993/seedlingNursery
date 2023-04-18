@@ -1,11 +1,5 @@
 import styled, { css } from 'styled-components';
 
-const after = (mesure) => css`
-  &::after {
-    content: ${mesure};
-  }
-`;
-
 export const compStyle = styled.input`
   ${({ theme, fieldW, mesure }) => css`
     display: block;
