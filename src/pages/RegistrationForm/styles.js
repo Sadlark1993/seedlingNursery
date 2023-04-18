@@ -3,6 +3,7 @@ import styled, { css } from 'styled-components';
 import * as BtnStyle from '../../components/SubmitBtn/styles';
 import * as TextInputStyle from '../../components/InputFText/styles';
 import * as FertStyle from '../../components/FertilizationRecord/styles';
+import * as PestStyle from '../../components/PestRecord/styles';
 
 export const pageStyle = styled.div`
   ${({ theme }) => css`
@@ -15,6 +16,13 @@ export const pageStyle = styled.div`
     }
 
     ${FertStyle.compStyle} {
+      button {
+        height: 4.4rem;
+        font-size: ${theme.fonts.sizes.large};
+      }
+    }
+
+    ${PestStyle.compStyle} {
       button {
         height: 4.4rem;
         font-size: ${theme.fonts.sizes.large};
@@ -73,6 +81,7 @@ export const gridCellUp = styled.div`
 
     & > label {
       width: 100%;
+      margin-bottom: 0.5rem;
     }
 
     & > span {

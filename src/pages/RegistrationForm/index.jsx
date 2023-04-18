@@ -13,7 +13,10 @@ import { Section } from '../../components/Section';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import fertRecord from './fertRecMock';
+import pestRecord from './pestRecMock';
 import { FertilizationRecord } from '../../components/FertilizationRecord';
+import { PestRecord } from '../../components/PestRecord';
+
 import { Footer } from '../../components/Footer';
 
 /* 
@@ -155,7 +158,7 @@ const RegistrationForm = () => {
                 <InputFText fieldW={22} type="number" placeholder="XX.XX" />
               </Styled.inputWrapper2>
             </Styled.gridCell>
-            <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[0]}>
+            <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[2]}>
               <label>altura da planta</label>
               <Styled.inputWrapper2 suffix="metros">
                 <InputFText fieldW={22} type="number" placeholder="XX.XX" />
@@ -245,8 +248,36 @@ const RegistrationForm = () => {
               <label>endereço</label>
               <InputFText fieldW={46} type="text" />
             </Styled.gridCellUp>
+            <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[2]}>
+              <label>número de folhas</label>
+              <Styled.inputWrapper2 suffix="unidades">
+                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              </Styled.inputWrapper2>
+            </Styled.gridCell>
+            <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[2]}>
+              <label>data de plantio</label>
+              <InputFText fieldW={22} type="date" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[2]}>
+              <label>data de doação</label>
+              <InputFText fieldW={22} type="date" />
+            </Styled.gridCell>
+            <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[3]}>
+              <label>registro de pragas e doenças</label>
+              <PestRecord records={pestRecord} />
+            </Styled.gridCell>
+            <Styled.gridCellUp cStart="2" cEnd="3" visible={inputGroup[2]}>
+              <label>cadastrar</label>
+              <Styled.inputWrapper2 suffix="unidades">
+                <InputFText fieldW={22} type="number" />
+              </Styled.inputWrapper2>
+            </Styled.gridCellUp>
+            <Styled.gridCellUp cStart="1" cEnd="2" visible={inputGroup[3]}>
+              <label>bancada</label>
+              <InputFText fieldW={22} type="number" />
+            </Styled.gridCellUp>
 
-            {/* Observações */}
+            {/* Observations and registration*/}
             <Styled.gridCell cStart="3" cEnd="5" visible={true}>
               <label>observações</label>
               <Styled.textAreaStyle rows="5" cols="60" />
