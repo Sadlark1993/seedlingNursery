@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
 
-export const Shelve = ({ id, count, speciesList }) => {
+export const Shelf = ({ id, count, speciesList }) => {
   return (
     <Styled.compStyle>
       <Styled.idNumber>
@@ -17,7 +17,7 @@ export const Shelve = ({ id, count, speciesList }) => {
   );
 };
 
-Shelve.propTypes = {
+Shelf.propTypes = {
   id: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   speciesList: PropTypes.string

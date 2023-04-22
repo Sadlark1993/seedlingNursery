@@ -1,8 +1,8 @@
-import { Shelve } from '.';
+import { Shelf } from '.';
 
 export default {
-  title: 'Shelve',
-  component: Shelve,
+  title: 'Shelf',
+  component: Shelf,
   args: {
     id: 1,
     count: 30,
@@ -18,7 +18,7 @@ export default {
 export const Template = (args) => {
   return (
     <div>
-      <Shelve {...args} />
+      <Shelf {...args} />
     </div>
   );
 };
