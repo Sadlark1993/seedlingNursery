@@ -49,5 +49,6 @@ export const speciesList = styled.div`
     font-size: ${theme.fonts.sizes.medium};
     font-weight: bold;
     padding-left: 2rem;
+    overflow: hidden;
   `}
 `;
