@@ -8,6 +8,7 @@ export const compStyle = styled.div`
     border-radius: 20px;
     transition: 100ms ease-in-out;
     cursor: pointer;
+    width: 100%;
     &:hover {
       transform: scale(1.05);
     }
