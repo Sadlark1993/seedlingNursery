@@ -3,12 +3,13 @@ import { useRef } from 'react';
 
 import * as Styled from './styles';
 
-export const InputFText = ({ fieldW, ...args }) => {
-  return <Styled.compStyle fieldW={fieldW} {...args} />;
+export const InputFText = ({ fieldW, forwardedRef, ...args }) => {
+  return <Styled.compStyle fieldW={fieldW} ref={forwardedRef} {...args} />;
 };
 
 InputFText.propTypes = {
   fieldW: PropTypes.number.isRequired,
+  forwardedRef: PropTypes.object,
   placeHolder: PropTypes.string,
   type: PropTypes.string
 };
