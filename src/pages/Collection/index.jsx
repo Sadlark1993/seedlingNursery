@@ -42,8 +42,8 @@ const Collection = () => {
 
   const descriptionRef = useRef();
 
+  //loads the list of species to display at speciesCards
   useEffect(() => {
-    console.log('effect');
     (async () => {
       const speciesPromise = await fetch('./mocks/species.json');
       const speciesObj = await speciesPromise.json();
@@ -52,9 +52,25 @@ const Collection = () => {
     })();
   }, []);
 
+  //selects the specie
   const handleCardClick = (id) => {
     setSelected(id - 1);
     descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  //list the plants that belong to the selected specie.
+  const handleLoadPlantsBySpecie = async (name) => {
+    console.log(`loading ${name}.`);
+    const plantsJson = await fetch('./mocks/plants.json');
+    const plantsObj = await plantsJson.json();
+    const selectedPlants = await plantsObj.filter((plant) => {
+      if (plant.stage === 0) {
+        return plant.specie === name;
+      }
+      const sourceMatrix = plantsObj.find((matrix) => matrix.id === plant.matrix);
+      return sourceMatrix.specie === name;
+    });
+    console.log(selectedPlants);
   };
 
   return (
@@ -85,7 +101,7 @@ const Collection = () => {
       </Section>
       <Section background={false} forwardRef={descriptionRef}>
         {species[selected] ? (
-          <SpecieDesc {...species[selected]} />
+          <SpecieDesc {...species[selected]} handleSearch={handleLoadPlantsBySpecie} />
         ) : (
           <h3 style={{ margin: '0 auto', textAlign: 'center' }}>Nenhuma espécie selecionada</h3>
         )}

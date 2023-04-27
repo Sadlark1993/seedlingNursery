@@ -4,11 +4,11 @@ import * as Styled from './styles';
 import { SubmitBtn } from '../SubmitBtn';
 import { Container } from '../Container';
 
-const handleClick = () => {
+/* const handleClick = () => {
   console.log("Wow, I'm gonna load some plants!!");
-};
+}; */
 
-export const SpecieDesc = ({ srcImg, name, scientificName, description }) => {
+export const SpecieDesc = ({ srcImg, name, scientificName, description, handleSearch }) => {
   return (
     <Container>
       <Styled.sectionStyle>
@@ -26,7 +26,7 @@ export const SpecieDesc = ({ srcImg, name, scientificName, description }) => {
             <Styled.description>{description}</Styled.description>
           </Styled.contentContainer>
         </Styled.containerStyle>
-        <SubmitBtn onClick={handleClick}>Carregar Plantas</SubmitBtn>
+        <SubmitBtn onClick={() => handleSearch(name)}>Carregar Plantas</SubmitBtn>
         <Styled.hintText>
           Clique aqui para ver as mudas, sementes e matrizes dessa espécie cadastradas no sistema
         </Styled.hintText>
@@ -40,5 +40,6 @@ SpecieDesc.propTypes = {
   srcImg: PropTypes.string,
   name: PropTypes.string.isRequired,
   scientificName: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired,
+  handleSearch: PropTypes.func
 };
