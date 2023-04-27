@@ -1,22 +1,22 @@
 export default [
   {
     name: 'Acervo',
-    href: '#'
+    href: '/acervo'
   },
   {
     name: 'Bancadas',
-    href: '#'
+    href: '/bancadas'
   },
   {
     name: 'Pesquisar Planta',
-    href: '#'
+    href: '/pesquisa'
   },
   {
     name: 'Cadastrar Planta',
-    href: '#'
+    href: '/cadastro'
   },
   {
     name: 'Sair',
-    href: '#'
+    href: '/'
   }
 ];

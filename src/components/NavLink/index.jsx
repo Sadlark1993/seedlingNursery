@@ -1,8 +1,13 @@
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
+import { Link } from 'react-router-dom';
 
 export const NavLink = ({ children, link }) => {
-  return <Styled.compStyle href={link}>{children}</Styled.compStyle>;
+  return (
+    <Styled.compStyle>
+      <Link to={link}> {children}</Link>
+    </Styled.compStyle>
+  );
 };
 
 NavLink.propTypes = {

@@ -20,6 +20,4 @@ export const PlantStageCheckbox = () => {
   );
 };
 
-PlantStageCheckbox.propTypes = {
-  children: PropTypes.node.isRequired
-};
+PlantStageCheckbox.propTypes = {};
