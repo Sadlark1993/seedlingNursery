@@ -8,7 +8,7 @@ const handleClick = () => {
   console.log("Wow, I'm gonna load some plants!!");
 };
 
-export const SpecieDesc = ({ srcImg, name, scienName, description }) => {
+export const SpecieDesc = ({ srcImg, name, scientificName, description }) => {
   return (
     <Container>
       <Styled.sectionStyle>
@@ -20,7 +20,7 @@ export const SpecieDesc = ({ srcImg, name, scienName, description }) => {
               <Styled.name>{name}</Styled.name>
             </Styled.nameWrapper>
             <Styled.scienNameWrapper>
-              <span>{scienName}</span>
+              <span>{scientificName}</span>
             </Styled.scienNameWrapper>
             <Styled.sepRectangle />
             <Styled.description>{description}</Styled.description>
@@ -39,6 +39,6 @@ export const SpecieDesc = ({ srcImg, name, scienName, description }) => {
 SpecieDesc.propTypes = {
   srcImg: PropTypes.string,
   name: PropTypes.string.isRequired,
-  scienName: PropTypes.string.isRequired,
+  scientificName: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 };

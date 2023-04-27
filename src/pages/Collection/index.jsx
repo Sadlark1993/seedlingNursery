@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 import * as Styled from './styles';
 import { Header } from '../../components/Header';
 import { Logo } from '../../components/Logo';
@@ -6,11 +8,9 @@ import Links from '../../components/Header/LinksMock';
 import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
 import { CardContainer } from '../../components/CardContainer';
-import cardsMock from '../../components/CardContainer/cardsMock';
 import { PageTitle } from '../../components/PageTitle';
 import { ContentNavigation } from '../../components/ContentNavigation';
 import { SpecieDesc } from '../../components/SpecieDesc';
-import specieDescMock from './specieDescMock';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import datasMock from '../../components/PlantsBySpecie/datasMock';
 import { Footer } from '../../components/Footer';
@@ -37,6 +37,19 @@ const handleFirst = () => {
 };
 
 const Collection = () => {
+  const [species, setSpecies] = useState([]);
+  const [selected, setSelected] = useState(5);
+
+  useEffect(() => {
+    console.log('effect');
+    (async () => {
+      const speciesPromise = await fetch('./mocks/species.json');
+      const speciesObj = await speciesPromise.json();
+      setSpecies(speciesObj);
+      //console.log(speciesObj[1].description);
+    })();
+  }, []);
+
   return (
     <Styled.pageStyle>
       <Header>
@@ -53,7 +66,7 @@ const Collection = () => {
             handleLast={handleLast}
             page={1}
           />
-          <CardContainer cards={cardsMock} />
+          <CardContainer cards={species} />
           <ContentNavigation
             handleFirst={handleFirst}
             handleBack={handleBack}
@@ -64,7 +77,7 @@ const Collection = () => {
         </Container>
       </Section>
       <Section background={false}>
-        <SpecieDesc {...specieDescMock} />
+        <SpecieDesc {...species[selected]} />
       </Section>
       <Section background={true}>
         <PlantsBySpecie

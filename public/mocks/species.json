@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Jatobá do Serrado",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "A espécie de jatobá encontrada no cerrado é a de nome científico Hymenaea Stilbocarpa, da família Leguminosae. Também conhecida como jatobá-do-campo, jatobá-da-serra, jatobá-de-casca-fina e jutaí, a árvore pode alcançar até 9 metros de altura. O nome jatobá vem do guarani e significa “árvore de fruto duro”. Em outras regiões do Brasil podem ser encontradas outras espécies de jatobá.",
+    "srcImg": "./img/mock/image1.png",
+    "id": 1
+  },
+  {
+    "name": "Copaíba",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "A copaíba é uma planta medicinal da espécie Copaifera langsdorffii, indicada parano tratamento de problemas de pele, como eczema, psoríase ou feridas, ou ainda para tosse, bronquite, dor nas articulações ou infecções urinárias, pois possui propriedades anti-inflamatórias, cicatrizantes, antissépticas, expectorantes e diuréticas.",
+    "srcImg": "./img/mock/image2.png",
+    "id": 2
+  },
+  {
+    "name": "Guarantã",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "é uma árvore da família Rutaceae. Apresenta ampla distribuição nas regiões da Mata Atlântica, ocorrendo de forma restrita em florestas primárias. É intolerante ao sol quando jovem.",
+    "srcImg": "./img/mock/image4.png",
+    "id": 3
+  },
+  {
+    "name": "Cajueiro",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "O cajueiro é uma planta da família Anacardiaceae originária da região nordeste do Brasil, com arquitetura de copa tortuosa e de diferentes portes. Na natureza existem dois tipos: o comum (ou gigante) e o anão. O tipo comum pode atingir entre 5 e 12 metros de altura, mas em condições muito propícias pode chegar a 20 metros. O tipo anão possui altura média de 4 metros.",
+    "srcImg": "./img/mock/image3.png",
+    "id": 4
+  },
+  {
+    "name": "Jatobá do Serrado",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "A espécie de jatobá encontrada no cerrado é a de nome científico Hymenaea Stilbocarpa, da família Leguminosae. Também conhecida como jatobá-do-campo, jatobá-da-serra, jatobá-de-casca-fina e jutaí, a árvore pode alcançar até 9 metros de altura. O nome jatobá vem do guarani e significa “árvore de fruto duro”. Em outras regiões do Brasil podem ser encontradas outras espécies de jatobá.",
+    "srcImg": "./img/mock/image1.png",
+    "id": 5
+  },
+  {
+    "name": "Copaíba",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "A copaíba é uma planta medicinal da espécie Copaifera langsdorffii, indicada parano tratamento de problemas de pele, como eczema, psoríase ou feridas, ou ainda para tosse, bronquite, dor nas articulações ou infecções urinárias, pois possui propriedades anti-inflamatórias, cicatrizantes, antissépticas, expectorantes e diuréticas.",
+    "srcImg": "./img/mock/image2.png",
+    "id": 6
+  },
+  {
+    "name": "Guarantã",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "é uma árvore da família Rutaceae. Apresenta ampla distribuição nas regiões da Mata Atlântica, ocorrendo de forma restrita em florestas primárias. É intolerante ao sol quando jovem.",
+    "srcImg": "./img/mock/image4.png",
+    "id": 7
+  },
+  {
+    "name": "Cajueiro",
+    "scientificName": "Hymenaea stigonocarpa",
+    "description": "O cajueiro é uma planta da família Anacardiaceae originária da região nordeste do Brasil, com arquitetura de copa tortuosa e de diferentes portes. Na natureza existem dois tipos: o comum (ou gigante) e o anão. O tipo comum pode atingir entre 5 e 12 metros de altura, mas em condições muito propícias pode chegar a 20 metros. O tipo anão possui altura média de 4 metros.",
+    "srcImg": "./img/mock/image3.png",
+    "id": 8
+  }
+]
