@@ -21,6 +21,7 @@ export const pageStyle = styled.div`
 export const SearchForm = styled.form`
   display: flex;
   gap: 2rem;
+  margin-bottom: 6rem;
 `;
 
 export const selectInput = styled.select`
