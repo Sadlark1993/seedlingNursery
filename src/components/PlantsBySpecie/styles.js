@@ -8,8 +8,8 @@ export const compStyle = styled.div`
     row-gap: 1rem;
 
     & ${CheckboxStyle.compStyle} {
-      margin-top: -4rem;
-      margin-bottom: 4rem;
+      margin-top: -3rem;
+      margin-bottom: 3rem;
     }
   `}
 `;

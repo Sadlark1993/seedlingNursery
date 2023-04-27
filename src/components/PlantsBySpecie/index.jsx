@@ -30,14 +30,30 @@ export const PlantsBySpecie = ({
             page={page}
           />
         </Styled.wrapper>
-        {datas.map((row) => (
-          <Styled.row key={row.id}>
-            <Styled.idCell>{row.id}</Styled.idCell>
-            <Styled.stageCell>{row.stage}</Styled.stageCell>
-            <Styled.dateCell>{row.date}</Styled.dateCell>
-            <Styled.locationCell>{row.location}</Styled.locationCell>
-          </Styled.row>
-        ))}
+        {datas.map((row) => {
+          let stage;
+          switch (row.stage) {
+            case 0:
+              stage = 'matriz';
+              break;
+            case 1:
+              stage = 'muda';
+              break;
+            case 2:
+              stage = 'semente';
+          }
+
+          return (
+            <Styled.row key={row.id}>
+              <Styled.idCell>{row.id}</Styled.idCell>
+              <Styled.stageCell>{stage}</Styled.stageCell>
+              <Styled.dateCell>{row.plantingDate.length ? row.plantingDate : '--'}</Styled.dateCell>
+              <Styled.locationCell>
+                {row.address.length ? row.address : `bancada ${row.shelf}`}
+              </Styled.locationCell>
+            </Styled.row>
+          );
+        })}
         <Styled.wrapper>
           <Styled.location></Styled.location>
           <ContentNavigation

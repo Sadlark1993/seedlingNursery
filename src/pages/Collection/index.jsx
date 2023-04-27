@@ -12,7 +12,6 @@ import { PageTitle } from '../../components/PageTitle';
 import { ContentNavigation } from '../../components/ContentNavigation';
 import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
-import datasMock from '../../components/PlantsBySpecie/datasMock';
 import { Footer } from '../../components/Footer';
 
 const logoImg = {
@@ -39,6 +38,7 @@ const handleFirst = () => {
 const Collection = () => {
   const [species, setSpecies] = useState([]);
   const [selected, setSelected] = useState(15);
+  const [plantsList, setPlantsList] = useState([]);
 
   const descriptionRef = useRef();
 
@@ -71,6 +71,7 @@ const Collection = () => {
       return sourceMatrix.specie === name;
     });
     console.log(selectedPlants);
+    setPlantsList(selectedPlants);
   };
 
   return (
@@ -106,9 +107,9 @@ const Collection = () => {
           <h3 style={{ margin: '0 auto', textAlign: 'center' }}>Nenhuma espécie selecionada</h3>
         )}
       </Section>
-      <Section background={true}>
+      <Section className="start" background={true}>
         <PlantsBySpecie
-          datas={datasMock}
+          datas={plantsList}
           handleFirst={handleFirst}
           handleBack={handleBack}
           handleNext={handleNext}

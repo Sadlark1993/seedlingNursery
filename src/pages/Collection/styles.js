@@ -15,5 +15,9 @@ export const pageStyle = styled.div`
     & ${SpecieStyle.sectionStyle} {
       margin-bottom: -6rem;
     }
+
+    & .start {
+      align-content: start;
+    }
   `}
 `;

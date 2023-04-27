@@ -38,7 +38,7 @@
     "high": 0.5,
     "leafsCount": 30,
     "donationDate": "",
-    "planting date": "02-07-2022",
+    "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
     "deseases": [
@@ -89,11 +89,11 @@
     "stage": 0,
     "matrix": 1234,
     "high": 0.5,
-    "leafsCount": 30,
+    "leafsCount": "",
     "donationDate": "",
-    "planting date": "02-07-2022",
-    "address": "",
-    "shelf": 2,
+    "plantingDate": "",
+    "address": "Rua Santo Antonio, numero 10",
+    "shelf": "",
     "deseases": [
       {
         "description": "desease number 1",
