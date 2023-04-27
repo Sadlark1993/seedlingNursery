@@ -8,12 +8,12 @@ import * as Styled from './styles';
   -scientificName : string;
 */
 
-export const CardContainer = ({ cards }) => {
+export const CardContainer = ({ cards, handleClick = () => console.log('clicked') }) => {
   return (
     <Styled.containerStyle>
       {cards.map((card) => {
         return (
-          <Styled.cardStyle key={card.id}>
+          <Styled.cardStyle key={card.id} onClick={() => handleClick(card.id)}>
             <img src={card.srcImg} alt={card.name} />
             <Styled.nameWrapper>
               <h3>{card.name}</h3>
@@ -29,5 +29,6 @@ export const CardContainer = ({ cards }) => {
 };
 
 CardContainer.propTypes = {
-  cards: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+  cards: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
+  handleClick: PropTypes.func
 };

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import * as Styled from './styles';
 import { Header } from '../../components/Header';
@@ -38,7 +38,9 @@ const handleFirst = () => {
 
 const Collection = () => {
   const [species, setSpecies] = useState([]);
-  const [selected, setSelected] = useState(5);
+  const [selected, setSelected] = useState(15);
+
+  const descriptionRef = useRef();
 
   useEffect(() => {
     console.log('effect');
@@ -49,6 +51,11 @@ const Collection = () => {
       //console.log(speciesObj[1].description);
     })();
   }, []);
+
+  const handleCardClick = (id) => {
+    setSelected(id - 1);
+    descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   return (
     <Styled.pageStyle>
@@ -66,7 +73,7 @@ const Collection = () => {
             handleLast={handleLast}
             page={1}
           />
-          <CardContainer cards={species} />
+          <CardContainer cards={species} handleClick={handleCardClick} />
           <ContentNavigation
             handleFirst={handleFirst}
             handleBack={handleBack}
@@ -76,8 +83,12 @@ const Collection = () => {
           />
         </Container>
       </Section>
-      <Section background={false}>
-        <SpecieDesc {...species[selected]} />
+      <Section background={false} forwardRef={descriptionRef}>
+        {species[selected] ? (
+          <SpecieDesc {...species[selected]} />
+        ) : (
+          <h3 style={{ margin: '0 auto', textAlign: 'center' }}>Nenhuma espécie selecionada</h3>
+        )}
       </Section>
       <Section background={true}>
         <PlantsBySpecie
