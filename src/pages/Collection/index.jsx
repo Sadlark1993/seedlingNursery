@@ -23,6 +23,10 @@ const handleLast = () => {
   console.log('last');
 };
 
+const handleNext = () => {
+  console.log('last');
+};
+
 const handleBack = () => {
   console.log('back');
 };
@@ -88,9 +92,24 @@ const Collection = () => {
     setPlantsList(selectedPlants);
   };
 
-  const handleNext = () => {
+  //Plants list navigation
+  const handleNextPlants = () => {
     if (plantsList[currentPage * rowsPerPage]) setCurrentPage((c) => ++c);
     else console.log(`does't have next`);
+  };
+
+  const handlePreviousPlants = () => {
+    currentPage > 1 ? setCurrentPage((c) => --c) : console.log(`does't have previous`);
+  };
+
+  const handleFirstPlants = () => {
+    currentPage > 1 ? setCurrentPage(1) : console.log(`already at first page`);
+  };
+
+  const handleLastPlants = () => {
+    currentPage * rowsPerPage < plantsList.length
+      ? setCurrentPage(Math.ceil(plantsList.length / rowsPerPage))
+      : console.log('already at last page');
   };
 
   return (
@@ -131,11 +150,11 @@ const Collection = () => {
         <Section className="start" background={true} forwardRef={plantsListRef}>
           <PlantsBySpecie
             datas={plantsOnDisplay}
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={1}
+            handleFirst={handleFirstPlants}
+            handleBack={handlePreviousPlants}
+            handleNext={handleNextPlants}
+            handleLast={handleLastPlants}
+            page={currentPage}
           />
         </Section>
       )}
