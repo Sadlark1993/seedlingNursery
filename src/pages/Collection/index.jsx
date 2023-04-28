@@ -39,8 +39,13 @@ const Collection = () => {
   const [species, setSpecies] = useState([]);
   const [selected, setSelected] = useState(15);
   const [plantsList, setPlantsList] = useState([]);
+  const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const descriptionRef = useRef();
+  const plantsListRef = useRef();
+
+  const rowsPerPage = 20;
 
   //loads the list of species to display at speciesCards
   useEffect(() => {
@@ -51,6 +56,18 @@ const Collection = () => {
       //console.log(speciesObj[1].description);
     })();
   }, []);
+
+  //scrolls into the list of plants when a new list is load.
+  useEffect(() => {
+    if (plantsList.length)
+      plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [plantsList]);
+
+  useEffect(() => {
+    setPlantsOnDisplay(
+      plantsList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+    );
+  }, [currentPage, rowsPerPage, plantsList]);
 
   //selects the specie
   const handleCardClick = (id) => {
@@ -104,19 +121,22 @@ const Collection = () => {
         {species[selected] ? (
           <SpecieDesc {...species[selected]} handleSearch={handleLoadPlantsBySpecie} />
         ) : (
-          <h3 style={{ margin: '0 auto', textAlign: 'center' }}>Nenhuma espécie selecionada</h3>
+          <h3 style={{ margin: '0 auto', textAlign: 'center' }}>nenhuma espécie selecionada</h3>
         )}
       </Section>
-      <Section className="start" background={true}>
-        <PlantsBySpecie
-          datas={plantsList}
-          handleFirst={handleFirst}
-          handleBack={handleBack}
-          handleNext={handleNext}
-          handleLast={handleLast}
-          page={1}
-        />
-      </Section>
+      {/* MAKE THIS DESAPEAR!!!!! */}
+      {plantsList.length && (
+        <Section className="start" background={true} forwardRef={plantsListRef}>
+          <PlantsBySpecie
+            datas={plantsOnDisplay}
+            handleFirst={handleFirst}
+            handleBack={handleBack}
+            handleNext={handleNext}
+            handleLast={handleLast}
+            page={1}
+          />
+        </Section>
+      )}
       <Footer>
         {
           'Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso\nAvenida Sen. Filinto Müller, 953 - Bairro: Quilombo - CEP: 78043-409\nTelefone: (65) 3616-4100\nCuiabá/MT'
