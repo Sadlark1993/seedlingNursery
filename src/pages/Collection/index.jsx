@@ -27,17 +27,13 @@ const handleBack = () => {
   console.log('back');
 };
 
-const handleNext = () => {
-  console.log('next');
-};
-
 const handleFirst = () => {
   console.log('first');
 };
 
 const Collection = () => {
   const [species, setSpecies] = useState([]);
-  const [selected, setSelected] = useState(15);
+  const [selected, setSelected] = useState(0);
   const [plantsList, setPlantsList] = useState([]);
   const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -45,7 +41,7 @@ const Collection = () => {
   const descriptionRef = useRef();
   const plantsListRef = useRef();
 
-  const rowsPerPage = 20;
+  const rowsPerPage = 10; //the number here will be 20. I've put a smaller number just to test.
 
   //loads the list of species to display at speciesCards
   useEffect(() => {
@@ -63,6 +59,7 @@ const Collection = () => {
       plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [plantsList]);
 
+  //select page
   useEffect(() => {
     setPlantsOnDisplay(
       plantsList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
@@ -89,6 +86,11 @@ const Collection = () => {
     });
     console.log(selectedPlants);
     setPlantsList(selectedPlants);
+  };
+
+  const handleNext = () => {
+    if (plantsList[currentPage * rowsPerPage]) setCurrentPage((c) => ++c);
+    else console.log(`does't have next`);
   };
 
   return (

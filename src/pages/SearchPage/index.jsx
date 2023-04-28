@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Styled from './styles';
 import { Header } from '../../components/Header';
 import LinksMock from '../../components/Header/LinksMock';
@@ -9,7 +9,6 @@ import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
-import datasMock from '../../components/PlantsBySpecie/datasMock';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 
@@ -19,6 +18,8 @@ const logoImg = {
 };
 
 const SearchPage = () => {
+  const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
+
   const handleSearch = (event) => {
     event.preventDefault();
     console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
@@ -43,6 +44,16 @@ const SearchPage = () => {
     console.log('first');
   };
 
+  useEffect(() => {
+    handleLoadPlantsBySpecie();
+  }, []);
+
+  const handleLoadPlantsBySpecie = async () => {
+    const plantsJson = await fetch('./mocks/plants.json');
+    const plantsObj = await plantsJson.json();
+    await setPlantsOnDisplay(plantsObj);
+  };
+
   return (
     <Styled.pageStyle>
       <Header>
@@ -63,7 +74,7 @@ const SearchPage = () => {
             <SubmitBtn onClick={handleSearch}>buscar</SubmitBtn>
           </Styled.SearchForm>
           <PlantsBySpecie
-            datas={datasMock}
+            datas={plantsOnDisplay}
             handleFirst={handleFirst}
             handleBack={handleBack}
             handleNext={handleNext}
