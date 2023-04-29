@@ -47,7 +47,7 @@ const Collection = () => {
   const [enPrev, setEnPrev] = useState(true);
 
   const [showSeedlings, setShowSeedlings] = useState(true);
-  const [showSeeds, setShowSeeds] = useState(false);
+  const [showSeeds, setShowSeeds] = useState(true);
   const [showMatrixes, setShowMatrixes] = useState(true);
 
   const descriptionRef = useRef();
@@ -70,15 +70,40 @@ const Collection = () => {
       plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [plantsList]);
 
-  //select page
+  //select page and loads page
   useEffect(() => {
+    const plantsListByStage = selectByStage();
+    console.log(plantsListByStage);
     setPlantsOnDisplay(
-      plantsList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
+      plantsListByStage.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
     );
 
     setEnPrev(currentPage > 1);
     setEnNext(currentPage * rowsPerPage < plantsList.length);
-  }, [currentPage, rowsPerPage, plantsList]);
+  }, [currentPage, rowsPerPage, plantsList, showSeedlings, showMatrixes, showSeeds]);
+
+  //selects the plats considering the selected stage
+  const selectByStage = () => {
+    const filteredPlants = [];
+    if (showSeedlings) {
+      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 1));
+    }
+    if (showSeeds) {
+      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 2));
+    }
+    if (showMatrixes) {
+      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 0));
+    }
+    if (filteredPlants.length === 0) {
+      filteredPlants.push({
+        id: 0,
+        stage: 0,
+        address: 'NADA SELECIONADO',
+        plantingDate: ''
+      });
+    }
+    return filteredPlants;
+  };
 
   //selects the specie
   const handleCardClick = (id) => {
@@ -161,7 +186,6 @@ const Collection = () => {
           <h3 style={{ margin: '0 auto', textAlign: 'center' }}>nenhuma espécie selecionada</h3>
         )}
       </Section>
-      {/* MAKE THIS DESAPEAR!!!!! */}
       {plantsList.length && (
         <Section className="start" background={true} forwardRef={plantsListRef}>
           <PlantsBySpecie
