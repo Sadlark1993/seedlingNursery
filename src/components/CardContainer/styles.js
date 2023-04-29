@@ -25,6 +25,7 @@ export const cardStyle = styled.div`
   background: white;
   cursor: pointer;
   transition: 0.15s ease-in-out;
+  user-select: none;
 
   &:hover {
     transform: scale(1.05);

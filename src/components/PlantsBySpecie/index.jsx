@@ -11,12 +11,26 @@ export const PlantsBySpecie = ({
   handleBack,
   handleNext,
   handleLast,
-  page = 0
+  page = 0,
+  seedlings,
+  seeds,
+  matrixes,
+  toggleSeedlings,
+  toggleSeeds,
+  toggleMatrixes,
+  ...args
 }) => {
   return (
     <Container>
       <Styled.compStyle>
-        <PlantStageCheckbox />
+        <PlantStageCheckbox
+          seedlings={seedlings}
+          seeds={seeds}
+          matrixes={matrixes}
+          toggleSeedlings={toggleSeedlings}
+          toggleSeeds={toggleSeeds}
+          toggleMatrixes={toggleMatrixes}
+        />
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.stage>estágio</Styled.stage>
         <Styled.plantingDate>data de plantio</Styled.plantingDate>
@@ -28,6 +42,7 @@ export const PlantsBySpecie = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
+            {...args}
           />
         </Styled.wrapper>
         {datas.map((row) => {
@@ -62,6 +77,7 @@ export const PlantsBySpecie = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
+            {...args}
           />
         </Styled.wrapper>
       </Styled.compStyle>
@@ -75,5 +91,11 @@ PlantsBySpecie.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number
+  page: PropTypes.number,
+  seedlings: PropTypes.bool,
+  seeds: PropTypes.bool,
+  matrixes: PropTypes.bool,
+  toggleSeedlings: PropTypes.func,
+  toggleSeeds: PropTypes.func,
+  toggleMatrixes: PropTypes.func
 };

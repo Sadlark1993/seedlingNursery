@@ -6,6 +6,7 @@ export const compStyle = styled.div`
     flex-wrap: wrap;
     justify-content: center;
     gap: 1rem;
+    font-weight: bold;
 
     span {
       cursor: pointer;

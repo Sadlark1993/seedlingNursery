@@ -36,11 +36,19 @@ const handleFirst = () => {
 };
 
 const Collection = () => {
-  const [species, setSpecies] = useState([]);
-  const [selected, setSelected] = useState(0);
-  const [plantsList, setPlantsList] = useState([]);
+  const [species, setSpecies] = useState([]); //stores the list of species loaded.
+  const [selected, setSelected] = useState(0); //selected specie
+  const [plantsList, setPlantsList] = useState([]); //all the plants of the selected specie
   const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
+  //defines the color (disabled or enabled) of the plantsList navigation buttons
+  const [enNext, setEnNext] = useState(true);
+  const [enPrev, setEnPrev] = useState(true);
+
+  const [showSeedlings, setShowSeedlings] = useState(true);
+  const [showSeeds, setShowSeeds] = useState(false);
+  const [showMatrixes, setShowMatrixes] = useState(true);
 
   const descriptionRef = useRef();
   const plantsListRef = useRef();
@@ -53,7 +61,6 @@ const Collection = () => {
       const speciesPromise = await fetch('./mocks/species.json');
       const speciesObj = await speciesPromise.json();
       setSpecies(speciesObj);
-      //console.log(speciesObj[1].description);
     })();
   }, []);
 
@@ -68,6 +75,9 @@ const Collection = () => {
     setPlantsOnDisplay(
       plantsList.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
     );
+
+    setEnPrev(currentPage > 1);
+    setEnNext(currentPage * rowsPerPage < plantsList.length);
   }, [currentPage, rowsPerPage, plantsList]);
 
   //selects the specie
@@ -78,7 +88,7 @@ const Collection = () => {
 
   //list the plants that belong to the selected specie.
   const handleLoadPlantsBySpecie = async (name) => {
-    console.log(`loading ${name}.`);
+    //console.log(`loading ${name}.`);
     const plantsJson = await fetch('./mocks/plants.json');
     const plantsObj = await plantsJson.json();
     const selectedPlants = await plantsObj.filter((plant) => {
@@ -88,14 +98,20 @@ const Collection = () => {
       const sourceMatrix = plantsObj.find((matrix) => matrix.id === plant.matrix);
       return sourceMatrix.specie === name;
     });
-    console.log(selectedPlants);
     setPlantsList(selectedPlants);
   };
 
+  //Species list navigation
+  const handleNextSpecie = () => {
+    console.log('last');
+  };
+
   //Plants list navigation
-  const handleNextPlants = () => {
-    if (plantsList[currentPage * rowsPerPage]) setCurrentPage((c) => ++c);
-    else console.log(`does't have next`);
+  const handleNextPlants = (e) => {
+    if (plantsList[currentPage * rowsPerPage]) {
+      setCurrentPage((c) => ++c);
+      e.target.style.color = 'red';
+    } else console.log(`does't have next`);
   };
 
   const handlePreviousPlants = () => {
@@ -155,6 +171,16 @@ const Collection = () => {
             handleNext={handleNextPlants}
             handleLast={handleLastPlants}
             page={currentPage}
+            first={enPrev}
+            previous={enPrev}
+            next={enNext}
+            last={enNext}
+            seedlings={showSeedlings}
+            seeds={showSeeds}
+            matrixes={showMatrixes}
+            toggleSeedlings={() => setShowSeedlings((c) => !c)}
+            toggleSeeds={() => setShowSeeds((c) => !c)}
+            toggleMatrixes={() => setShowMatrixes((c) => !c)}
           />
         </Section>
       )}
