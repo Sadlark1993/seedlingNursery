@@ -37,6 +37,8 @@ const handleFirst = () => {
 
 const Collection = () => {
   const [species, setSpecies] = useState([]); //stores the list of species loaded.
+  const [speciesOnDisplay, setSpeciesOnDisplay] = useState([]);
+  const [speciesPage, setSpeciesPage] = useState(1);
   const [selected, setSelected] = useState(0); //selected specie
   const [plantsList, setPlantsList] = useState([]); //all the plants of the selected specie
   const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
@@ -53,6 +55,7 @@ const Collection = () => {
   const descriptionRef = useRef();
   const plantsListRef = useRef();
 
+  const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
   const rowsPerPage = 10; //the number here will be 20. I've put a smaller number just to test.
 
   //loads the list of species to display at speciesCards
@@ -64,6 +67,13 @@ const Collection = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    console.log('update page');
+    setSpeciesOnDisplay(
+      species.slice((speciesPage - 1) * speciesPerPage, currentPage * speciesPerPage)
+    );
+  }, [speciesPage, species]);
+
   //scrolls into the list of plants when a new list is load.
   useEffect(() => {
     if (plantsList.length)
@@ -73,7 +83,6 @@ const Collection = () => {
   //select page and loads page
   useEffect(() => {
     const plantsListByStage = selectByStage();
-    console.log(plantsListByStage);
     setPlantsOnDisplay(
       plantsListByStage.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
     );
@@ -169,7 +178,7 @@ const Collection = () => {
             handleLast={handleLast}
             page={1}
           />
-          <CardContainer cards={species} handleClick={handleCardClick} />
+          <CardContainer cards={speciesOnDisplay} handleClick={handleCardClick} />
           <ContentNavigation
             handleFirst={handleFirst}
             handleBack={handleBack}
