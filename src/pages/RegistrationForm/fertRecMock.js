@@ -10,17 +10,17 @@ const record = [
     date: '2021-09-11'
   },
   {
-    type: 'bosta de vaca',
+    type: 'adubo orgânico',
     quant: 8,
     date: '2023-02-12'
   },
   {
-    type: 'bosta de vaca',
+    type: 'adubo orgânico',
     quant: 8,
     date: '2023-02-12'
   },
   {
-    type: 'bosta de vaca',
+    type: 'adubo orgânico',
     quant: 8,
     date: '2023-02-12'
   }

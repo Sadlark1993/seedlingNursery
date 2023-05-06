@@ -1,14 +1,14 @@
 const record = [
   {
-    type: 'AIDS',
+    type: 'Doença1',
     date: '2022-11-25'
   },
   {
-    type: 'gonorreia',
+    type: 'Doença2',
     date: '2021-09-11'
   },
   {
-    type: 'herpes',
+    type: 'Doença3',
     date: '2023-02-12'
   }
 ];
