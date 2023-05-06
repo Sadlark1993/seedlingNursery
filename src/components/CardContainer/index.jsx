@@ -24,6 +24,15 @@ export const CardContainer = ({ cards, handleClick = () => console.log('clicked'
           </Styled.cardStyle>
         );
       })}
+      <Styled.cardStyle key="cadastro" onClick={() => handleClick('cadastro')}>
+        <img src="./img/default/addSpecie.png" alt="add" />
+        <Styled.nameWrapper>
+          <h3>Cadastrar Nova Espécie</h3>
+        </Styled.nameWrapper>
+        <Styled.scienWrapper>
+          <span></span>
+        </Styled.scienWrapper>
+      </Styled.cardStyle>
     </Styled.containerStyle>
   );
 };

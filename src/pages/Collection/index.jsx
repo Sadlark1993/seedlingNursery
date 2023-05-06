@@ -67,6 +67,7 @@ const Collection = () => {
     })();
   }, []);
 
+  //loads the current page of specie cards to display
   useEffect(() => {
     console.log('update page');
     setSpeciesOnDisplay(
@@ -116,7 +117,7 @@ const Collection = () => {
 
   //selects the specie
   const handleCardClick = (id) => {
-    setSelected(id - 1);
+    setSelected(id === 'cadastro' ? id : id - 1);
     descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
