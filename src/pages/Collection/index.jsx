@@ -13,6 +13,7 @@ import { ContentNavigation } from '../../components/ContentNavigation';
 import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
+import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -44,9 +45,11 @@ const Collection = () => {
   const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
-  //defines the color (disabled or enabled) of the plantsList navigation buttons
+  //defines the color (disabled or enabled) of the navigation buttons
   const [enNext, setEnNext] = useState(true);
   const [enPrev, setEnPrev] = useState(true);
+  const [enNextSpecie, setEnNextSpecie] = useState(true);
+  const [enPrevSpecie, setEnPrevSpecie] = useState(true);
 
   const [showSeedlings, setShowSeedlings] = useState(true);
   const [showSeeds, setShowSeeds] = useState(true);
@@ -71,8 +74,11 @@ const Collection = () => {
   useEffect(() => {
     console.log('update page');
     setSpeciesOnDisplay(
-      species.slice((speciesPage - 1) * speciesPerPage, currentPage * speciesPerPage)
+      species.slice((speciesPage - 1) * speciesPerPage, speciesPage * speciesPerPage)
     );
+
+    setEnNextSpecie(speciesPage * speciesPerPage < species.length);
+    setEnPrevSpecie(speciesPage > 1);
   }, [speciesPage, species]);
 
   //scrolls into the list of plants when a new list is load.
@@ -81,7 +87,7 @@ const Collection = () => {
       plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [plantsList]);
 
-  //select page and loads page
+  //select page and loads page of plants list
   useEffect(() => {
     const plantsListByStage = selectByStage();
     setPlantsOnDisplay(
@@ -137,15 +143,38 @@ const Collection = () => {
   };
 
   //Species list navigation
-  const handleNextSpecie = () => {
-    console.log('last');
+  const handleNextSpecies = () => {
+    if (species[speciesPage * speciesPerPage]) {
+      setSpeciesPage((c) => ++c);
+    } else {
+      console.log(`does't have next`);
+    }
+  };
+
+  const handlePrevSpecies = () => {
+    if (speciesPage > 1) {
+      setSpeciesPage((c) => --c);
+    } else {
+      console.log(`does't have prev`);
+    }
+  };
+
+  const handleLastSpecies = () => {
+    if (species[speciesPage * speciesPerPage]) {
+      setSpeciesPage(Math.ceil(species.length / speciesPerPage));
+    } else {
+      console.log(`does't have next`);
+    }
+  };
+
+  const handleFirstSpecies = () => {
+    setSpeciesPage(1);
   };
 
   //Plants list navigation
   const handleNextPlants = (e) => {
     if (plantsList[currentPage * rowsPerPage]) {
       setCurrentPage((c) => ++c);
-      e.target.style.color = 'red';
     } else console.log(`does't have next`);
   };
 
@@ -173,19 +202,27 @@ const Collection = () => {
           <PageTitle>Espécies Cadastradas</PageTitle>
           <ContentNavigation
             key="nav1"
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={1}
+            handleFirst={handleFirstSpecies}
+            handleBack={handlePrevSpecies}
+            handleNext={handleNextSpecies}
+            handleLast={handleLastSpecies}
+            page={speciesPage}
+            first={enPrevSpecie}
+            previous={enPrevSpecie}
+            next={enNextSpecie}
+            last={enNextSpecie}
           />
           <CardContainer cards={speciesOnDisplay} handleClick={handleCardClick} />
           <ContentNavigation
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={1}
+            handleFirst={handleFirstSpecies}
+            handleBack={handlePrevSpecies}
+            handleNext={handleNextSpecies}
+            handleLast={handleLastSpecies}
+            page={speciesPage}
+            first={enPrevSpecie}
+            previous={enPrevSpecie}
+            next={enNextSpecie}
+            last={enNextSpecie}
           />
         </Container>
       </Section>
@@ -193,7 +230,7 @@ const Collection = () => {
         {species[selected] ? (
           <SpecieDesc {...species[selected]} handleSearch={handleLoadPlantsBySpecie} />
         ) : (
-          <h3 style={{ margin: '0 auto', textAlign: 'center' }}>nenhuma espécie selecionada</h3>
+          <SpeciesRegisterForm />
         )}
       </Section>
       {plantsList.length && (
