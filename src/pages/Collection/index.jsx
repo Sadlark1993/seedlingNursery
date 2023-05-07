@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import * as Styled from './styles';
 import { Header } from '../../components/Header';
@@ -14,6 +14,7 @@ import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
+import { DataContext } from '../../contexts/Data';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -37,7 +38,8 @@ const handleFirst = () => {
 };
 
 const Collection = () => {
-  const [species, setSpecies] = useState([]); //stores the list of species loaded.
+  /*   const [species, setSpecies] = useState([]); //stores the list of species loaded. */
+  const { species, plants } = useContext(DataContext); //gets the list of plants and species from context
   const [speciesOnDisplay, setSpeciesOnDisplay] = useState([]);
   const [speciesPage, setSpeciesPage] = useState(1);
   const [selected, setSelected] = useState(0); //selected specie
@@ -61,15 +63,6 @@ const Collection = () => {
   const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
   const rowsPerPage = 10; //the number here will be 20. I've put a smaller number just to test.
 
-  //loads the list of species to display at speciesCards
-  useEffect(() => {
-    (async () => {
-      const speciesPromise = await fetch('./mocks/species.json');
-      const speciesObj = await speciesPromise.json();
-      setSpecies(speciesObj);
-    })();
-  }, []);
-
   //loads the current page of specie cards to display
   useEffect(() => {
     console.log('update page');
@@ -79,6 +72,7 @@ const Collection = () => {
 
     setEnNextSpecie(speciesPage * speciesPerPage < species.length);
     setEnPrevSpecie(speciesPage > 1);
+    console.log(species);
   }, [speciesPage, species]);
 
   //scrolls into the list of plants when a new list is load.
@@ -128,15 +122,12 @@ const Collection = () => {
   };
 
   //list the plants that belong to the selected specie.
-  const handleLoadPlantsBySpecie = async (name) => {
-    //console.log(`loading ${name}.`);
-    const plantsJson = await fetch('./mocks/plants.json');
-    const plantsObj = await plantsJson.json();
-    const selectedPlants = await plantsObj.filter((plant) => {
+  const handleLoadPlantsBySpecie = (name) => {
+    const selectedPlants = plants.filter((plant) => {
       if (plant.stage === 0) {
         return plant.specie === name;
       }
-      const sourceMatrix = plantsObj.find((matrix) => matrix.id === plant.matrix);
+      const sourceMatrix = plants.find((matrix) => matrix.id === plant.matrix);
       return sourceMatrix.specie === name;
     });
     setPlantsList(selectedPlants);
