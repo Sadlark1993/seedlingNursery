@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 import { DataContext } from '../../contexts/Data';
 
@@ -12,7 +12,6 @@ import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ShelvesList } from '../../components/ShelvesList';
 import { PlantsByShelf } from '../../components/PlantsByShelf';
-import plantsMock from './mocks/plantsMock';
 import { Footer } from '../../components/Footer';
 
 const img = {
@@ -39,15 +38,13 @@ const handleFirst = () => {
 const Shelves = () => {
   const { plants } = useContext(DataContext);
   const [shelfId, setShelfId] = useState(1);
-  //amount of seeds/seedlings in each shelf.
+  //amount of seeds/seedlings in each shelf
   const [count, setCount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
+  //list of species in each shelf
   const [species, setSpecies] = useState(['', '', '', '', '', '', '', '', '', '']);
+  const [plantsByShelf, setPlantsByShelf] = useState([]);
 
-  const handleShelfClick = (id) => {
-    setShelfId(id);
-    console.log('shelf id: ', id, count);
-    console.log(species);
-  };
+  const plantsListRef = useRef();
 
   useEffect(() => {
     const plantCount = count;
@@ -72,6 +69,16 @@ const Shelves = () => {
     console.log('bancada', count, species);
   }, [plants]);
 
+  useEffect(() => {
+    const selectedPlants = plants.filter((plant) => plant.shelf === shelfId);
+    setPlantsByShelf(selectedPlants);
+  }, [shelfId, plants]);
+
+  const handleShelfClick = (id) => {
+    setShelfId(id);
+    plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
     <Styled.pageStyle>
       <Header>
@@ -83,17 +90,21 @@ const Shelves = () => {
           <ShelvesList countList={count} speciesList={species} onClick={handleShelfClick} />
         </Container>
       </Section>
-      <Section background={true}>
+      <Section background={true} forwardRef={plantsListRef}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
-          <PlantsByShelf
-            datas={plantsMock}
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={1}
-          />
+          {plantsByShelf.length ? (
+            <PlantsByShelf
+              datas={plantsByShelf}
+              handleFirst={handleFirst}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              handleLast={handleLast}
+              page={1}
+            />
+          ) : (
+            <h3 style={{ textAlign: 'center' }}>{`A bancada ${shelfId} está vazia.`}</h3>
+          )}
         </Container>
       </Section>
       <Footer>

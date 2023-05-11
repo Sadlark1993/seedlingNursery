@@ -9,9 +9,10 @@ export const ShelvesList = ({ speciesList = [], countList = [], ...args }) => {
   return (
     <Styled.compStyle>
       {countList.map((shelf) => {
+        id++;
         return (
           <Shelf
-            key={++id}
+            key={id}
             id={id}
             count={countList[id - 1] || 0}
             speciesList={speciesList[id - 1] || ''}
