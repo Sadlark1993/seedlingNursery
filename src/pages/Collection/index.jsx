@@ -65,14 +65,12 @@ const Collection = () => {
 
   //loads the current page of specie cards to display
   useEffect(() => {
-    console.log('update page');
     setSpeciesOnDisplay(
       species.slice((speciesPage - 1) * speciesPerPage, speciesPage * speciesPerPage)
     );
 
     setEnNextSpecie(speciesPage * speciesPerPage < species.length);
     setEnPrevSpecie(speciesPage > 1);
-    console.log(species);
   }, [speciesPage, species]);
 
   //scrolls into the list of plants when a new list is load.

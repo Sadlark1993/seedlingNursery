@@ -11,7 +11,7 @@ export const Shelf = ({ id, count, speciesList, onClick = () => console.log('cli
         <span>{count} mudas</span>
       </Styled.count>
       <Styled.speciesList>
-        <span>{speciesList}</span>
+        <span>{speciesList || '--'}</span>
       </Styled.speciesList>
     </Styled.compStyle>
   );

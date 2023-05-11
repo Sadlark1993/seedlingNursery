@@ -18,6 +18,7 @@ export const Data = ({ children }) => {
       const speciesPromise = await fetch('./mocks/species.json');
       const speciesObj = await speciesPromise.json();
       setSpecies(speciesObj);
+      console.log('species loaded');
     })();
   }, []);
 

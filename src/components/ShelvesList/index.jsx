@@ -4,23 +4,27 @@ import * as Styled from './styles';
 import { Shelf } from '../Shelf';
 //import { Container } from '../Container';
 
-export const ShelvesList = ({ shelvesList = [], ...args }) => {
+export const ShelvesList = ({ speciesList = [], countList = [], ...args }) => {
+  let id = 0;
   return (
     <Styled.compStyle>
-      {shelvesList.map((shelf) => (
-        <Shelf
-          key={shelf.id}
-          id={shelf.id}
-          count={shelf.count}
-          speciesList={shelf.speciesList}
-          {...args}
-        />
-      ))}
+      {countList.map((shelf) => {
+        return (
+          <Shelf
+            key={++id}
+            id={id}
+            count={countList[id - 1] || 0}
+            speciesList={speciesList[id - 1] || ''}
+            {...args}
+          />
+        );
+      })}
     </Styled.compStyle>
   );
 };
 
 ShelvesList.propTypes = {
-  shelvesList: PropTypes.arrayOf(PropTypes.object),
+  speciesList: PropTypes.arrayOf(PropTypes.string),
+  countList: PropTypes.arrayOf(PropTypes.number),
   onClick: PropTypes.func
 };
