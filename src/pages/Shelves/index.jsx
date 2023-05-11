@@ -43,8 +43,16 @@ const Shelves = () => {
   //list of species in each shelf
   const [species, setSpecies] = useState(['', '', '', '', '', '', '', '', '', '']);
   const [plantsByShelf, setPlantsByShelf] = useState([]);
+  const [plantsDisplay, setPlantsDisplay] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  //enable of next and back buttons
+  const [enPrev, setEnPrev] = useState(true);
+  const [enNext, setEnNext] = useState(true);
 
   const plantsListRef = useRef();
+
+  const rowsPerPage = 10;
 
   useEffect(() => {
     const plantCount = count;
@@ -66,7 +74,6 @@ const Shelves = () => {
     });
     setCount([...plantCount]);
     setSpecies([...shelfSpecies]);
-    console.log('bancada', count, species);
   }, [plants]);
 
   useEffect(() => {
@@ -74,9 +81,38 @@ const Shelves = () => {
     setPlantsByShelf(selectedPlants);
   }, [shelfId, plants]);
 
+  useEffect(() => {
+    setPlantsDisplay(
+      plantsByShelf.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+    );
+    setEnPrev(currentPage > 0);
+    setEnNext((currentPage + 1) * rowsPerPage < plantsByShelf.length);
+    console.log(enPrev, enNext);
+  }, [plantsByShelf, currentPage]);
+
   const handleShelfClick = (id) => {
     setShelfId(id);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const handleNext = () => {
+    currentPage * rowsPerPage < plantsByShelf.length / rowsPerPage
+      ? setCurrentPage((c) => ++c)
+      : '';
+  };
+
+  const handleLast = () => {
+    currentPage * rowsPerPage < plantsByShelf.length
+      ? setCurrentPage(Math.ceil(plantsByShelf.length / rowsPerPage - 1))
+      : '';
+  };
+
+  const handleBack = () => {
+    currentPage + 1 > 1 ? setCurrentPage((c) => --c) : '';
+  };
+
+  const handleFirst = () => {
+    currentPage > 0 ? setCurrentPage(0) : '';
   };
 
   return (
@@ -95,11 +131,13 @@ const Shelves = () => {
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
           {plantsByShelf.length ? (
             <PlantsByShelf
-              datas={plantsByShelf}
+              datas={plantsDisplay}
               handleFirst={handleFirst}
               handleBack={handleBack}
               handleNext={handleNext}
               handleLast={handleLast}
+              next={enNext}
+              previous={enPrev}
               page={1}
             />
           ) : (

@@ -12,7 +12,9 @@ export const PlantsByShelf = ({
   handleBack,
   handleNext,
   handleLast,
-  page = 0
+  page = 0,
+  next = true,
+  previous = true
 }) => {
   const { plants } = useContext(DataContext);
 
@@ -36,6 +38,10 @@ export const PlantsByShelf = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
+            first={previous}
+            previous={previous}
+            next={next}
+            last={next}
           />
         </Styled.wrapper>
         {datas.map((row) => (
@@ -54,6 +60,10 @@ export const PlantsByShelf = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
+            first={previous}
+            previous={previous}
+            next={next}
+            last={next}
           />
         </Styled.wrapper>
       </Styled.compStyle>
@@ -67,5 +77,7 @@ PlantsByShelf.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number
+  page: PropTypes.number,
+  next: PropTypes.bool,
+  previous: PropTypes.bool
 };
