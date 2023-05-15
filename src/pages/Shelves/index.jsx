@@ -54,6 +54,7 @@ const Shelves = () => {
 
   const rowsPerPage = 10;
 
+  //populates shelves list
   useEffect(() => {
     const plantCount = count;
     const shelfSpecies = species;
@@ -76,18 +77,19 @@ const Shelves = () => {
     setSpecies([...shelfSpecies]);
   }, [plants]);
 
+  //filter by shelf
   useEffect(() => {
     const selectedPlants = plants.filter((plant) => plant.shelf === shelfId);
     setPlantsByShelf(selectedPlants);
   }, [shelfId, plants]);
 
+  //limits the number of plants to show per page
   useEffect(() => {
     setPlantsDisplay(
       plantsByShelf.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
     );
     setEnPrev(currentPage > 0);
     setEnNext((currentPage + 1) * rowsPerPage < plantsByShelf.length);
-    console.log(enPrev, enNext);
   }, [plantsByShelf, currentPage]);
 
   const handleShelfClick = (id) => {
@@ -95,6 +97,7 @@ const Shelves = () => {
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
+  //page navigation events:
   const handleNext = () => {
     currentPage * rowsPerPage < plantsByShelf.length / rowsPerPage
       ? setCurrentPage((c) => ++c)
@@ -126,7 +129,7 @@ const Shelves = () => {
           <ShelvesList countList={count} speciesList={species} onClick={handleShelfClick} />
         </Container>
       </Section>
-      <Section background={true} forwardRef={plantsListRef}>
+      <Section style={{ alignContent: 'start' }} background={true} forwardRef={plantsListRef}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
           {plantsByShelf.length ? (
@@ -138,7 +141,7 @@ const Shelves = () => {
               handleLast={handleLast}
               next={enNext}
               previous={enPrev}
-              page={1}
+              page={currentPage + 1}
             />
           ) : (
             <h3 style={{ textAlign: 'center' }}>{`A bancada ${shelfId} está vazia.`}</h3>
