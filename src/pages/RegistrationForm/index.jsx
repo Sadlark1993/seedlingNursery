@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useContext } from 'react';
 import { useEffect } from 'react';
 
 import * as Styled from './styles';
@@ -12,10 +12,9 @@ import { PageTitle } from '../../components/PageTitle';
 import { Section } from '../../components/Section';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
-import fertRecord from './fertRecMock';
-import pestRecord from './pestRecMock';
 import { FertilizationRecord } from '../../components/FertilizationRecord';
 import { PestRecord } from '../../components/PestRecord';
+import { DataContext } from '../../contexts/Data';
 
 import { Footer } from '../../components/Footer';
 
@@ -80,6 +79,11 @@ const RegistrationForm = () => {
     2: seed
   }
   */
+  const pestRecord = 'description1|2021-09-11#description2|2021-09-11#description3|2021-09-11';
+  const fertRecord =
+    'description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11';
+
+  const { species, plants } = useContext(DataContext); //gets the list of plants and species from context
   const [stage, setStage] = useState(0);
   const [stageName, setStageName] = useState('Matriz');
 
@@ -87,10 +91,44 @@ const RegistrationForm = () => {
   //a is always true. No reason to exist.
   //[b, c, d, e]: matrix, seedling, matrix and seedling, seedling and seeds
   const [inputGroup, setInputGroup] = useState([true, false, true, false]);
+  const speciesNames = species.map((specie) => {
+    return specie.nomeComum;
+  });
 
+  //refs------
   const stageRef = useRef();
-
-  const species = ['Jatobá', 'Copaíba', 'Cajueiro', 'Guarantã'];
+  const densidadeRef = useRef();
+  const latitudeRef = useRef();
+  const longitudeRef = useRef();
+  const alturaRef = useRef();
+  const fusteRef = useRef();
+  const altitudeRef = useRef();
+  const capRef = useRef();
+  const formTroncoRef = useRef();
+  const formCopaRef = useRef();
+  const tipoSoloRef = useRef();
+  const especieRef = useRef();
+  const vegetacaoRef = useRef();
+  const municipioRef = useRef();
+  const determinadorRef = useRef();
+  const enderecoRef = useRef();
+  const instDeterminadorRef = useRef();
+  const associadasRef = useRef();
+  const areaColetaRef = useRef();
+  const matrizOrigemRef = useRef();
+  const numFolhasRef = useRef();
+  const dataPlantioRef = useRef();
+  const dataDoacaoRef = useRef();
+  const pestDescriptionRef = useRef(); // <---- pestRecord
+  const pestDateRef = useRef();
+  const pestRecordRef = useRef();
+  const fertRecordRef = useRef(); // <------ fertRecord
+  const fertDescriptionRef = useRef();
+  const fertAmountRef = useRef();
+  const fertDateRef = useRef();
+  const bancadaRef = useRef();
+  const obsRef = useRef();
+  const imgRef = useRef();
 
   useEffect(() => {
     switch (stage) {
@@ -115,6 +153,99 @@ const RegistrationForm = () => {
     setStage(+stageRef.current.value);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const registroAdubacao =
+      fertRecordRef.current +
+      (fertRecordRef.current.length > 0 ? '#' : '') +
+      (fertDescriptionRef.current.value.length > 0 &&
+      fertAmountRef.current.value.length > 0 &&
+      fertDateRef.current.value.length > 0
+        ? fertDescriptionRef.current.value +
+          '|' +
+          fertAmountRef.current.value +
+          '|' +
+          fertDateRef.current.value
+        : '');
+
+    const registroDoenca =
+      pestRecordRef.current +
+      (pestRecordRef.current.length > 0 ? '#' : '') +
+      (pestDescriptionRef.current.value.length > 0 && pestDateRef.current.value.length > 0
+        ? pestDescriptionRef.current.value + '|' + pestDateRef.current.value
+        : '');
+
+    const submitObj = {
+      /* inserindo campos q faltaram como string no campo "nome comum" */
+      /* nomeComum: `${stageRef.current.value};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`, */
+      nomeComum: especieRef.current.value,
+      nomeCientifico: 'dorime',
+      uf: 'Mato Fino', //<-- ja incluso no municipio
+      /*       id: generateId(), */
+      //estagio: stageRef.current.value,
+      densidadeOcorrencia: +densidadeRef.current.value,
+      lagitude: latitudeRef.current.value, //<-- typing error in backend
+      longitude: longitudeRef.current.value,
+      alturaArvore: +alturaRef.current.value,
+      alturaFuste: +fusteRef.current.value,
+      altitude: altitudeRef.current.value,
+      cap: +capRef.current.value,
+      formacaoTronco: formTroncoRef.current.value,
+      formacaoCopa: formCopaRef.current.value,
+      tipoSolo: tipoSoloRef.current.value,
+      //especie: especieRef.current.value,
+      tipovegetacao: vegetacaoRef.current.value,
+      cidade: municipioRef.current.value,
+      nomeDeterminador: determinadorRef.current.value,
+      // endereco: enderecoRef.current.value,
+      //instDeterminador: instDeterminadorRef.current.value,
+      especiesAssociadas: associadasRef.current.value,
+      enderecoColeta: areaColetaRef.current.value,
+      //matrizOrigem: matrizOrigemRef.current.value,
+      //numFolhas: numFolhasRef.current.value,
+      //dataPlantio: dataPlantioRef.current.value,
+      //dataDoacao: dataDoacaoRef.current.value,
+      //bancada: bancadaRef.current.value,
+      //observacoes: obsRef.current.value,
+      observacoes: `${stage};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`,
+      imagemMatriz: imgRef.current,
+      quantidadeSementes: 1
+    };
+    console.log(submitObj);
+    submitToDatabase(submitObj);
+  };
+
+  const submitToDatabase = async (plantObj) => {
+    fetch('arvoreMatriz/save', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(plantObj)
+    })
+      .then((response) => {
+        console.log('');
+      })
+      .catch((rejection) => {
+        console.log(rejection);
+      });
+  };
+
+  const generateId = () => {
+    let id = 1;
+    let flag = true;
+    while (flag) {
+      flag = false;
+      plants.forEach((plant) => {
+        if (plant.id === id) {
+          ++id;
+          flag = true;
+        }
+      });
+    }
+    return id;
+  };
+
   return (
     <Styled.pageStyle>
       <Header>
@@ -123,7 +254,7 @@ const RegistrationForm = () => {
       <Section background={true}>
         <Container>
           <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>
-          <ImgLoader srcImg="./img/mock/noPhoto.png" />
+          <ImgLoader forwardedRef={imgRef} srcImg="./img/mock/noPhoto.png" />
 
           {/* Start of the form */}
           <Styled.gridFourColumns>
@@ -144,62 +275,82 @@ const RegistrationForm = () => {
             {/* Matrix inputs */}
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>densidade de ocorrência</label>
-              <InputFText fieldW={22} type="text" />
+              <InputFText forwardedRef={densidadeRef} fieldW={22} type="number" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
               <label>latitude</label>
               <Styled.inputWrapper2 suffix="graus">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={latitudeRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
               <label>longitude</label>
               <Styled.inputWrapper2 suffix="graus">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={longitudeRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="2" visible={inputGroup[2]}>
               <label>altura da planta</label>
               <Styled.inputWrapper2 suffix="metros">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={alturaRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>altura do fuste</label>
               <Styled.inputWrapper2 suffix="metros">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText forwardedRef={fusteRef} fieldW={22} type="number" placeholder="XX.XX" />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
               <label>altitude</label>
               <Styled.inputWrapper2 suffix="metros">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={altitudeRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[0]}>
               <label>CAP</label>
               <Styled.inputWrapper2 suffix="metros">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText forwardedRef={capRef} fieldW={22} type="number" placeholder="XX.XX" />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>formação do tronco</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={formTroncoRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>formação da copa</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={formCopaRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>tipo de solo</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={tipoSoloRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>espécie</label>
-              <Styled.selectInput fieldW={46}>
-                {species.map((specie, index) => {
+              <Styled.selectInput ref={especieRef} fieldW={46}>
+                {speciesNames.map((specie, index) => {
                   return (
-                    <option key={index} value={index}>
+                    <option key={index} value={specie}>
                       {specie}
                     </option>
                   );
@@ -208,19 +359,20 @@ const RegistrationForm = () => {
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>tipo de vegetação</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={vegetacaoRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>município</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={municipioRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>nome do determinador</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={determinadorRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[2]}>
               <label>endereço</label>
               <InputFText
+                forwardedRef={enderecoRef}
                 fieldW={46}
                 type="text"
                 placeholder={stage === 1 ? 'lugar para onde a muda foi doada' : ''}
@@ -228,69 +380,80 @@ const RegistrationForm = () => {
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>inst. determinador</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={instDeterminadorRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>outras espécies associadas</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={associadasRef} fieldW={46} type="text" />
             </Styled.gridCell>
             <Styled.gridCellUp cStart="1" cEnd="3" visible={inputGroup[0]}>
               <label>área de coleta</label>
-              <InputFText fieldW={46} type="text" />
+              <InputFText forwardedRef={areaColetaRef} fieldW={46} type="text" />
             </Styled.gridCellUp>
 
             {/* Seedling inputs */}
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[3]}>
               <label>id da matriz de origem</label>
-              <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+              <InputFText
+                forwardedRef={matrizOrigemRef}
+                fieldW={22}
+                type="number"
+                placeholder="XX.XX"
+              />
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[1]}>
               <label>número de folhas</label>
               <Styled.inputWrapper2 suffix="unidades">
-                <InputFText fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={numFolhasRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[3]}>
               <label>data de plantio</label>
-              <InputFText fieldW={22} type="date" />
+              <InputFText forwardedRef={dataPlantioRef} fieldW={22} type="date" />
             </Styled.gridCell>
             <Styled.gridCell cStart="4" cEnd="5" visible={inputGroup[3]}>
               <label>data de doação</label>
-              <InputFText fieldW={22} type="date" />
+              <InputFText forwardedRef={dataDoacaoRef} fieldW={22} type="date" />
             </Styled.gridCell>
             <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[3]}>
               <label>registro de pragas e doenças</label>
-              <PestRecord records={pestRecord} />
+              <PestRecord
+                recordsIn={pestRecord}
+                forwardedRef={pestRecordRef}
+                descriptionRef={pestDescriptionRef}
+                dateRef={pestDateRef}
+              />
             </Styled.gridCell>
-            <Styled.gridCellUp cStart="2" cEnd="3" visible={inputGroup[3]}>
-              <label>cadastrar</label>
-              <Styled.inputWrapper2 suffix="unidades">
-                <InputFText fieldW={22} type="number" />
-              </Styled.inputWrapper2>
-            </Styled.gridCellUp>
+
+            <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[3]}>
+              <label>registro de adubação</label>
+              <FertilizationRecord
+                recordsIn={fertRecord}
+                forwardedRef={fertRecordRef}
+                descriptionRef={fertDescriptionRef}
+                amountRef={fertAmountRef}
+                dateRef={fertDateRef}
+              />
+            </Styled.gridCell>
+
             <Styled.gridCellUp cStart="1" cEnd="2" visible={inputGroup[3]}>
               <label>bancada</label>
-              <InputFText fieldW={22} type="number" />
+              <InputFText forwardedRef={bancadaRef} fieldW={22} type="number" />
             </Styled.gridCellUp>
 
             {/* Observations and registration*/}
             <Styled.gridCell cStart="3" cEnd="5" visible={true}>
               <label>observações</label>
-              <Styled.textAreaStyle rows="5" cols="60" />
-            </Styled.gridCell>
-            <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[0]}>
-              <label>registro de adubação</label>
-              <FertilizationRecord records={fertRecord} />
+              <Styled.textAreaStyle ref={obsRef} rows="5" cols="60" />
             </Styled.gridCell>
 
             <Styled.gridCell cStart="2" cEnd="4" visible={true}>
-              <SubmitBtn
-                onClick={(e) => {
-                  e.preventDefault();
-                  console.log('Cadastrado');
-                }}>
-                cadastrar/atualizar
-              </SubmitBtn>
+              <SubmitBtn onClick={handleSubmit}>cadastrar/atualizar</SubmitBtn>
             </Styled.gridCell>
           </Styled.gridFourColumns>
         </Container>

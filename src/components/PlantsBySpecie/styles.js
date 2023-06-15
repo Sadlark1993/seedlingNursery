@@ -55,6 +55,11 @@ export const row = styled.div`
     grid-template-columns: 7rem 12rem 12rem 1fr;
     grid-column: 1/-1;
     background-color: white;
+    transition: 0.15s ease-in-out;
+    cursor: pointer;
+    &:hover {
+      transform: scale(1.05);
+    }
   `}
 `;
 

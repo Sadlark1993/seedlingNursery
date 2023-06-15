@@ -43,79 +43,45 @@ const Shelves = () => {
   //list of species in each shelf
   const [species, setSpecies] = useState(['', '', '', '', '', '', '', '', '', '']);
   const [plantsByShelf, setPlantsByShelf] = useState([]);
-  const [plantsDisplay, setPlantsDisplay] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-
-  //enable of next and back buttons
-  const [enPrev, setEnPrev] = useState(true);
-  const [enNext, setEnNext] = useState(true);
 
   const plantsListRef = useRef();
 
-  const rowsPerPage = 10;
-
-  //populates shelves list
   useEffect(() => {
     const plantCount = count;
     const shelfSpecies = species;
     plants.forEach((plant) => {
-      if (plant.shelf) {
-        ++plantCount[plant.shelf - 1];
-        const matrix = plants.find((matrix) => matrix.id === plant.matrix);
+      const plantShelf = +plant.observacoes.split(';')[5];
+      if (plantShelf) {
+        ++plantCount[plantShelf - 1];
+        const matrix = plants.find((matrix) => +matrix.id === +plant.observacoes.split(';')[8]);
 
         //if it does't have the specie name AND it does't have more than 4 specie names, concat a specie name
         if (
-          !shelfSpecies[plant.shelf - 1].includes(matrix.specie) &&
-          (shelfSpecies[plant.shelf - 1].match(/,/g) || []).length < 3
+          matrix &&
+          !shelfSpecies[plantShelf - 1].includes(matrix.nomeComum) &&
+          (shelfSpecies[plantShelf - 1].match(/,/g) || []).length < 3
         ) {
-          shelfSpecies[plant.shelf - 1] +=
-            shelfSpecies[plant.shelf - 1] === '' ? `${matrix.specie}` : `, ${matrix.specie}`;
+          shelfSpecies[plantShelf - 1] +=
+            shelfSpecies[plantShelf - 1] === '' ? `${matrix.nomeComum}` : `, ${matrix.nomeComum}`;
         }
       }
     });
     setCount([...plantCount]);
     setSpecies([...shelfSpecies]);
+    console.log('bancada', count, species);
   }, [plants]);
 
-  //filter by shelf
   useEffect(() => {
-    const selectedPlants = plants.filter((plant) => plant.shelf === shelfId);
+    const selectedPlants = plants.filter((plant) => {
+      const plantShelf = +plant.observacoes.split(';')[5];
+      return plantShelf === +shelfId;
+    });
     setPlantsByShelf(selectedPlants);
   }, [shelfId, plants]);
-
-  //limits the number of plants to show per page
-  useEffect(() => {
-    setPlantsDisplay(
-      plantsByShelf.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-    );
-    setEnPrev(currentPage > 0);
-    setEnNext((currentPage + 1) * rowsPerPage < plantsByShelf.length);
-  }, [plantsByShelf, currentPage]);
 
   const handleShelfClick = (id) => {
     setShelfId(id);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  //page navigation events:
-  const handleNext = () => {
-    currentPage * rowsPerPage < plantsByShelf.length / rowsPerPage
-      ? setCurrentPage((c) => ++c)
-      : '';
-  };
-
-  const handleLast = () => {
-    currentPage * rowsPerPage < plantsByShelf.length
-      ? setCurrentPage(Math.ceil(plantsByShelf.length / rowsPerPage - 1))
-      : '';
-  };
-
-  const handleBack = () => {
-    currentPage + 1 > 1 ? setCurrentPage((c) => --c) : '';
-  };
-
-  const handleFirst = () => {
-    currentPage > 0 ? setCurrentPage(0) : '';
   };
 
   return (
@@ -129,19 +95,17 @@ const Shelves = () => {
           <ShelvesList countList={count} speciesList={species} onClick={handleShelfClick} />
         </Container>
       </Section>
-      <Section style={{ alignContent: 'start' }} background={true} forwardRef={plantsListRef}>
+      <Section background={true} forwardRef={plantsListRef}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
           {plantsByShelf.length ? (
             <PlantsByShelf
-              datas={plantsDisplay}
+              datas={plantsByShelf}
               handleFirst={handleFirst}
               handleBack={handleBack}
               handleNext={handleNext}
               handleLast={handleLast}
-              next={enNext}
-              previous={enPrev}
-              page={currentPage + 1}
+              page={1}
             />
           ) : (
             <h3 style={{ textAlign: 'center' }}>{`A bancada ${shelfId} está vazia.`}</h3>

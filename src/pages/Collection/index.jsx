@@ -94,20 +94,19 @@ const Collection = () => {
   const selectByStage = () => {
     const filteredPlants = [];
     if (showSeedlings) {
-      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 1));
+      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 1));
     }
     if (showSeeds) {
-      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 2));
+      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 2));
     }
     if (showMatrixes) {
-      filteredPlants.push(...plantsList.filter((plant) => plant.stage === 0));
+      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 0));
     }
     if (filteredPlants.length === 0) {
       filteredPlants.push({
         id: 0,
-        stage: 0,
-        address: 'NADA SELECIONADO',
-        plantingDate: ''
+        observacoes:
+          '0;Cajueiro;;;;;instituto;Nenhuma Planta Cadastrada;;isso é uma obsrvação da arvinha mardita;description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11#;description1|2021-09-11#description2|2021-09-11#description3|2021-09-11#'
       });
     }
     return filteredPlants;
@@ -115,20 +114,24 @@ const Collection = () => {
 
   //selects the specie
   const handleCardClick = (id) => {
-    setSelected(id === 'cadastro' ? id : id - 1);
+    setSelected(id);
     descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   //list the plants that belong to the selected specie.
   const handleLoadPlantsBySpecie = (name) => {
     const selectedPlants = plants.filter((plant) => {
-      if (plant.stage === 0) {
-        return plant.specie === name;
+      const plantData = plant.observacoes.split(';');
+      const stage = +plantData[0];
+      if (stage === 0) {
+        return plantData[1] === name;
       }
-      const sourceMatrix = plants.find((matrix) => matrix.id === plant.matrix);
-      return sourceMatrix.specie === name;
+      const sourceMatrix = plants.find((matrix) => +matrix.id === +plantData[8]);
+      const matrixData = sourceMatrix ? sourceMatrix.observacoes.split(';') : [];
+      return matrixData[1] === name;
     });
     setPlantsList(selectedPlants);
+    console.log(selectedPlants);
   };
 
   //Species list navigation
