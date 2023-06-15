@@ -14,7 +14,7 @@ export const CardContainer = ({ cards, handleClick = () => console.log('clicked'
       {cards.map((card) => {
         return (
           <Styled.cardStyle key={card.id} onClick={() => handleClick(card.id)}>
-            <img src={card.srcImg} alt={card.name} />
+            <img src={card.image.files} alt={card.name} />
             <Styled.nameWrapper>
               <h3>{card.name}</h3>
             </Styled.nameWrapper>

@@ -41,6 +41,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -51,6 +66,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -95,7 +111,34 @@
     "plantingDate": "",
     "address": "Rua Santo Antonio, numero 10",
     "shelf": "",
+    "ocurrenceDensity": "",
+    "latitude": 15.12345,
+    "longitude": 15.12345,
+    "altitude": 700,
+    "CAP": 23.55,
+    "trunkFormation": "this is a string",
+    "cupFormation": "this is a string",
+    "soilType": "this is a string",
+    "vegetationType": "this is a string",
+    "city": "this is a string",
+    "determinerName": "this is a string",
+    "determinerInst": "this is a string",
+    "associatedSpecies": "this is a string",
+    "collectionArea": "this is a string",
+    "observations": "this is a string",
     "deseases": [],
+    "fertilizing":[
+      {
+        "type": "adubo mineral",
+        "quant": 10,
+        "date": "2022-11-25"
+      },
+      {
+        "type": "adubo mineral",
+        "quant": 7.5,
+        "date": "2021-09-11"
+      }
+    ],
     "specie": "Copaíba"
   },
   {
@@ -140,6 +183,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -150,6 +208,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -193,7 +252,22 @@
     "donationDate": "",
     "plantingDate": "02-07-2022",
     "address": "",
-    "shelf": 2,
+    "shelf": 2,    
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -204,6 +278,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -247,7 +322,22 @@
     "donationDate": "",
     "plantingDate": "02-07-2022",
     "address": "",
-    "shelf": 2,
+    "shelf": 2, 
+    "ocurrenceDensity": "",
+    "latitude": 15.12345,
+    "longitude": 15.12345,
+    "altitude": 700,
+    "CAP": 23.55,
+    "trunkFormation": "this is a string",
+    "cupFormation": "this is a string",
+    "soilType": "this is a string",
+    "vegetationType": "this is a string",
+    "city": "this is a string",
+    "determinerName": "this is a string",
+    "determinerInst": "this is a string",
+    "associatedSpecies": "this is a string",
+    "collectionArea": "this is a string",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -258,6 +348,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -302,14 +393,32 @@
     "plantingDate": "",
     "address": "Rua Santo Antonio, numero 10",
     "shelf": "",
-    "deseases": [
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
+    "deseases": [],
+    "fertilizing":[
       {
-        "description": "desease number 1",
-        "date": "27-11-2022"
+        "type": "adubo mineral",
+        "quant": 10,
+        "date": "2022-11-25"
       },
       {
-        "description": "desease number 2",
-        "date": "16-12-2022"
+        "type": "adubo mineral",
+        "quant": 7.5,
+        "date": "2021-09-11"
       }
     ],
     "specie": "Cajueiro"
@@ -356,6 +465,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -366,6 +490,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -410,6 +535,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -420,6 +560,7 @@
         "date": "16-12-2022"
       }
     ],
+    "fertilizing":[],
     "specie": ""
   },
   {
@@ -464,6 +605,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -473,7 +629,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 7,
@@ -517,6 +675,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -526,7 +699,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 9,
@@ -570,6 +745,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -579,7 +769,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 10
@@ -624,6 +816,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -633,7 +840,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 11
@@ -678,6 +887,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -687,7 +911,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 12,
@@ -731,6 +957,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -740,7 +981,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 13,
@@ -784,6 +1027,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -793,7 +1051,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   },
   {
     "id": 14,
@@ -837,6 +1097,21 @@
     "plantingDate": "02-07-2022",
     "address": "",
     "shelf": 2,
+    "ocurrenceDensity": "",
+    "latitude": null,
+    "longitude": null,
+    "altitude": null,
+    "CAP": null,
+    "trunkFormation": "",
+    "cupFormation": "",
+    "soilType": "",
+    "vegetationType": "",
+    "city": "",
+    "determinerName": "",
+    "determinerInst": "",
+    "associatedSpecies": "",
+    "collectionArea": "",
+    "observations": "this is a string",
     "deseases": [
       {
         "description": "desease number 1",
@@ -846,7 +1121,9 @@
         "description": "desease number 2",
         "date": "16-12-2022"
       }
-    ]
+    ],
+    "fertilizing":[],
+    "specie": ""
   }
 
 ]
