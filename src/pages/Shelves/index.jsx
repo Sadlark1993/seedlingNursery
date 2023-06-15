@@ -43,9 +43,18 @@ const Shelves = () => {
   //list of species in each shelf
   const [species, setSpecies] = useState(['', '', '', '', '', '', '', '', '', '']);
   const [plantsByShelf, setPlantsByShelf] = useState([]);
+  const [plantsDisplay, setPlantsDisplay] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+
+  //enable of next and back buttons
+  const [enPrev, setEnPrev] = useState(true);
+  const [enNext, setEnNext] = useState(true);
 
   const plantsListRef = useRef();
 
+  const rowsPerPage = 10;
+
+  //populates shelves list
   useEffect(() => {
     const plantCount = count;
     const shelfSpecies = species;
@@ -66,17 +75,47 @@ const Shelves = () => {
     });
     setCount([...plantCount]);
     setSpecies([...shelfSpecies]);
-    console.log('bancada', count, species);
   }, [plants]);
 
+  //filter by shelf
   useEffect(() => {
     const selectedPlants = plants.filter((plant) => plant.shelf === shelfId);
     setPlantsByShelf(selectedPlants);
   }, [shelfId, plants]);
 
+  //limits the number of plants to show per page
+  useEffect(() => {
+    setPlantsDisplay(
+      plantsByShelf.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
+    );
+    setEnPrev(currentPage > 0);
+    setEnNext((currentPage + 1) * rowsPerPage < plantsByShelf.length);
+  }, [plantsByShelf, currentPage]);
+
   const handleShelfClick = (id) => {
     setShelfId(id);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  //page navigation events:
+  const handleNext = () => {
+    currentPage * rowsPerPage < plantsByShelf.length / rowsPerPage
+      ? setCurrentPage((c) => ++c)
+      : '';
+  };
+
+  const handleLast = () => {
+    currentPage * rowsPerPage < plantsByShelf.length
+      ? setCurrentPage(Math.ceil(plantsByShelf.length / rowsPerPage - 1))
+      : '';
+  };
+
+  const handleBack = () => {
+    currentPage + 1 > 1 ? setCurrentPage((c) => --c) : '';
+  };
+
+  const handleFirst = () => {
+    currentPage > 0 ? setCurrentPage(0) : '';
   };
 
   return (
@@ -90,17 +129,19 @@ const Shelves = () => {
           <ShelvesList countList={count} speciesList={species} onClick={handleShelfClick} />
         </Container>
       </Section>
-      <Section background={true} forwardRef={plantsListRef}>
+      <Section style={{ alignContent: 'start' }} background={true} forwardRef={plantsListRef}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
           {plantsByShelf.length ? (
             <PlantsByShelf
-              datas={plantsByShelf}
+              datas={plantsDisplay}
               handleFirst={handleFirst}
               handleBack={handleBack}
               handleNext={handleNext}
               handleLast={handleLast}
-              page={1}
+              next={enNext}
+              previous={enPrev}
+              page={currentPage + 1}
             />
           ) : (
             <h3 style={{ textAlign: 'center' }}>{`A bancada ${shelfId} está vazia.`}</h3>
