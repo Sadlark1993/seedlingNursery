@@ -61,7 +61,7 @@ const Collection = () => {
   const plantsListRef = useRef();
 
   const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
-  const rowsPerPage = 10; //the number here will be 20. I've put a smaller number just to test.
+  const rowsPerPage = 20; //the number here will be 20. I've put a smaller number just to test.
 
   //loads the current page of specie cards to display
   useEffect(() => {
@@ -106,7 +106,7 @@ const Collection = () => {
       filteredPlants.push({
         id: 0,
         observacoes:
-          '0;Cajueiro;;;;;instituto;Nenhuma Planta Cadastrada;;isso é uma obsrvação da arvinha mardita;description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11#;description1|2021-09-11#description2|2021-09-11#description3|2021-09-11#'
+          '0;Cajueiro;;;;;instituto;Nenhuma Planta Cadastrada;;isso é uma observação da arvinha mardita;description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11#;description1|2021-09-11#description2|2021-09-11#description3|2021-09-11#'
       });
     }
     return filteredPlants;

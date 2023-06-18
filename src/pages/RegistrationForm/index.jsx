@@ -15,8 +15,8 @@ import { SubmitBtn } from '../../components/SubmitBtn';
 import { FertilizationRecord } from '../../components/FertilizationRecord';
 import { PestRecord } from '../../components/PestRecord';
 import { DataContext } from '../../contexts/Data';
-
 import { Footer } from '../../components/Footer';
+import defaultImg from './defaultImg';
 
 /* 
 --> The input fields are separated by groups. They will display:none or display:block depending to the stage 
@@ -79,9 +79,10 @@ const RegistrationForm = () => {
     2: seed
   }
   */
-  const pestRecord = 'description1|2021-09-11#description2|2021-09-11#description3|2021-09-11';
-  const fertRecord =
-    'description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11';
+  //const pestRecord = 'description1|2021-09-11#description2|2021-09-11#description3|2021-09-11';
+  //const fertRecord ='description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11';
+  const pestRecord = '';
+  const fertRecord = '';
 
   const { species, plants } = useContext(DataContext); //gets the list of plants and species from context
   const [stage, setStage] = useState(0);
@@ -208,10 +209,10 @@ const RegistrationForm = () => {
       //bancada: bancadaRef.current.value,
       //observacoes: obsRef.current.value,
       observacoes: `${stage};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`,
-      imagemMatriz: imgRef.current,
+      imagemMatriz:
+        imgRef.current && imgRef.current.length > 10 ? imgRef.current : defaultImg.base64,
       quantidadeSementes: 1
     };
-    console.log(submitObj);
     submitToDatabase(submitObj);
   };
 
@@ -224,10 +225,12 @@ const RegistrationForm = () => {
       body: JSON.stringify(plantObj)
     })
       .then((response) => {
-        console.log('');
+        console.log('object submit');
+        location.reload();
       })
       .catch((rejection) => {
         console.log(rejection);
+        alert(rejection);
       });
   };
 

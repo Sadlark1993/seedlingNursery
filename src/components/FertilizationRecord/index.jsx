@@ -29,9 +29,9 @@ export const FertilizationRecord = ({
       setRecords(
         (c) =>
           c +
-          `${records2.length > 0 ? '#' : ''} ${descriptionRef.current.value}|${
-            amountRef.current.value
-          }|${dateRef.current.value}`
+          `${c.length > 5 ? '#' : ''} ${descriptionRef.current.value}|${amountRef.current.value}|${
+            dateRef.current.value
+          }`
       );
     } else {
       window.alert('Todos os campos devem ser preenchidos');
@@ -40,7 +40,7 @@ export const FertilizationRecord = ({
 
   return (
     <Styled.compStyle>
-      {records2.length > 0 &&
+      {records.length > 5 &&
         records2.map((record, index) => {
           const record2 = record.split('|');
           return (

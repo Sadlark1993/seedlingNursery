@@ -63,7 +63,7 @@ export const SpeciesRegisterForm = () => {
       },
       method: 'POST',
       body: JSON.stringify(specieObject)
-    }).then(window.location.reload());
+    }).then(window.location.reload(true));
 
     /* let data = new FormData();
     if (!nameInput.current.value || !scienInput.current.value || !descInput.current.value) {

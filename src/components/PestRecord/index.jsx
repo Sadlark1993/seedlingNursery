@@ -17,6 +17,7 @@ export const PestRecord = ({
   const [records, setRecords] = useState(recordsIn);
 
   const records2 = records.split('#');
+  console.log('foi: ', records);
 
   useEffect(() => {
     dateRef.current.value = '';
@@ -30,10 +31,7 @@ export const PestRecord = ({
     if (descriptionRef.current.value.length && dateRef.current.value.length) {
       setRecords(
         (c) =>
-          c +
-          `${records2.length > 0 ? '#' : ''} ${descriptionRef.current.value}|${
-            dateRef.current.value
-          }`
+          c + `${c.length > 5 ? '#' : ''} ${descriptionRef.current.value}|${dateRef.current.value}`
       );
     } else {
       window.alert('Preencha os campos descrição e data antes de adicionar um novo');
@@ -42,7 +40,7 @@ export const PestRecord = ({
 
   return (
     <Styled.compStyle>
-      {records2.length > 0 &&
+      {records.length > 5 &&
         records2.map((record, index) => {
           const record2 = record.split('|');
           return (
