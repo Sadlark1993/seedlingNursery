@@ -31,20 +31,20 @@ const SearchPage = () => {
 
   const handleSearch = (event) => {
     event.preventDefault();
-    console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
+    //console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
     if (+paramSelect.current.value === 0) {
-      console.log('busca id');
+      //console.log('busca id');
       setPlantsOnDisplay(
         plants.length > 0 ? plants.filter((plant) => +plant.id === +searchValue.current.value) : []
       );
     } else if (+paramSelect.current.value === 1) {
-      console.log('busca por matriz');
+      //console.log('busca por matriz');
       const selectedPlants = plants.filter((plant) => {
         return +plant.observacoes.split(';')[8] === +searchValue.current.value;
       });
       setPlantsOnDisplay(selectedPlants);
     } else if (+paramSelect.current.value === 2) {
-      console.log('busca por endereco');
+      //console.log('busca por endereco');
       setPlantsOnDisplay(
         plants.filter((plant) =>
           plant.observacoes

@@ -5,6 +5,7 @@ import * as Styled from './styles';
 import { Container } from '../Container';
 import { ContentNavigation } from '../ContentNavigation';
 import { DataContext } from '../../contexts/Data';
+import { useNavigate } from 'react-router-dom';
 
 export const PlantsByShelf = ({
   datas = [],
@@ -15,6 +16,13 @@ export const PlantsByShelf = ({
   page = 0
 }) => {
   const { plants } = useContext(DataContext);
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate('/cadastro', {
+      state: id
+    });
+  };
 
   //Writes the plants species
   datas.length &&
@@ -42,7 +50,11 @@ export const PlantsByShelf = ({
           />
         </Styled.wrapper>
         {datas.map((row) => (
-          <Styled.row key={row.id}>
+          <Styled.row
+            key={row.id}
+            onClick={() => {
+              handleNavigate(row.id);
+            }}>
             <Styled.idCell>{row.id}</Styled.idCell>
             <Styled.stageCell>{row.observacoes.split(';')[8]}</Styled.stageCell>
             <Styled.dateCell>{row.observacoes.split(';')[3].replaceAll('-', '/')}</Styled.dateCell>

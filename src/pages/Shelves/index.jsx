@@ -68,7 +68,7 @@ const Shelves = () => {
     });
     setCount([...plantCount]);
     setSpecies([...shelfSpecies]);
-    console.log('bancada', count, species);
+    //console.log('bancada', count, species);
   }, [plants]);
 
   useEffect(() => {

@@ -115,6 +115,7 @@ const Collection = () => {
   //selects the specie
   const handleCardClick = (id) => {
     setSelected(id);
+    species[id] && handleLoadPlantsBySpecie(species[id].nomeComum);
     descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 

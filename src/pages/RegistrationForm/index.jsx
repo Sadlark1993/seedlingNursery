@@ -219,10 +219,15 @@ const RegistrationForm = () => {
     e.preventDefault();
     const registroAdubacao =
       fertRecordRef.current +
-      (fertRecordRef.current.length > 0 ? '#' : '') +
-      (fertDescriptionRef.current.value.length > 0 &&
-      fertAmountRef.current.value.length > 0 &&
-      fertDateRef.current.value.length > 0
+      (fertRecordRef.current.length > 1 &&
+      fertDescriptionRef.current.value.length > 1 &&
+      fertAmountRef.current.value.length > 1 &&
+      fertDateRef.current.value.length > 1
+        ? '#'
+        : '') +
+      (fertDescriptionRef.current.value.length > 1 &&
+      fertAmountRef.current.value.length > 1 &&
+      fertDateRef.current.value.length > 1
         ? fertDescriptionRef.current.value +
           '|' +
           fertAmountRef.current.value +
@@ -232,8 +237,12 @@ const RegistrationForm = () => {
 
     const registroDoenca =
       pestRecordRef.current +
-      (pestRecordRef.current.length > 0 ? '#' : '') +
-      (pestDescriptionRef.current.value.length > 0 && pestDateRef.current.value.length > 0
+      (pestRecordRef.current.length > 1 &&
+      pestDescriptionRef.current.value.length > 1 &&
+      pestDateRef.current.value.length > 1
+        ? '#'
+        : '') +
+      (pestDescriptionRef.current.value.length > 1 && pestDateRef.current.value.length > 1
         ? pestDescriptionRef.current.value + '|' + pestDateRef.current.value
         : '');
 

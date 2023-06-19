@@ -20,11 +20,12 @@ root.render(
       <BrowserRouter>
         <GlobalStyles />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Collection />} />
           <Route path="/acervo" element={<Collection />} />
           <Route path="/bancadas" element={<Shelves />} />
           <Route path="/pesquisa" element={<SearchPage />} />
           <Route path="/cadastro" element={<RegistrationForm />} />
+          <Route path="/login" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </Data>
