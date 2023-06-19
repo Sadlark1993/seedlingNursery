@@ -7,6 +7,11 @@ export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
   const [img, setImg] = useState(srcImg);
   const inputImg = useRef();
 
+  useState(() => {
+    setImg(srcImg);
+    //console.log(srcImg);
+  }, [srcImg]);
+
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
       const fileReader = new FileReader();
@@ -24,7 +29,6 @@ export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
 
   const handleChange = async () => {
     const image = await convertBase64(inputImg.current.files[0]);
-    console.log('image: ', await image);
     forwardedRef.current = await image;
     setImg(await image);
   };

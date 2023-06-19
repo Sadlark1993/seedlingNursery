@@ -131,7 +131,7 @@ const Collection = () => {
       return matrixData[1] === name;
     });
     setPlantsList(selectedPlants);
-    console.log(selectedPlants);
+    //console.log(selectedPlants);
   };
 
   //Species list navigation

@@ -17,13 +17,12 @@ export const PestRecord = ({
   const [records, setRecords] = useState(recordsIn);
 
   const records2 = records.split('#');
-  console.log('foi: ', records);
 
   useEffect(() => {
     dateRef.current.value = '';
     descriptionRef.current.value = '';
     forwardedRef.current = records;
-    console.log(records);
+    //console.log(records);
   }, [records]);
 
   const handlePlus = (e) => {

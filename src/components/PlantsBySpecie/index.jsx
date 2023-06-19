@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './styles';
 import { Container } from '../Container';
@@ -20,6 +21,14 @@ export const PlantsBySpecie = ({
   toggleMatrixes,
   ...args
 }) => {
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate('/cadastro', {
+      state: id
+    });
+  };
+
   return (
     <Container>
       <Styled.compStyle>
@@ -59,7 +68,11 @@ export const PlantsBySpecie = ({
           }
 
           return (
-            <Styled.row key={row.id}>
+            <Styled.row
+              key={row.id}
+              onClick={() => {
+                handleNavigate(row.id);
+              }}>
               <Styled.idCell>{row.id}</Styled.idCell>
               <Styled.stageCell>{stage}</Styled.stageCell>
               <Styled.dateCell>

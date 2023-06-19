@@ -19,7 +19,7 @@ export const FertilizationRecord = ({
     descriptionRef.current.value = '';
     amountRef.current.value = '';
     forwardedRef.current = records;
-    console.log(records);
+    //console.log(records);
   }, [records]);
 
   const handlePlus = (e) => {

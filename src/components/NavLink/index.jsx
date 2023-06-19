@@ -5,7 +5,10 @@ import { Link } from 'react-router-dom';
 export const NavLink = ({ children, link }) => {
   return (
     <Styled.compStyle>
-      <Link to={link}> {children}</Link>
+      <Link to={link} state={null}>
+        {' '}
+        {children}
+      </Link>
     </Styled.compStyle>
   );
 };

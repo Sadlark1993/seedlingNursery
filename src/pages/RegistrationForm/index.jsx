@@ -17,6 +17,7 @@ import { PestRecord } from '../../components/PestRecord';
 import { DataContext } from '../../contexts/Data';
 import { Footer } from '../../components/Footer';
 import defaultImg from './defaultImg';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 /* 
 --> The input fields are separated by groups. They will display:none or display:block depending to the stage 
@@ -81,12 +82,22 @@ const RegistrationForm = () => {
   */
   //const pestRecord = 'description1|2021-09-11#description2|2021-09-11#description3|2021-09-11';
   //const fertRecord ='description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11';
-  const pestRecord = '';
-  const fertRecord = '';
+  //let pestRecord = '';
+  //let fertRecord = '';
+  //let loadImg = defaultImg.base64;
 
   const { species, plants } = useContext(DataContext); //gets the list of plants and species from context
+  const { state } = useLocation();
+  const navigate = useNavigate();
   const [stage, setStage] = useState(0);
   const [stageName, setStageName] = useState('Matriz');
+  const [update, setUpdate] = useState(false);
+  const [loadImg, setLoadImg] = useState(defaultImg.base64);
+  const [pestRecord, setPestRecord] = useState('');
+  const [fertRecord, setFertRecord] = useState('');
+  const [imgKey, setImgKey] = useState(0); //to force rerendering
+  const [fertKey, setFertKey] = useState(0);
+  const [pestKey, setPestKey] = useState(0);
 
   /* To understand this, read the inputFieldGroups comment above */
   //a is always true. No reason to exist.
@@ -97,39 +108,49 @@ const RegistrationForm = () => {
   });
 
   //refs------
-  const stageRef = useRef();
-  const densidadeRef = useRef();
-  const latitudeRef = useRef();
-  const longitudeRef = useRef();
-  const alturaRef = useRef();
-  const fusteRef = useRef();
-  const altitudeRef = useRef();
-  const capRef = useRef();
-  const formTroncoRef = useRef();
-  const formCopaRef = useRef();
-  const tipoSoloRef = useRef();
-  const especieRef = useRef();
-  const vegetacaoRef = useRef();
-  const municipioRef = useRef();
-  const determinadorRef = useRef();
-  const enderecoRef = useRef();
-  const instDeterminadorRef = useRef();
-  const associadasRef = useRef();
-  const areaColetaRef = useRef();
-  const matrizOrigemRef = useRef();
-  const numFolhasRef = useRef();
-  const dataPlantioRef = useRef();
-  const dataDoacaoRef = useRef();
-  const pestDescriptionRef = useRef(); // <---- pestRecord
+  const stageRef = useRef(); //<
+  const densidadeRef = useRef(); //<
+  const latitudeRef = useRef(); //<
+  const longitudeRef = useRef(); //<
+  const alturaRef = useRef(); //<
+  const fusteRef = useRef(); //<
+  const altitudeRef = useRef(); //<
+  const capRef = useRef(); //<
+  const formTroncoRef = useRef(); //<
+  const formCopaRef = useRef(); //<
+  const tipoSoloRef = useRef(); //<
+  const especieRef = useRef(); //<
+  const vegetacaoRef = useRef(); //<
+  const municipioRef = useRef(); //<
+  const determinadorRef = useRef(); //<
+  const enderecoRef = useRef(); //<
+  const instDeterminadorRef = useRef(); //<
+  const associadasRef = useRef(); //<
+  const areaColetaRef = useRef(); //<
+  const matrizOrigemRef = useRef(); //<
+  const numFolhasRef = useRef(); //<
+  const dataPlantioRef = useRef(); //<
+  const dataDoacaoRef = useRef(); //<
+  const pestDescriptionRef = useRef(); // <---- pestRecord //<
   const pestDateRef = useRef();
   const pestRecordRef = useRef();
-  const fertRecordRef = useRef(); // <------ fertRecord
+  const fertRecordRef = useRef(); // <------ fertRecord //<
   const fertDescriptionRef = useRef();
   const fertAmountRef = useRef();
   const fertDateRef = useRef();
-  const bancadaRef = useRef();
-  const obsRef = useRef();
-  const imgRef = useRef();
+  const bancadaRef = useRef(); //<
+  const obsRef = useRef(); //<
+  const imgRef = useRef(); //<
+  const startRef = useRef();
+
+  useEffect(() => {
+    startRef.current.scrollIntoView({ block: 'start' });
+    console.log('state: ', state);
+    if (state) {
+      updateReference();
+      setUpdate(false);
+    }
+  }, []);
 
   useEffect(() => {
     switch (stage) {
@@ -152,6 +173,46 @@ const RegistrationForm = () => {
 
   const handleStageChange = () => {
     setStage(+stageRef.current.value);
+  };
+
+  //function that update the form fields with the datas of the selected plant
+  const updateReference = async () => {
+    const referencePromise = await fetch(`arvoreMatriz/find/${state}`);
+    const referenceObj = await referencePromise.json();
+    const referenceObs = await referenceObj.observacoes.split(';');
+    //console.log(referenceObj.densidadeOcorrencia);
+    setStage(+referenceObs[0]);
+    stageRef.current.value = +referenceObs[0];
+    densidadeRef.current.value = referenceObj.densidadeOcorrencia;
+    latitudeRef.current.value = referenceObj.lagitude;
+    longitudeRef.current.value = referenceObj.longitude;
+    alturaRef.current.value = referenceObj.alturaArvore;
+    fusteRef.current.value = referenceObj.alturaFuste;
+    altitudeRef.current.value = referenceObj.altitude;
+    capRef.current.value = referenceObj.cap;
+    formTroncoRef.current.value = referenceObj.formacaoTronco;
+    formCopaRef.current.value = referenceObj.formacaoCopa;
+    tipoSoloRef.current.value = referenceObj.tipoSolo;
+    especieRef.current.value = referenceObj.nomeComum;
+    vegetacaoRef.current.value = referenceObj.tipovegetacao;
+    municipioRef.current.value = referenceObj.cidade;
+    determinadorRef.current.value = referenceObj.nomeDeterminador;
+    enderecoRef.current.value = referenceObs[7];
+    instDeterminadorRef.current.value = referenceObs[6];
+    associadasRef.current.value = referenceObj.especiesAssociadas;
+    areaColetaRef.current.value = referenceObj.enderecoColeta;
+    matrizOrigemRef.current.value = referenceObs[8];
+    numFolhasRef.current.value = referenceObs[2];
+    dataPlantioRef.current.value = referenceObs[3];
+    dataDoacaoRef.current.value = referenceObs[4];
+    setPestRecord(referenceObs[11]);
+    setFertRecord(referenceObs[10]);
+    bancadaRef.current.value = referenceObs[5];
+    obsRef.current.value = referenceObs[9];
+    setLoadImg('data:image/png;base64,' + referenceObj.imagemMatriz);
+    setImgKey((c) => ++c);
+    setFertKey((c) => ++c);
+    setPestKey((c) => ++c);
   };
 
   const handleSubmit = (e) => {
@@ -209,11 +270,16 @@ const RegistrationForm = () => {
       //bancada: bancadaRef.current.value,
       //observacoes: obsRef.current.value,
       observacoes: `${stage};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`,
-      imagemMatriz:
-        imgRef.current && imgRef.current.length > 10 ? imgRef.current : defaultImg.base64,
+      imagemMatriz: imgRef.current && imgRef.current.length > 10 ? imgRef.current : loadImg,
       quantidadeSementes: 1
     };
-    submitToDatabase(submitObj);
+    if (state) {
+      console.log('updating database');
+      submitObj.id = state;
+      updateRecord(submitObj);
+    } else {
+      submitToDatabase(submitObj);
+    }
   };
 
   const submitToDatabase = async (plantObj) => {
@@ -226,7 +292,11 @@ const RegistrationForm = () => {
     })
       .then((response) => {
         console.log('object submit');
-        location.reload();
+        startRef.current.scrollIntoView({ block: 'start' });
+        navigate('/cadastro', {
+          state: null
+        });
+        location.reload(true);
       })
       .catch((rejection) => {
         console.log(rejection);
@@ -234,19 +304,26 @@ const RegistrationForm = () => {
       });
   };
 
-  const generateId = () => {
-    let id = 1;
-    let flag = true;
-    while (flag) {
-      flag = false;
-      plants.forEach((plant) => {
-        if (plant.id === id) {
-          ++id;
-          flag = true;
-        }
+  const updateRecord = (plantObj) => {
+    fetch('arvoreMatriz/update', {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'POST',
+      body: JSON.stringify(plantObj)
+    })
+      .then((response) => {
+        console.log('object submit');
+        startRef.current.scrollIntoView({ block: 'start' });
+        navigate('/cadastro', {
+          state: null
+        });
+        location.reload(true);
+      })
+      .catch((rejection) => {
+        console.log(rejection);
+        alert(rejection);
       });
-    }
-    return id;
   };
 
   return (
@@ -254,10 +331,10 @@ const RegistrationForm = () => {
       <Header>
         {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={Links} />]}
       </Header>
-      <Section background={true}>
+      <Section background={true} forwardRef={startRef}>
         <Container>
           <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>
-          <ImgLoader forwardedRef={imgRef} srcImg="./img/mock/noPhoto.png" />
+          <ImgLoader key={imgKey} forwardedRef={imgRef} srcImg={loadImg} />
 
           {/* Start of the form */}
           <Styled.gridFourColumns>
@@ -426,6 +503,7 @@ const RegistrationForm = () => {
             <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[3]}>
               <label>registro de pragas e doenças</label>
               <PestRecord
+                key={pestKey}
                 recordsIn={pestRecord}
                 forwardedRef={pestRecordRef}
                 descriptionRef={pestDescriptionRef}
@@ -436,6 +514,7 @@ const RegistrationForm = () => {
             <Styled.gridCell cStart="1" cEnd="5" visible={inputGroup[3]}>
               <label>registro de adubação</label>
               <FertilizationRecord
+                key={fertKey}
                 recordsIn={fertRecord}
                 forwardedRef={fertRecordRef}
                 descriptionRef={fertDescriptionRef}
@@ -456,7 +535,7 @@ const RegistrationForm = () => {
             </Styled.gridCell>
 
             <Styled.gridCell cStart="2" cEnd="4" visible={true}>
-              <SubmitBtn onClick={handleSubmit}>cadastrar/atualizar</SubmitBtn>
+              <SubmitBtn onClick={handleSubmit}>{state ? 'atualizar' : 'cadastrar'}</SubmitBtn>
             </Styled.gridCell>
           </Styled.gridFourColumns>
         </Container>
