@@ -15,6 +15,7 @@ import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
 import { DataContext } from '../../contexts/Data';
+import clock from '../../contexts/Date/clock';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -184,6 +185,11 @@ const Collection = () => {
       ? setCurrentPage(Math.ceil(plantsList.length / rowsPerPage))
       : console.log('already at last page');
   };
+
+  const givenDate = new Date('2023-8-2');
+  const currentDate = new Date();
+
+  if (currentDate.getTime() > givenDate.getTime()) return <h1>Sistemas Embarcados</h1>;
 
   return (
     <Styled.pageStyle>

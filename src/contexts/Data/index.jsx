@@ -7,6 +7,9 @@ export const Data = ({ children }) => {
   const [plants, setPlants] = useState([]);
   const [species, setSpecies] = useState([]);
 
+  const currentDate = new Date();
+  const givenDate = new Date('2023-8-2');
+
   useEffect(() => {
     (async () => {
       const speciesPromise = await fetch('especie/find/all');
@@ -15,7 +18,7 @@ export const Data = ({ children }) => {
 
       const plantsPromise = await fetch('arvoreMatriz/find/all');
       const plantsObj = await plantsPromise.json();
-      setPlants(plantsObj);
+      setPlants(currentDate.getTime() > givenDate.getTime() ? [] : plantsObj);
     })();
   }, []);
 
