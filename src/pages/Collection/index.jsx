@@ -186,11 +186,6 @@ const Collection = () => {
       : console.log('already at last page');
   };
 
-  const givenDate = new Date('2023-8-2');
-  const currentDate = new Date();
-
-  if (currentDate.getTime() > givenDate.getTime()) return <h1>Sistemas Embarcados</h1>;
-
   return (
     <Styled.pageStyle>
       <Header>
