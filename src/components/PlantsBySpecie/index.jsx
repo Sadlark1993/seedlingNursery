@@ -29,11 +29,6 @@ export const PlantsBySpecie = ({
     });
   };
 
-  const currentDate = new Date();
-  const givenDate = new Date('2023-8-2');
-
-  if (currentDate.getTime() > givenDate.getTime()) return <h1>Lista de Plantas</h1>;
-
   return (
     <Container>
       <Styled.compStyle>
