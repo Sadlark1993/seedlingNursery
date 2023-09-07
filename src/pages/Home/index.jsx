@@ -9,6 +9,9 @@ import { WelcomeTitle } from '../../components/WelcomeTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { Footer } from '../../components/Footer';
+import { useContext } from 'react';
+import { DataContext } from '../../contexts/Data';
+import { Navigate } from 'react-router-dom';
 
 const img = {
   src: './img/icons/ifmt.svg',

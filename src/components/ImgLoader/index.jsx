@@ -3,15 +3,34 @@ import { useState, useRef } from 'react';
 
 import * as Styled from './styles';
 
-export const ImgLoader = ({ srcImg, altImg = '' }) => {
+export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
   const [img, setImg] = useState(srcImg);
   const inputImg = useRef();
 
-  const handleChange = () => {
-    const image = inputImg.current.files[0];
-    console.log('image: ', image);
+  useState(() => {
+    setImg(srcImg);
+    //console.log(srcImg);
+  }, [srcImg]);
 
-    setImg(URL.createObjectURL(image));
+  const convertBase64 = (file) => {
+    return new Promise((resolve, reject) => {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(file);
+
+      fileReader.onload = () => {
+        resolve(fileReader.result);
+      };
+
+      fileReader.onerror = (error) => {
+        reject(error);
+      };
+    });
+  };
+
+  const handleChange = async () => {
+    const image = await convertBase64(inputImg.current.files[0]);
+    forwardedRef.current = await image;
+    setImg(await image);
   };
 
   return (
@@ -28,5 +47,6 @@ export const ImgLoader = ({ srcImg, altImg = '' }) => {
 };
 ImgLoader.propTypes = {
   srcImg: PropTypes.string.isRequired,
-  altImg: PropTypes.string
+  altImg: PropTypes.string,
+  forwardedRef: PropTypes.object
 };

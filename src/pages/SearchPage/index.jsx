@@ -1,8 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as Styled from './styles';
-
-import { DataContext } from '../../contexts/Data';
-
 import { Header } from '../../components/Header';
 import LinksMock from '../../components/Header/LinksMock';
 import { Logo } from '../../components/Logo';
@@ -14,6 +11,7 @@ import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
+import { DataContext } from '../../contexts/Data';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -22,73 +20,56 @@ const logoImg = {
 
 const SearchPage = () => {
   const { plants } = useContext(DataContext);
-  const [selectedPlants, setSelectedPlants] = useState([]);
-  const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
-
-  const [enPrev, setEnPrev] = useState(true);
-  const [enNext, setEnNext] = useState(true);
+  const [plantsOnDisplay, setPlantsOnDisplay] = useState(plants ? plants : []);
 
   const paramSelect = useRef();
   const searchValue = useRef();
 
-  const rowsPerPage = 10;
-
   useEffect(() => {
-    setSelectedPlants(plants);
+    setPlantsOnDisplay(plants);
   }, [plants]);
 
-  useEffect(() => {
-    setPlantsOnDisplay(
-      selectedPlants.slice(currentPage * rowsPerPage, (currentPage + 1) * rowsPerPage)
-    );
-
-    setEnPrev(currentPage > 0);
-    setEnNext((currentPage + 1) * rowsPerPage < selectedPlants.length);
-  }, [selectedPlants, currentPage]);
-
-  //filters the list of plants by the selected parameter
   const handleSearch = (event) => {
     event.preventDefault();
-
-    //filter by id
-    if (paramSelect.current.value === '0') {
-      setSelectedPlants(
-        plants.filter((plant) => plant.id.toString().includes(searchValue.current.value))
+    //console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
+    if (+paramSelect.current.value === 0) {
+      //console.log('busca id');
+      setPlantsOnDisplay(
+        plants.length > 0 ? plants.filter((plant) => +plant.id === +searchValue.current.value) : []
       );
-      //filter by matrix id
-    } else if (paramSelect.current.value === '1') {
-      setSelectedPlants(
-        plants.filter((plant) => plant.matrix.toString().includes(searchValue.current.value))
-      );
-    } else if (paramSelect.current.value === '2') {
-      setSelectedPlants(
+    } else if (+paramSelect.current.value === 1) {
+      //console.log('busca por matriz');
+      const selectedPlants = plants.filter((plant) => {
+        return +plant.observacoes.split(';')[8] === +searchValue.current.value;
+      });
+      setPlantsOnDisplay(selectedPlants);
+    } else if (+paramSelect.current.value === 2) {
+      //console.log('busca por endereco');
+      setPlantsOnDisplay(
         plants.filter((plant) =>
-          plant.address.toLowerCase().includes(searchValue.current.value.toLowerCase())
+          plant.observacoes
+            .split(';')[7]
+            .toUpperCase()
+            .includes(searchValue.current.value.toUpperCase())
         )
       );
     }
   };
 
-  //page navigation events:
-  const handleNext = () => {
-    currentPage * rowsPerPage < selectedPlants.length / rowsPerPage
-      ? setCurrentPage((c) => ++c)
-      : '';
-  };
-
   const handleLast = () => {
-    currentPage * rowsPerPage < selectedPlants.length
-      ? setCurrentPage(Math.ceil(selectedPlants.length / rowsPerPage - 1))
-      : '';
+    console.log('last');
   };
 
   const handleBack = () => {
-    currentPage > 0 ? setCurrentPage((c) => --c) : '';
+    console.log('back');
+  };
+
+  const handleNext = () => {
+    console.log('next');
   };
 
   const handleFirst = () => {
-    currentPage > 0 ? setCurrentPage(0) : '';
+    console.log('first');
   };
 
   return (
@@ -110,22 +91,14 @@ const SearchPage = () => {
             </Styled.searchWrapper>
             <SubmitBtn onClick={handleSearch}>buscar</SubmitBtn>
           </Styled.SearchForm>
-          {plantsOnDisplay.length ? (
-            <PlantsBySpecie
-              datas={plantsOnDisplay}
-              handleFirst={handleFirst}
-              handleBack={handleBack}
-              handleNext={handleNext}
-              handleLast={handleLast}
-              page={currentPage + 1}
-              first={enPrev}
-              previous={enPrev}
-              next={enNext}
-              last={enNext}
-            />
-          ) : (
-            <h3 style={{ textAlign: 'center' }}>Nenhuma planta encontrada</h3>
-          )}
+          <PlantsBySpecie
+            datas={plantsOnDisplay}
+            handleFirst={handleFirst}
+            handleBack={handleBack}
+            handleNext={handleNext}
+            handleLast={handleLast}
+            page={1}
+          />
         </Container>
       </Section>
 

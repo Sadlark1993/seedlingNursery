@@ -30,6 +30,12 @@ export const cardStyle = styled.div`
   &:hover {
     transform: scale(1.05);
   }
+
+  & > img {
+    width: 22rem;
+    height: 26rem;
+    overflow: hidden;
+  }
 `;
 
 export const nameWrapper = styled.div`

@@ -5,6 +5,7 @@ import * as Styled from './styles';
 import { Container } from '../Container';
 import { ContentNavigation } from '../ContentNavigation';
 import { DataContext } from '../../contexts/Data';
+import { useNavigate } from 'react-router-dom';
 
 export const PlantsByShelf = ({
   datas = [],
@@ -12,16 +13,24 @@ export const PlantsByShelf = ({
   handleBack,
   handleNext,
   handleLast,
-  page = 0,
-  next = true,
-  previous = true
+  page = 0
 }) => {
   const { plants } = useContext(DataContext);
+  const navigate = useNavigate();
+
+  const handleNavigate = (id) => {
+    navigate('/cadastro', {
+      state: id
+    });
+  };
 
   //Writes the plants species
   datas.length &&
     datas.forEach((plant) => {
-      plant.specie = plants.find((matrix) => matrix.id === plant.matrix).specie;
+      const selectedPlant = plants.find(
+        (matrix) => +matrix.id === +plant.observacoes.split(';')[8]
+      );
+      plant.nomeComum = selectedPlant ? selectedPlant.nomeComum : 'matriz nao cadastrada';
     });
 
   return (
@@ -38,18 +47,18 @@ export const PlantsByShelf = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
-            first={previous}
-            previous={previous}
-            next={next}
-            last={next}
           />
         </Styled.wrapper>
         {datas.map((row) => (
-          <Styled.row key={row.id}>
+          <Styled.row
+            key={row.id}
+            onClick={() => {
+              handleNavigate(row.id);
+            }}>
             <Styled.idCell>{row.id}</Styled.idCell>
-            <Styled.stageCell>{row.matrix}</Styled.stageCell>
-            <Styled.dateCell>{row.plantingDate.replaceAll('-', '/')}</Styled.dateCell>
-            <Styled.locationCell>{row.specie}</Styled.locationCell>
+            <Styled.stageCell>{row.observacoes.split(';')[8]}</Styled.stageCell>
+            <Styled.dateCell>{row.observacoes.split(';')[3].replaceAll('-', '/')}</Styled.dateCell>
+            <Styled.locationCell>{row.nomeComum}</Styled.locationCell>
           </Styled.row>
         ))}
         <Styled.wrapper>
@@ -60,10 +69,6 @@ export const PlantsByShelf = ({
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
-            first={previous}
-            previous={previous}
-            next={next}
-            last={next}
           />
         </Styled.wrapper>
       </Styled.compStyle>
@@ -77,7 +82,5 @@ PlantsByShelf.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number,
-  next: PropTypes.bool,
-  previous: PropTypes.bool
+  page: PropTypes.number
 };

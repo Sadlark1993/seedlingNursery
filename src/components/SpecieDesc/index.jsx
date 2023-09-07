@@ -8,25 +8,26 @@ import { Container } from '../Container';
   console.log("Wow, I'm gonna load some plants!!");
 }; */
 
-export const SpecieDesc = ({ srcImg, name, scientificName, description, handleSearch }) => {
+export const SpecieDesc = ({ imagem, nomeComum, nomeCientifico, descricao, handleSearch }) => {
+  /*   const srcImg = URL.createObjectURL(`{"${imagem}"}`); */
   return (
     <Container>
       <Styled.sectionStyle>
         <Styled.containerStyle>
-          <Styled.imageStyle src={srcImg} />
+          <Styled.imageStyle src={`data:image/png;base64,${imagem}`} />
           <Styled.contentContainer>
             <Styled.sepRectangle />
             <Styled.nameWrapper>
-              <Styled.name>{name}</Styled.name>
+              <Styled.name>{nomeComum}</Styled.name>
             </Styled.nameWrapper>
             <Styled.scienNameWrapper>
-              <span>{scientificName}</span>
+              <span>{nomeCientifico}</span>
             </Styled.scienNameWrapper>
             <Styled.sepRectangle />
-            <Styled.description>{description}</Styled.description>
+            <Styled.description>{descricao}</Styled.description>
           </Styled.contentContainer>
         </Styled.containerStyle>
-        <SubmitBtn onClick={() => handleSearch(name)}>Carregar Plantas</SubmitBtn>
+        <SubmitBtn onClick={() => handleSearch(nomeComum)}>Carregar Plantas</SubmitBtn>
         <Styled.hintText>
           Clique aqui para ver as mudas, sementes e matrizes dessa espécie cadastradas no sistema
         </Styled.hintText>
@@ -37,9 +38,9 @@ export const SpecieDesc = ({ srcImg, name, scientificName, description, handleSe
 };
 
 SpecieDesc.propTypes = {
-  srcImg: PropTypes.string,
-  name: PropTypes.string.isRequired,
-  scientificName: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  imagem: PropTypes.string,
+  nomeComum: PropTypes.string.isRequired,
+  nomeCientifico: PropTypes.string.isRequired,
+  descricao: PropTypes.string.isRequired,
   handleSearch: PropTypes.func
 };
