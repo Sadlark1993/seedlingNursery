@@ -179,36 +179,34 @@ const RegistrationForm = () => {
   const updateReference = async () => {
     const referencePromise = await fetch(`arvoreMatriz/find/${state}`);
     const referenceObj = await referencePromise.json();
-    const referenceObs = await referenceObj.observacoes.split(';');
-    //console.log(referenceObj.densidadeOcorrencia);
-    setStage(+referenceObs[0]);
-    stageRef.current.value = +referenceObs[0];
-    densidadeRef.current.value = referenceObj.densidadeOcorrencia;
-    latitudeRef.current.value = referenceObj.lagitude;
+    setStage(+referenceObj.stage);
+    stageRef.current.value = +referenceObj.stage;
+    densidadeRef.current.value = referenceObj.occurrenceDensity;
+    latitudeRef.current.value = referenceObj.latitude;
     longitudeRef.current.value = referenceObj.longitude;
-    alturaRef.current.value = referenceObj.alturaArvore;
-    fusteRef.current.value = referenceObj.alturaFuste;
+    alturaRef.current.value = referenceObj.height;
+    fusteRef.current.value = referenceObj.shaftHeight;
     altitudeRef.current.value = referenceObj.altitude;
     capRef.current.value = referenceObj.cap;
-    formTroncoRef.current.value = referenceObj.formacaoTronco;
-    formCopaRef.current.value = referenceObj.formacaoCopa;
-    tipoSoloRef.current.value = referenceObj.tipoSolo;
-    especieRef.current.value = referenceObj.nomeComum;
-    vegetacaoRef.current.value = referenceObj.tipovegetacao;
-    municipioRef.current.value = referenceObj.cidade;
-    determinadorRef.current.value = referenceObj.nomeDeterminador;
-    enderecoRef.current.value = referenceObs[7];
-    instDeterminadorRef.current.value = referenceObs[6];
-    associadasRef.current.value = referenceObj.especiesAssociadas;
-    areaColetaRef.current.value = referenceObj.enderecoColeta;
-    matrizOrigemRef.current.value = referenceObs[8];
-    numFolhasRef.current.value = referenceObs[2];
-    dataPlantioRef.current.value = referenceObs[3];
-    dataDoacaoRef.current.value = referenceObs[4];
-    setPestRecord(referenceObs[11]);
-    setFertRecord(referenceObs[10]);
-    bancadaRef.current.value = referenceObs[5];
-    obsRef.current.value = referenceObs[9];
+    formTroncoRef.current.value = referenceObj.trunkFormation;
+    formCopaRef.current.value = referenceObj.cupFormation;
+    tipoSoloRef.current.value = referenceObj.soilType;
+    especieRef.current.value = referenceObj.specie;
+    vegetacaoRef.current.value = referenceObj.vegetationType;
+    municipioRef.current.value = referenceObj.city;
+    determinadorRef.current.value = referenceObj.determiningName;
+    enderecoRef.current.value = referenceObj.address;
+    instDeterminadorRef.current.value = referenceObj.detInst;
+    associadasRef.current.value = referenceObj.associatedSpecies;
+    areaColetaRef.current.value = referenceObj.pickupAddress;
+    matrizOrigemRef.current.value = referenceObj.originMatrix;
+    numFolhasRef.current.value = referenceObj.leafs;
+    dataPlantioRef.current.value = referenceObj.plantingDate;
+    dataDoacaoRef.current.value = referenceObj.donationDate;
+    setPestRecord(referenceObj.pestRecord);
+    setFertRecord(referenceObj.fertRecord);
+    bancadaRef.current.value = referenceObj.shelf;
+    obsRef.current.value = referenceObj.observations;
     setLoadImg('data:image/png;base64,' + referenceObj.imagemMatriz);
     setImgKey((c) => ++c);
     setFertKey((c) => ++c);
@@ -217,7 +215,7 @@ const RegistrationForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const registroAdubacao =
+    const fertRecord =
       fertRecordRef.current +
       (fertRecordRef.current.length > 1 &&
       fertDescriptionRef.current.value.length > 1 &&
@@ -235,7 +233,7 @@ const RegistrationForm = () => {
           fertDateRef.current.value
         : '');
 
-    const registroDoenca =
+    const pestRecord =
       pestRecordRef.current +
       (pestRecordRef.current.length > 1 &&
       pestDescriptionRef.current.value.length > 1 &&
@@ -248,39 +246,35 @@ const RegistrationForm = () => {
 
     const submitObj = {
       /* inserindo campos q faltaram como string no campo "nome comum" */
-      /* nomeComum: `${stageRef.current.value};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`, */
-      nomeComum: especieRef.current.value,
-      nomeCientifico: 'dorime',
-      uf: 'Mato Fino', //<-- ja incluso no municipio
-      /*       id: generateId(), */
-      //estagio: stageRef.current.value,
-      densidadeOcorrencia: +densidadeRef.current.value,
-      lagitude: latitudeRef.current.value, //<-- typing error in backend
+      /* nomeComum: `${stageRef.current.value};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${fertRecord};${pestRecord}`, */
+      stage: stageRef.current.value,
+      occurrenceDensity: +densidadeRef.current.value,
+      latitude: latitudeRef.current.value,
       longitude: longitudeRef.current.value,
-      alturaArvore: +alturaRef.current.value,
-      alturaFuste: +fusteRef.current.value,
+      height: +alturaRef.current.value,
+      shaftHeight: +fusteRef.current.value,
       altitude: altitudeRef.current.value,
       cap: +capRef.current.value,
-      formacaoTronco: formTroncoRef.current.value,
-      formacaoCopa: formCopaRef.current.value,
-      tipoSolo: tipoSoloRef.current.value,
-      //especie: especieRef.current.value,
-      tipovegetacao: vegetacaoRef.current.value,
-      cidade: municipioRef.current.value,
-      nomeDeterminador: determinadorRef.current.value,
-      // endereco: enderecoRef.current.value,
-      //instDeterminador: instDeterminadorRef.current.value,
-      especiesAssociadas: associadasRef.current.value,
-      enderecoColeta: areaColetaRef.current.value,
-      //matrizOrigem: matrizOrigemRef.current.value,
-      //numFolhas: numFolhasRef.current.value,
-      //dataPlantio: dataPlantioRef.current.value,
-      //dataDoacao: dataDoacaoRef.current.value,
-      //bancada: bancadaRef.current.value,
-      //observacoes: obsRef.current.value,
-      observacoes: `${stage};${especieRef.current.value};${numFolhasRef.current.value};${dataPlantioRef.current.value};${dataDoacaoRef.current.value};${bancadaRef.current.value};${instDeterminadorRef.current.value};${enderecoRef.current.value};${matrizOrigemRef.current.value};${obsRef.current.value};${registroAdubacao};${registroDoenca}`,
-      imagemMatriz: imgRef.current && imgRef.current.length > 10 ? imgRef.current : loadImg,
-      quantidadeSementes: 1
+      trunkFormation: formTroncoRef.current.value,
+      cupFormation: formCopaRef.current.value,
+      soilType: tipoSoloRef.current.value,
+      specie: especieRef.current.value,
+      vegetationType: vegetacaoRef.current.value,
+      city: municipioRef.current.value,
+      determiningName: determinadorRef.current.value,
+      address: enderecoRef.current.value,
+      detInst: instDeterminadorRef.current.value,
+      associatedSpecies: associadasRef.current.value,
+      pickupAddress: areaColetaRef.current.value,
+      originMatrix: matrizOrigemRef.current.value,
+      leafs: numFolhasRef.current.value,
+      plantingDate: dataPlantioRef.current.value,
+      donationDate: dataDoacaoRef.current.value,
+      shelf: bancadaRef.current.value,
+      observations: obsRef.current.value,
+      pestRecord: pestRecord,
+      fertRecord: fertRecord,
+      imagemMatriz: imgRef.current && imgRef.current.length > 10 ? imgRef.current : loadImg
     };
     if (state) {
       console.log('updating database');
