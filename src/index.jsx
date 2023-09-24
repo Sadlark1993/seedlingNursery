@@ -12,7 +12,6 @@ import Collection from './pages/Collection';
 import RegistrationForm from './pages/RegistrationForm';
 import Shelves from './pages/Shelves';
 import SearchPage from './pages/SearchPage';
-import SistemasEmbarcados from './pages/SistemasEmbarcados';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

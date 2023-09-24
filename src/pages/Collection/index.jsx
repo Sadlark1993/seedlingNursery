@@ -14,7 +14,7 @@ import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
-import { DataContext } from '../../contexts/Data';
+import { getSpeciesList, saveSpecie, getSpecie } from '../../api/speciesApi';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -56,39 +56,34 @@ const Collection = () => {
   const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
   const rowsPerPage = 20; //the number here will be 20. I've put a smaller number just to test.
 
-  useEffect(() => {}, []);
+  //get species page
+  useEffect(() => {
+    (async () => {
+      const list = await getSpeciesList(speciesPage);
+      console.log(list);
+      setSpeciesList(list);
+    })();
+  }, [speciesPage]);
 
   //Species list navigation
   const handleNextSpecies = () => {
-    if (species[speciesPage * speciesPerPage]) {
-      setSpeciesPage((c) => ++c);
-    } else {
-      console.log(`does't have next`);
-    }
+    console.log('next species');
   };
 
   const handlePrevSpecies = () => {
-    if (speciesPage > 1) {
-      setSpeciesPage((c) => --c);
-    } else {
-      console.log(`does't have prev`);
-    }
+    console.log('pref species');
   };
 
   const handleLastSpecies = () => {
-    if (species[speciesPage * speciesPerPage]) {
-      setSpeciesPage(Math.ceil(species.length / speciesPerPage));
-    } else {
-      console.log(`does't have next`);
-    }
+    console.log('last species');
   };
 
   const handleFirstSpecies = () => {
-    setSpeciesPage(1);
+    console.log('first species');
   };
 
   //Plants list navigation
-  const handleNextPlants = (e) => {
+  /*   const handleNextPlants = (e) => {
     if (plantsList[currentPage * rowsPerPage]) {
       setCurrentPage((c) => ++c);
     } else console.log(`does't have next`);
@@ -106,7 +101,7 @@ const Collection = () => {
     currentPage * rowsPerPage < plantsList.length
       ? setCurrentPage(Math.ceil(plantsList.length / rowsPerPage))
       : console.log('already at last page');
-  };
+  }; */
 
   return (
     <Styled.pageStyle>
@@ -123,33 +118,34 @@ const Collection = () => {
             handleNext={handleNextSpecies}
             handleLast={handleLastSpecies}
             page={speciesPage}
-            first={enPrevSpecie}
-            previous={enPrevSpecie}
-            next={enNextSpecie}
-            last={enNextSpecie}
+            first={true}
+            previous={true}
+            next={true}
+            last={true}
           />
-          <CardContainer cards={speciesOnDisplay} handleClick={handleCardClick} />
+          <CardContainer cards={speciesList} handleClick={() => console.log('card click')} />
           <ContentNavigation
             handleFirst={handleFirstSpecies}
             handleBack={handlePrevSpecies}
             handleNext={handleNextSpecies}
             handleLast={handleLastSpecies}
             page={speciesPage}
-            first={enPrevSpecie}
-            previous={enPrevSpecie}
-            next={enNextSpecie}
-            last={enNextSpecie}
+            first={true}
+            previous={true}
+            next={true}
+            last={true}
           />
         </Container>
       </Section>
       <Section background={false} forwardRef={descriptionRef}>
-        {species[selected] ? (
+        {/* {species[selected] ? (
           <SpecieDesc {...species[selected]} handleSearch={handleLoadPlantsBySpecie} />
         ) : (
           <SpeciesRegisterForm />
-        )}
+        )} */}
+        <SpeciesRegisterForm />
       </Section>
-      {plantsList.length && (
+      {/* {plantsList.length && (
         <Section className="start" background={true} forwardRef={plantsListRef}>
           <PlantsBySpecie
             datas={plantsOnDisplay}
@@ -170,7 +166,7 @@ const Collection = () => {
             toggleMatrixes={() => setShowMatrixes((c) => !c)}
           />
         </Section>
-      )}
+      )} */}
       <Footer>
         {
           'Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso\nAvenida Sen. Filinto Müller, 953 - Bairro: Quilombo - CEP: 78043-409\nTelefone: (65) 3616-4100\nCuiabá/MT'

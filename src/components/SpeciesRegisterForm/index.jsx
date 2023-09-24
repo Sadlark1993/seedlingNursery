@@ -6,8 +6,7 @@ import * as Styled from './styles';
 import { SubmitBtn } from '../SubmitBtn';
 import { Container } from '../Container';
 import { InputFText } from '../InputFText';
-import { v4 as uuidv4 } from 'uuid';
-
+import { saveSpecie } from '../../api/speciesApi';
 /* const handleClick = () => {
   console.log("Wow, I'm gonna load some plants!!");
 }; */
@@ -57,13 +56,7 @@ export const SpeciesRegisterForm = () => {
 
     //console.log(JSON.stringify(specieObject));
 
-    fetch('especie/save', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(specieObject)
-    }).then(window.location.reload(true));
+    saveSpecie(specieObject);
 
     /* let data = new FormData();
     if (!nameInput.current.value || !scienInput.current.value || !descInput.current.value) {

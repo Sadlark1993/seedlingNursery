@@ -7,7 +7,7 @@ export const Data = ({ children }) => {
   const [plants, setPlants] = useState([]);
   const [species, setSpecies] = useState([]);
 
-  useEffect(() => {
+  /*   useEffect(() => {
     (async () => {
       const speciesPromise = await fetch('especie/find/all');
       const speciesObj = await speciesPromise.json();
@@ -17,7 +17,7 @@ export const Data = ({ children }) => {
       const plantsObj = await plantsPromise.json();
       setPlants(plantsObj);
     })();
-  }, []);
+  }, []); */
 
   return <DataContext.Provider value={{ plants, species }}>{children}</DataContext.Provider>;
 };
