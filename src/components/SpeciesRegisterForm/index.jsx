@@ -50,9 +50,9 @@ export const SpeciesRegisterForm = () => {
     //mounting the object
     const specieObject = {
       nomeComum: nameInput.current.value,
-      nomeCientifico: scienInput.current.value,
-      descricao: descInput.current.value,
-      imagem: base64
+      scienName: scienInput.current.value,
+      description: descInput.current.value,
+      image: base64
     };
 
     //console.log(JSON.stringify(specieObject));

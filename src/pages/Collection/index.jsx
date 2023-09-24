@@ -15,7 +15,6 @@ import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
 import { DataContext } from '../../contexts/Data';
-import clock from '../../contexts/Date/clock';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -39,20 +38,13 @@ const handleFirst = () => {
 };
 
 const Collection = () => {
-  /*   const [species, setSpecies] = useState([]); //stores the list of species loaded. */
-  const { species, plants } = useContext(DataContext); //gets the list of plants and species from context
-  const [speciesOnDisplay, setSpeciesOnDisplay] = useState([]);
+  const [speciesList, setSpeciesList] = useState([]);
+
   const [speciesPage, setSpeciesPage] = useState(1);
-  const [selected, setSelected] = useState(0); //selected specie
-  const [plantsList, setPlantsList] = useState([]); //all the plants of the selected specie
-  const [plantsOnDisplay, setPlantsOnDisplay] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
   //defines the color (disabled or enabled) of the navigation buttons
-  const [enNext, setEnNext] = useState(true);
-  const [enPrev, setEnPrev] = useState(true);
-  const [enNextSpecie, setEnNextSpecie] = useState(true);
-  const [enPrevSpecie, setEnPrevSpecie] = useState(true);
+  //put this (above) inside the component!!
 
   const [showSeedlings, setShowSeedlings] = useState(true);
   const [showSeeds, setShowSeeds] = useState(true);
@@ -64,76 +56,7 @@ const Collection = () => {
   const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
   const rowsPerPage = 20; //the number here will be 20. I've put a smaller number just to test.
 
-  //loads the current page of specie cards to display
-  useEffect(() => {
-    setSpeciesOnDisplay(
-      species.slice((speciesPage - 1) * speciesPerPage, speciesPage * speciesPerPage)
-    );
-
-    setEnNextSpecie(speciesPage * speciesPerPage < species.length);
-    setEnPrevSpecie(speciesPage > 1);
-  }, [speciesPage, species]);
-
-  //scrolls into the list of plants when a new list is load.
-  useEffect(() => {
-    if (plantsList.length)
-      plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }, [plantsList]);
-
-  //select page and loads page of plants list
-  useEffect(() => {
-    const plantsListByStage = selectByStage();
-    setPlantsOnDisplay(
-      plantsListByStage.slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage)
-    );
-
-    setEnPrev(currentPage > 1);
-    setEnNext(currentPage * rowsPerPage < plantsList.length);
-  }, [currentPage, rowsPerPage, plantsList, showSeedlings, showMatrixes, showSeeds]);
-
-  //selects the plats considering the selected stage
-  const selectByStage = () => {
-    const filteredPlants = [];
-    if (showSeedlings) {
-      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 1));
-    }
-    if (showSeeds) {
-      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 2));
-    }
-    if (showMatrixes) {
-      filteredPlants.push(...plantsList.filter((plant) => +plant.observacoes.split(';')[0] === 0));
-    }
-    if (filteredPlants.length === 0) {
-      filteredPlants.push({
-        id: 0,
-        observacoes:
-          '0;Cajueiro;;;;;instituto;Nenhuma Planta Cadastrada;;isso é uma observação da arvinha mardita;description1|1kg|2021-09-11#description2|1kg|2021-09-11#description3|1kg|2021-09-11#;description1|2021-09-11#description2|2021-09-11#description3|2021-09-11#'
-      });
-    }
-    return filteredPlants;
-  };
-
-  //selects the specie
-  const handleCardClick = (id) => {
-    setSelected(id);
-    descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  };
-
-  //list the plants that belong to the selected specie.
-  const handleLoadPlantsBySpecie = (name) => {
-    const selectedPlants = plants.filter((plant) => {
-      const plantData = plant.observacoes.split(';');
-      const stage = +plantData[0];
-      if (stage === 0) {
-        return plantData[1] === name;
-      }
-      const sourceMatrix = plants.find((matrix) => +matrix.id === +plantData[8]);
-      const matrixData = sourceMatrix ? sourceMatrix.observacoes.split(';') : [];
-      return matrixData[1] === name;
-    });
-    setPlantsList(selectedPlants);
-    //console.log(selectedPlants);
-  };
+  useEffect(() => {}, []);
 
   //Species list navigation
   const handleNextSpecies = () => {
