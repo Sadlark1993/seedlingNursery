@@ -38,9 +38,15 @@ const handleFirst = () => {
 };
 
 const Collection = () => {
+  //species
   const [speciesList, setSpeciesList] = useState([]);
-
+  const [speciesCount, setSpeciesCount] = useState(0);
   const [speciesPage, setSpeciesPage] = useState(1);
+
+  //enable species navigation
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+
   const [currentPage, setCurrentPage] = useState(1);
 
   //defines the color (disabled or enabled) of the navigation buttons
@@ -56,30 +62,37 @@ const Collection = () => {
   const speciesPerPage = 7; //number of species cards per page - 1 (because of the register card)
   const rowsPerPage = 20; //the number here will be 20. I've put a smaller number just to test.
 
-  //get species page
   useEffect(() => {
     (async () => {
+      // get species page
       const list = await getSpeciesList(speciesPage);
-      console.log(list);
-      setSpeciesList(list);
+      setSpeciesList(list.list);
+      setSpeciesCount(list.number);
+
+      // enable/disable navigation buttons
+      if (speciesPage <= 1) setFirst(false);
+      else setFirst(true);
+
+      if (speciesPage * speciesPerPage >= list.number) setLast(false);
+      else setLast(true);
     })();
   }, [speciesPage]);
 
   //Species list navigation
   const handleNextSpecies = () => {
-    console.log('next species');
+    setSpeciesPage((c) => ++c);
   };
 
   const handlePrevSpecies = () => {
-    console.log('pref species');
+    setSpeciesPage((c) => --c);
   };
 
   const handleLastSpecies = () => {
-    console.log('last species');
+    setSpeciesPage(Math.ceil(speciesCount / speciesPerPage));
   };
 
   const handleFirstSpecies = () => {
-    console.log('first species');
+    setSpeciesPage(1);
   };
 
   //Plants list navigation
@@ -118,10 +131,10 @@ const Collection = () => {
             handleNext={handleNextSpecies}
             handleLast={handleLastSpecies}
             page={speciesPage}
-            first={true}
-            previous={true}
-            next={true}
-            last={true}
+            first={first}
+            previous={first}
+            next={last}
+            last={last}
           />
           <CardContainer cards={speciesList} handleClick={() => console.log('card click')} />
           <ContentNavigation

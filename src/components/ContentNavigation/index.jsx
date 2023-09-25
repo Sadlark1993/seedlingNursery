@@ -14,17 +14,25 @@ export const ContentNavigation = ({
 }) => {
   return (
     <Styled.compStyle>
-      <span style={first ? { color: 'black' } : { color: '#b9b9b9b9' }} onClick={handleFirst}>
+      <span
+        style={first ? { color: 'black' } : { color: '#b9b9b9b9' }}
+        onClick={first ? handleFirst : null}>
         &lt;&lt;
       </span>
-      <span style={previous ? { color: 'black' } : { color: '#b9b9b9b9' }} onClick={handleBack}>
+      <span
+        style={previous ? { color: 'black' } : { color: '#b9b9b9b9' }}
+        onClick={previous ? handleBack : null}>
         &lt;
       </span>
       <span style={{ cursor: 'auto' }}>pg {page}</span>
-      <span style={next ? { color: 'black' } : { color: '#b9b9b9b9' }} onClick={handleNext}>
+      <span
+        style={next ? { color: 'black' } : { color: '#b9b9b9b9' }}
+        onClick={next ? handleNext : null}>
         &gt;
       </span>
-      <span style={last ? { color: 'black' } : { color: '#b9b9b9b9' }} onClick={handleLast}>
+      <span
+        style={last ? { color: 'black' } : { color: '#b9b9b9b9' }}
+        onClick={last ? handleLast : null}>
         &gt;&gt;
       </span>
     </Styled.compStyle>

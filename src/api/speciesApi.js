@@ -2,9 +2,10 @@ import rootUri from './rootUri';
 
 //returns a page with 7 specie objects
 export const getSpeciesList = async (page) => {
-  const speciesPromise = await fetch(rootUri + '/specie/page/0');
+  const speciesPromise = await fetch(rootUri + '/specie/page/' + (page - 1));
+  const number = +speciesPromise.headers.get('table-size');
   const speciesObj = await speciesPromise.json();
-  return speciesObj;
+  return { list: speciesObj, number: number };
 };
 
 //saves specie object to database
