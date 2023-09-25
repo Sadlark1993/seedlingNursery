@@ -45,18 +45,19 @@ export const SpeciesRegisterForm = () => {
     }
 
     const base64 = await convertBase64(imgInput.current.files[0]);
-
+    const img = base64.split('base64,');
     //mounting the object
     const specieObject = {
-      nomeComum: nameInput.current.value,
+      name: nameInput.current.value,
       scienName: scienInput.current.value,
       description: descInput.current.value,
-      image: base64
+      image: img[1]
     };
 
     //console.log(JSON.stringify(specieObject));
 
     saveSpecie(specieObject);
+    window.location.reload(false);
 
     /* let data = new FormData();
     if (!nameInput.current.value || !scienInput.current.value || !descInput.current.value) {
