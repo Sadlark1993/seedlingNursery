@@ -1,26 +1,21 @@
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
-import { v4 as uuidv4 } from 'uuid';
 
-/* The array cards must have objects that will have:
-  -id : number;
-  -srcImg : string;
-  -name : string;
-  -scientificName : string;
-*/
+import { getSpecieImage } from '../../api/speciesApi';
+import { CardImage } from '../CardImage';
 
 export const CardContainer = ({ cards, handleClick = () => console.log('clicked') }) => {
   return (
     <Styled.containerStyle>
-      {cards.map((card, index) => {
+      {cards.map((card) => {
         return (
-          <Styled.cardStyle key={uuidv4()} onClick={() => handleClick(index)}>
-            <img src={`data:image/png;base64,${card.imagem}`} alt={card.nomeComum} />
+          <Styled.cardStyle key={card.id} onClick={() => handleClick(card.id)}>
+            <CardImage id={card.id} alt={card.name} />
             <Styled.nameWrapper>
-              <h3>{card.nomeComum}</h3>
+              <h3>{card.name}</h3>
             </Styled.nameWrapper>
             <Styled.scienWrapper>
-              <span>{card.nomeCientifico}</span>
+              <span>{card.scienName}</span>
             </Styled.scienWrapper>
           </Styled.cardStyle>
         );

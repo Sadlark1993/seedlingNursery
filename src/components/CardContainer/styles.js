@@ -13,6 +13,15 @@ export const containerStyle = styled.div`
       margin: 0 auto;
     }
 
+    h3::after {
+      display: block;
+      background: black;
+      content: ' ';
+      height: 0.2rem;
+      width: 3rem;
+      margin: 0.5rem auto;
+    }
+
     span {
       margin: 0 auto;
     }
@@ -26,6 +35,7 @@ export const cardStyle = styled.div`
   cursor: pointer;
   transition: 0.15s ease-in-out;
   user-select: none;
+  box-shadow: 0.5rem 0.5rem 3rem #333;
 
   &:hover {
     transform: scale(1.05);
