@@ -42,6 +42,8 @@ const Collection = () => {
   const [speciesList, setSpeciesList] = useState([]);
   const [speciesCount, setSpeciesCount] = useState(0);
   const [speciesPage, setSpeciesPage] = useState(1);
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedSpecie, setSelectedSpecie] = useState({});
 
   //enable species navigation
   const [first, setFirst] = useState(false);
@@ -77,6 +79,21 @@ const Collection = () => {
       else setLast(true);
     })();
   }, [speciesPage]);
+
+  useEffect(() => {
+    if (selectedId) {
+      (async () => {
+        const specie = await getSpecie(selectedId);
+        setSelectedSpecie(specie);
+      })();
+    }
+  }, [selectedId]);
+
+  // change selected specie
+  const handleCardClick = (id, ref) => {
+    setSelectedId(id);
+    descriptionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
 
   //Species list navigation
   const handleNextSpecies = () => {
@@ -136,7 +153,7 @@ const Collection = () => {
             next={last}
             last={last}
           />
-          <CardContainer cards={speciesList} handleClick={() => console.log('card click')} />
+          <CardContainer cards={speciesList} handleClick={handleCardClick} />
           <ContentNavigation
             handleFirst={handleFirstSpecies}
             handleBack={handlePrevSpecies}
@@ -151,12 +168,15 @@ const Collection = () => {
         </Container>
       </Section>
       <Section background={false} forwardRef={descriptionRef}>
-        {/* {species[selected] ? (
-          <SpecieDesc {...species[selected]} handleSearch={handleLoadPlantsBySpecie} />
+        {selectedId ? (
+          <SpecieDesc
+            key={selectedSpecie}
+            specie={selectedSpecie}
+            handleSearch={() => console.log('hold on sir')}
+          />
         ) : (
           <SpeciesRegisterForm />
-        )} */}
-        <SpeciesRegisterForm />
+        )}
       </Section>
       {/* {plantsList.length && (
         <Section className="start" background={true} forwardRef={plantsListRef}>

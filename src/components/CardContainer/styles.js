@@ -7,6 +7,7 @@ export const containerStyle = styled.div`
     height: fit-content;
     flex-wrap: wrap;
     gap: 4rem 2rem;
+    color: ${theme.colors.primaryColor};
 
     h3 {
       height: fit-content;
@@ -15,7 +16,7 @@ export const containerStyle = styled.div`
 
     h3::after {
       display: block;
-      background: black;
+      background: ${theme.colors.primaryColor};
       content: ' ';
       height: 0.2rem;
       width: 3rem;
@@ -61,6 +62,7 @@ export const scienWrapper = styled.div`
   display: flex;
   align-content: start;
   text-align: center;
+  font-style: italic;
   height: 7.5rem;
   flex-wrap: wrap;
   padding: 0.3rem;
