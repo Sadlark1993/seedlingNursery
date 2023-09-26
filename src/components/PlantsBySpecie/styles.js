@@ -57,6 +57,7 @@ export const row = styled.div`
     background-color: white;
     transition: 0.15s ease-in-out;
     cursor: pointer;
+    box-shadow: 0.4rem 0.4rem 0.8rem #333;
     &:hover {
       transform: scale(1.05);
     }
