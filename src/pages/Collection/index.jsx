@@ -14,7 +14,9 @@ import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
-import { getSpeciesList, saveSpecie, getSpecie } from '../../api/speciesApi';
+
+import { getSpeciesList, getSpecie } from '../../api/speciesApi';
+import { getPlantsBySpeciePage } from '../../api/plantsApi';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -45,18 +47,21 @@ const Collection = () => {
   const [selectedId, setSelectedId] = useState(null);
   const [selectedSpecie, setSelectedSpecie] = useState({});
 
-  //enable species navigation
+  // enable/disable species navigation
   const [first, setFirst] = useState(false);
   const [last, setLast] = useState(false);
 
+  //plants
   const [currentPage, setCurrentPage] = useState(1);
+  const [showSeedlings, setShowSeedlings] = useState(1);
+  const [showSeeds, setShowSeeds] = useState(1);
+  const [showMatrixes, setShowMatrixes] = useState(1);
+  const [plantsList, setPlantsList] = useState([]);
+  const [plantsCount, setPlantsCount] = useState(0);
 
-  //defines the color (disabled or enabled) of the navigation buttons
-  //put this (above) inside the component!!
-
-  const [showSeedlings, setShowSeedlings] = useState(true);
-  const [showSeeds, setShowSeeds] = useState(true);
-  const [showMatrixes, setShowMatrixes] = useState(true);
+  // enable/disable plants navigation
+  const [firstPlants, setFirstPlants] = useState(false);
+  const [lastPlants, setLastPlants] = useState(false);
 
   const descriptionRef = useRef();
   const plantsListRef = useRef();
@@ -66,7 +71,7 @@ const Collection = () => {
 
   useEffect(() => {
     (async () => {
-      // get species page
+      // get species list page
       const list = await getSpeciesList(speciesPage);
       setSpeciesList(list.list);
       setSpeciesCount(list.number);
@@ -80,6 +85,7 @@ const Collection = () => {
     })();
   }, [speciesPage]);
 
+  //loads selected specie to SpecieDesc component
   useEffect(() => {
     if (selectedId) {
       (async () => {
@@ -88,6 +94,33 @@ const Collection = () => {
       })();
     }
   }, [selectedId]);
+
+  // enable/disable plants navigation buttons
+  useEffect(() => {
+    if (selectedId)
+      (async () => {
+        const { list, number } = await getPlantsBySpeciePage(
+          currentPage,
+          rowsPerPage,
+          selectedId,
+          showMatrixes,
+          showSeedlings,
+          showSeeds
+        );
+        setPlantsList(list);
+        setPlantsCount(number);
+
+        if (currentPage <= 1) setFirstPlants(false);
+        else setFirstPlants(true);
+
+        if (currentPage * rowsPerPage >= number) setLastPlants(false);
+        else setLastPlants(true);
+      })();
+  }, [currentPage, selectedId, showMatrixes, showSeedlings, showSeeds]);
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [showMatrixes, showSeedlings, showSeeds]);
 
   // change selected specie
   const handleCardClick = (id, ref) => {
@@ -112,26 +145,28 @@ const Collection = () => {
     setSpeciesPage(1);
   };
 
+  //load list of plants
+  const handleSearch = async (specieId) => {
+    setSelectedId(specieId);
+    plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   //Plants list navigation
-  /*   const handleNextPlants = (e) => {
-    if (plantsList[currentPage * rowsPerPage]) {
-      setCurrentPage((c) => ++c);
-    } else console.log(`does't have next`);
+  const handleNextPlants = (e) => {
+    setCurrentPage((c) => ++c);
   };
 
   const handlePreviousPlants = () => {
-    currentPage > 1 ? setCurrentPage((c) => --c) : console.log(`does't have previous`);
+    setCurrentPage((c) => --c);
   };
 
   const handleFirstPlants = () => {
-    currentPage > 1 ? setCurrentPage(1) : console.log(`already at first page`);
+    setCurrentPage(1);
   };
 
   const handleLastPlants = () => {
-    currentPage * rowsPerPage < plantsList.length
-      ? setCurrentPage(Math.ceil(plantsList.length / rowsPerPage))
-      : console.log('already at last page');
-  }; */
+    setCurrentPage(Math.ceil(plantsCount / rowsPerPage));
+  };
 
   return (
     <Styled.pageStyle>
@@ -169,37 +204,34 @@ const Collection = () => {
       </Section>
       <Section background={false} forwardRef={descriptionRef}>
         {selectedId ? (
-          <SpecieDesc
-            key={selectedSpecie}
-            specie={selectedSpecie}
-            handleSearch={() => console.log('hold on sir')}
-          />
+          <SpecieDesc key={selectedSpecie} specie={selectedSpecie} handleSearch={handleSearch} />
         ) : (
           <SpeciesRegisterForm />
         )}
       </Section>
-      {/* {plantsList.length && (
-        <Section className="start" background={true} forwardRef={plantsListRef}>
-          <PlantsBySpecie
-            datas={plantsOnDisplay}
-            handleFirst={handleFirstPlants}
-            handleBack={handlePreviousPlants}
-            handleNext={handleNextPlants}
-            handleLast={handleLastPlants}
-            page={currentPage}
-            first={enPrev}
-            previous={enPrev}
-            next={enNext}
-            last={enNext}
-            seedlings={showSeedlings}
-            seeds={showSeeds}
-            matrixes={showMatrixes}
-            toggleSeedlings={() => setShowSeedlings((c) => !c)}
-            toggleSeeds={() => setShowSeeds((c) => !c)}
-            toggleMatrixes={() => setShowMatrixes((c) => !c)}
-          />
-        </Section>
-      )} */}
+      <Section className="start" background={true} forwardRef={plantsListRef}>
+        <PlantsBySpecie
+          datas={plantsList}
+          handleFirst={handleFirstPlants}
+          handleBack={handlePreviousPlants}
+          handleNext={handleNextPlants}
+          handleLast={handleLastPlants}
+          page={currentPage}
+          first={firstPlants}
+          previous={firstPlants}
+          next={lastPlants}
+          last={lastPlants}
+          seedlings={showSeedlings}
+          seeds={showSeeds}
+          matrixes={showMatrixes}
+          toggleSeedlings={() => {
+            setShowSeedlings((c) => (c ? 0 : 1));
+            console.log('seedlings');
+          }}
+          toggleSeeds={() => setShowSeeds((c) => (c ? 0 : 1))}
+          toggleMatrixes={() => setShowMatrixes((c) => (c ? 0 : 1))}
+        />
+      </Section>
       <Footer>
         {
           'Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso\nAvenida Sen. Filinto Müller, 953 - Bairro: Quilombo - CEP: 78043-409\nTelefone: (65) 3616-4100\nCuiabá/MT'

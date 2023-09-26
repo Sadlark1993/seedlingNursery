@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import * as Styled from './styles';
 
 export const PlantStageCheckbox = ({
-  seedlings = true,
-  seeds = true,
-  matrixes = true,
+  seedlings = 1,
+  seeds = 1,
+  matrixes = 1,
   toggleSeedlings = () => console.log('seedlings toggled'),
   toggleSeeds = () => console.log('seeds toggled'),
   toggleMatrixes = () => console.log('matrixes toggled')
@@ -28,9 +28,9 @@ export const PlantStageCheckbox = ({
 };
 
 PlantStageCheckbox.propTypes = {
-  seedlings: PropTypes.bool,
-  seeds: PropTypes.bool,
-  matrixes: PropTypes.bool,
+  seedlings: PropTypes.number,
+  seeds: PropTypes.number,
+  matrixes: PropTypes.number,
   toggleSeedlings: PropTypes.func,
   toggleSeeds: PropTypes.func,
   toggleMatrixes: PropTypes.func

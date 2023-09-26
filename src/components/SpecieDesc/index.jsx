@@ -31,7 +31,7 @@ export const SpecieDesc = ({ specie, handleSearch }) => {
               <Styled.description>{specie.description}</Styled.description>
             </Styled.contentContainer>
           </Styled.containerStyle>
-          <SubmitBtn onClick={() => handleSearch(specie.name)}>Carregar Plantas</SubmitBtn>
+          <SubmitBtn onClick={() => handleSearch(specie.id)}>Carregar Plantas</SubmitBtn>
           <Styled.hintText>
             Clique aqui para ver as mudas, sementes e matrizes dessa espécie cadastradas no sistema
           </Styled.hintText>

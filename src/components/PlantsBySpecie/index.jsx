@@ -7,7 +7,7 @@ import { ContentNavigation } from '../ContentNavigation';
 import { PlantStageCheckbox } from '../PlantStageCheckbox';
 
 export const PlantsBySpecie = ({
-  datas,
+  datas = [],
   handleFirst,
   handleBack,
   handleNext,
@@ -24,9 +24,10 @@ export const PlantsBySpecie = ({
   const navigate = useNavigate();
 
   const handleNavigate = (id) => {
-    navigate('/cadastro', {
+    /*     navigate('/cadastro', {
       state: id
-    });
+    }); */
+    console.log('load plat that the id is: ' + id);
   };
 
   return (
@@ -56,7 +57,7 @@ export const PlantsBySpecie = ({
         </Styled.wrapper>
         {datas.map((row) => {
           let stage;
-          switch (+row.observacoes.split(';')[0]) {
+          switch (+row.stage) {
             case 0:
               stage = 'matriz';
               break;
@@ -76,17 +77,9 @@ export const PlantsBySpecie = ({
               <Styled.idCell>{row.id}</Styled.idCell>
               <Styled.stageCell>{stage}</Styled.stageCell>
               <Styled.dateCell>
-                {row.observacoes.split(';').length > 7 && row.observacoes.split(';')[3].length > 3
-                  ? row.observacoes.split(';')[3]
-                  : '--'}
+                {row.plantingDate.length > 1 ? row.plantingDate : '--'}
               </Styled.dateCell>
-              <Styled.locationCell>
-                {row.observacoes.split(';').length > 7 && row.observacoes.split(';')[7].length > 2
-                  ? row.observacoes.split(';')[7]
-                  : `bancada ${
-                      row.observacoes.split(';').length > 7 ? row.observacoes.split(';')[5] : ' '
-                    }`}
-              </Styled.locationCell>
+              <Styled.locationCell>{row.currentLocation}</Styled.locationCell>
             </Styled.row>
           );
         })}
@@ -113,9 +106,9 @@ PlantsBySpecie.propTypes = {
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
   page: PropTypes.number,
-  seedlings: PropTypes.bool,
-  seeds: PropTypes.bool,
-  matrixes: PropTypes.bool,
+  seedlings: PropTypes.number,
+  seeds: PropTypes.number,
+  matrixes: PropTypes.number,
   toggleSeedlings: PropTypes.func,
   toggleSeeds: PropTypes.func,
   toggleMatrixes: PropTypes.func
