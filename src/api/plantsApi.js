@@ -21,3 +21,9 @@ export const getPlantsBySpeciePage = async (page, pageSize, specieId, matrix, se
   const plantsObj = await plantsPromise.json();
   return { list: plantsObj, number: number };
 };
+
+//gets plant object by id
+export const getPlantById = async (id) => {
+  const plantPromise = await fetch(rootUri + '/plant/' + id);
+  return await plantPromise.json();
+};

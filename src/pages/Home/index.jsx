@@ -1,22 +1,10 @@
 import * as Styled from './styles';
 import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
-import { Header } from '../../components/Header';
-import { Logo } from '../../components/Logo';
-import { Navigation } from '../../components/Navigation';
-import Links from '../../components/Header/LinksMock';
 import { WelcomeTitle } from '../../components/WelcomeTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { Footer } from '../../components/Footer';
-import { useContext } from 'react';
-import { DataContext } from '../../contexts/Data';
-import { Navigate } from 'react-router-dom';
-
-const img = {
-  src: './img/icons/ifmt.svg',
-  alt: 'IFMT'
-};
 
 function Home() {
   const handleLogin = () => {
@@ -25,9 +13,6 @@ function Home() {
 
   return (
     <Styled.pageStyle>
-      <Header>
-        {[<Logo key="logo" img={img} />, <Navigation key="navigation" links={Links} />]}
-      </Header>
       <Section background={true}>
         <Container>
           <WelcomeTitle>Bem Vindo!</WelcomeTitle>

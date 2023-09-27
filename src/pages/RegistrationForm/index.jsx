@@ -331,9 +331,6 @@ const RegistrationForm = () => {
 
   return (
     <Styled.pageStyle>
-      <Header>
-        {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={Links} />]}
-      </Header>
       <Section background={true} forwardRef={startRef}>
         <Container>
           <PageTitle>{`Cadastro de ${stageName}`}</PageTitle>

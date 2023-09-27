@@ -24,10 +24,9 @@ export const PlantsBySpecie = ({
   const navigate = useNavigate();
 
   const handleNavigate = (id) => {
-    /*     navigate('/cadastro', {
+    navigate('/dados', {
       state: id
-    }); */
-    console.log('load plat that the id is: ' + id);
+    });
   };
 
   return (

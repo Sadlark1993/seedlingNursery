@@ -1,9 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from 'react';
 import * as Styled from './styles';
-import { Header } from '../../components/Header';
-import LinksMock from '../../components/Header/LinksMock';
-import { Logo } from '../../components/Logo';
-import { Navigation } from '../../components/Navigation';
 import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
@@ -12,11 +8,6 @@ import { SubmitBtn } from '../../components/SubmitBtn';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
 import { Footer } from '../../components/Footer';
 import { DataContext } from '../../contexts/Data';
-
-const logoImg = {
-  src: './img/icons/ifmt.svg',
-  alt: 'IFMT'
-};
 
 const SearchPage = () => {
   const { plants } = useContext(DataContext);
@@ -74,9 +65,6 @@ const SearchPage = () => {
 
   return (
     <Styled.pageStyle>
-      <Header>
-        {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={LinksMock} />]}
-      </Header>
       <Section background={true}>
         <Container>
           <PageTitle>Buscar Plantas</PageTitle>
