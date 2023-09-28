@@ -16,7 +16,6 @@ export const PlantData = () => {
 
   useEffect(() => {
     if (state) {
-      console.log(state);
       (async () => {
         const plantObj = await getPlantById(state);
         setPlant(await plantObj);
@@ -27,7 +26,6 @@ export const PlantData = () => {
   }, []);
 
   useEffect(() => {
-    console.log(plant);
     switch (plant.stage) {
       case 0:
         setStage('matriz');
@@ -40,11 +38,11 @@ export const PlantData = () => {
     }
   }, [plant]);
 
-  if (!plant) return <h1>Loading...</h1>;
+  if (!plant.id) return <h1>Loading...</h1>;
 
   return (
     <Styled.compStyle>
-      <PageTitle>Dados da {stage.charAt(0).toUpperCase() + stage.slice(1)}</PageTitle>
+      <PageTitle>{'Dados da ' + stage.charAt(0).toUpperCase() + stage.slice(1)}</PageTitle>
       <Styled.flexContainer>
         <PlantImage id={plant.id} alt={plant.specie.name} />
       </Styled.flexContainer>

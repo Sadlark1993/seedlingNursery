@@ -17,6 +17,7 @@ import { Header } from './components/Header';
 import { Logo } from './components/Logo';
 import { Navigation } from './components/Navigation';
 import LinksMock from './components/Header/LinksMock';
+import { Footer } from './components/Footer';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -41,6 +42,11 @@ root.render(
           <Route path="/login" element={<Home />} />
           <Route path="/dados" element={<PlantData />} />
         </Routes>
+        <Footer>
+          {
+            'Instituto Federal de Educação, Ciência e Tecnologia de Mato Grosso\nAvenida Sen. Filinto Müller, 953 - Bairro: Quilombo - CEP: 78043-409\nTelefone: (65) 3616-4100\nCuiabá/MT'
+          }
+        </Footer>
       </BrowserRouter>
     </Data>
   </ThemeProvider>
