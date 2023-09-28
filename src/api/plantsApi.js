@@ -27,3 +27,9 @@ export const getPlantById = async (id) => {
   const plantPromise = await fetch(rootUri + '/plant/' + id);
   return await plantPromise.json();
 };
+
+//gets plant image by id
+export const getPlantImage = async (id) => {
+  const imagePromise = await fetch(rootUri + '/plant-images/' + id);
+  return await imagePromise.json();
+};

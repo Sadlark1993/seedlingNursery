@@ -11,7 +11,7 @@ export const compStyle = styled.h1`
       display: block;
       width: 6rem;
       height: 0.3rem;
-      margin: 1rem auto 2.5rem auto;
+      margin: 0.8rem auto 2rem auto;
       background-color: ${theme.colors.primaryColor};
     }
   `}
