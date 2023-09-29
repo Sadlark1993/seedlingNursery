@@ -30,3 +30,8 @@ export const getSpecieImage = async (id) => {
   const imagePromise = await fetch(rootUri + '/specie-images/' + id);
   return await imagePromise.json();
 };
+
+export const getAllSpecies = async () => {
+  const speciesPromise = await fetch(rootUri + '/specie/all');
+  return await speciesPromise.json();
+};

@@ -1,16 +1,24 @@
 import PropTypes from 'prop-types';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
 import * as Styled from './styles';
+import { getPlantImage } from '../../api/plantsApi';
+import defaultImg from './defaultImg';
 
-export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
-  const [img, setImg] = useState(srcImg);
+export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
+  const [img, setImg] = useState(null);
   const inputImg = useRef();
 
-  useState(() => {
-    setImg(srcImg);
-    //console.log(srcImg);
-  }, [srcImg]);
+  useEffect(() => {
+    if (idImg) {
+      (async () => {
+        const imgObj = await getPlantImage(idImg);
+        setImg('data:image/png;base64,' + imgObj.image);
+      })();
+    } else {
+      setImg(defaultImg.base64);
+    }
+  }, [idImg]);
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -35,7 +43,7 @@ export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
 
   return (
     <Styled.compStyle>
-      <Styled.imgDisp src={img} alt={altImg} />
+      {img ? <Styled.imgDisp src={img} alt={altImg} /> : <h2>Loading...</h2>}
       <Styled.imgInput
         ref={inputImg}
         onChange={handleChange}
@@ -46,7 +54,7 @@ export const ImgLoader = ({ srcImg, altImg = '', forwardedRef = useRef() }) => {
   );
 };
 ImgLoader.propTypes = {
-  srcImg: PropTypes.string.isRequired,
+  idImg: PropTypes.number,
   altImg: PropTypes.string,
   forwardedRef: PropTypes.object
 };

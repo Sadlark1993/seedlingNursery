@@ -10,6 +10,7 @@ import { PlantImage } from '../../components/PlantImage';
 import { FertRecordData } from '../../components/FertRecordData';
 import { PestRecordData } from '../../components/PestRecordData';
 import { Container } from '../../components/Container';
+import { SubmitBtn } from '../../components/SubmitBtn';
 
 export const PlantData = () => {
   const { state } = useLocation();
@@ -40,6 +41,12 @@ export const PlantData = () => {
         setStage('semente');
     }
   }, [plant]);
+
+  const handleClick = () => {
+    navigate('/cadastro', {
+      state: plant.id
+    });
+  };
 
   if (!plant.id) return <h1>Loading...</h1>;
 
@@ -144,6 +151,7 @@ export const PlantData = () => {
         </p>
         <FertRecordData record={plant.fertRecord} />
         <PestRecordData record={plant.pestRecord} />
+        <SubmitBtn onClick={handleClick}>Atualizar Dados</SubmitBtn>
       </Container>
     </Styled.compStyle>
   );

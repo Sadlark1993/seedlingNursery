@@ -14,7 +14,7 @@ export const PestRecord = ({
   descriptionRef = useRef(),
   dateRef = useRef()
 }) => {
-  const [records, setRecords] = useState(recordsIn);
+  const [records, setRecords] = useState(recordsIn ? recordsIn : '');
 
   const records2 = records.split('#');
 
