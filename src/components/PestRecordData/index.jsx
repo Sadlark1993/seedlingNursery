@@ -15,7 +15,7 @@ export const PestRecordData = ({ record = null }) => {
   if (!recordRows.length) return <p>Nenhuma doença registrada</p>;
   return (
     <Styled.compStyle>
-      <h2>Registro de Adubação</h2>
+      <h2>Registro de Pragas e Doenças</h2>
       <Styled.table>
         <th>
           <td>doença</td>

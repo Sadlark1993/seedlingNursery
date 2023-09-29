@@ -8,6 +8,8 @@ import { getPlantById } from '../../api/plantsApi';
 import { PageTitle } from '../../components/PageTitle';
 import { PlantImage } from '../../components/PlantImage';
 import { FertRecordData } from '../../components/FertRecordData';
+import { PestRecordData } from '../../components/PestRecordData';
+import { Container } from '../../components/Container';
 
 export const PlantData = () => {
   const { state } = useLocation();
@@ -54,91 +56,95 @@ export const PlantData = () => {
             {plant.specie.name}
           </li>
           <li>
-            <Styled.attKey>endereço/bancada: </Styled.attKey>
-            {plant.specie.name}
+            <Styled.attKey>{plant.address.length ? 'endereço: ' : 'bancada: '}</Styled.attKey>
+            {plant.address.length ? plant.address : plant.shelf}
           </li>
           <li>
             <Styled.attKey>município - UF: </Styled.attKey>
-            {plant.specie.name}
+            {plant.city}
           </li>
           <li>
             <Styled.attKey>altura: </Styled.attKey>
-            {plant.specie.name}
+            {plant.height}
           </li>
           <li>
             <Styled.attKey>altura do fuste: </Styled.attKey>
-            {plant.specie.name}
+            {plant.shaftHeight}
           </li>
           <li>
             <Styled.attKey>CAP: </Styled.attKey>
-            {plant.specie.name}
+            {plant.cap}
           </li>
           <li>
             <Styled.attKey>formação do tronco: </Styled.attKey>
-            {plant.specie.name}
+            {plant.trunkFormation}
           </li>
           <li>
             <Styled.attKey>formação da copa: </Styled.attKey>
-            {plant.specie.name}
+            {plant.cupFormation}
           </li>
           <li>
             <Styled.attKey>tipo de solo: </Styled.attKey>
-            {plant.specie.name}
+            {plant.soilType}
           </li>
           <li>
             <Styled.attKey>tipo de vegetação: </Styled.attKey>
-            {plant.specie.name}
+            {plant.vegetationType}
           </li>
           <li>
             <Styled.attKey>nome do determinador: </Styled.attKey>
-            {plant.specie.name}
+            {plant.determiningName}
           </li>
           <li>
             <Styled.attKey>inst determinador: </Styled.attKey>
-            {plant.specie.name}
+            {plant.detInst}
           </li>
           <li>
             <Styled.attKey>densidade de ocorrência: </Styled.attKey>
-            {plant.specie.name}
+            {plant.occurrenceDensity}
           </li>
           <li>
             <Styled.attKey>latitude: </Styled.attKey>
-            {plant.specie.name}
+            {plant.latitude}
           </li>
           <li>
             <Styled.attKey>longitude: </Styled.attKey>
-            {plant.specie.name}
+            {plant.longitude}
           </li>
           <li>
             <Styled.attKey>altitude: </Styled.attKey>
-            {plant.specie.name}
+            {plant.altitude}
           </li>
           <li>
             <Styled.attKey>área de coleta: </Styled.attKey>
-            {plant.specie.name}
+            {plant.pickupAddress}
           </li>
           <li>
             <Styled.attKey>data de plantio: </Styled.attKey>
-            {plant.specie.name}
+            {plant.plantingDate}
           </li>
           <li>
             <Styled.attKey>data de doação: </Styled.attKey>
-            {plant.specie.name}
+            {plant.donationDate}
           </li>
           <li>
-            <Styled.attKey>matriz de origem </Styled.attKey>
-            {plant.specie.name}
+            <Styled.attKey>matriz de origem: </Styled.attKey>
+            {plant.originMatrix}
           </li>
           <li>
-            <Styled.attKey>número de folhas</Styled.attKey>
-            {plant.specie.name}
+            <Styled.attKey>número de folhas: </Styled.attKey>
+            {plant.leafs}
           </li>
         </Styled.table>
       </Styled.flexContainer>
-      <p>
-        <Styled.attKey>observações: </Styled.attKey>
-      </p>
-      <FertRecordData record={plant.fertRecord} />
+      <Container>
+        <p>
+          <Styled.attKey>observações: </Styled.attKey>
+          {plant.observations}
+        </p>
+        <FertRecordData record={plant.fertRecord} />
+        <PestRecordData record={plant.pestRecord} />
+      </Container>
     </Styled.compStyle>
   );
 };
