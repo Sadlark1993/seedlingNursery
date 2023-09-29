@@ -3,6 +3,10 @@ import styled, { css } from 'styled-components';
 export const compStyle = styled.div`
   ${({ theme }) => css`
     color: ${theme.colors.primaryColor};
+
+    img {
+      max-height: 40rem;
+    }
   `}
 `;
 
@@ -15,6 +19,14 @@ export const flexContainer = styled.div`
   `}
 `;
 
-export const table = styled.div`
-  ${({ theme }) => css``}
+export const table = styled.ul`
+  ${({ theme }) => css`
+    display: flex;
+    flex-direction: column;
+    font-size: ${theme.fonts.sizes.small};
+  `}
+`;
+
+export const attKey = styled.span`
+  font-weight: bold;
 `;
