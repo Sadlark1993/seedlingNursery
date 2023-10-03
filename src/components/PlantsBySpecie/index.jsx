@@ -75,9 +75,7 @@ export const PlantsBySpecie = ({
               }}>
               <Styled.idCell>{row.id}</Styled.idCell>
               <Styled.stageCell>{stage}</Styled.stageCell>
-              <Styled.dateCell>
-                {row.plantingDate.length > 1 ? row.plantingDate : '--'}
-              </Styled.dateCell>
+              <Styled.dateCell>{row.plantingDate ? row.plantingDate : '--'}</Styled.dateCell>
               <Styled.locationCell>{row.currentLocation}</Styled.locationCell>
             </Styled.row>
           );

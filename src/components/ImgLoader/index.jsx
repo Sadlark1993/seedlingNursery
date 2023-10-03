@@ -13,12 +13,12 @@ export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
     if (idImg) {
       (async () => {
         const imgObj = await getPlantImage(idImg);
-        setImg('data:image/png;base64,' + imgObj.image);
+        setImg(imgObj.image);
       })();
     } else {
-      setImg(defaultImg.base64);
+      setImg(defaultImg.base64.split('base64,'));
     }
-  }, [idImg]);
+  }, []);
 
   const convertBase64 = (file) => {
     return new Promise((resolve, reject) => {
@@ -37,13 +37,18 @@ export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
 
   const handleChange = async () => {
     const image = await convertBase64(inputImg.current.files[0]);
-    forwardedRef.current = await image;
-    setImg(await image);
+    const imgArray = await image.split('base64,');
+    forwardedRef.current = await imgArray[1];
+    setImg(await imgArray[1]);
   };
 
   return (
     <Styled.compStyle>
-      {img ? <Styled.imgDisp src={img} alt={altImg} /> : <h2>Loading...</h2>}
+      {img ? (
+        <Styled.imgDisp src={'data:image/png;base64,' + img} alt={altImg} />
+      ) : (
+        <h2>Loading...</h2>
+      )}
       <Styled.imgInput
         ref={inputImg}
         onChange={handleChange}

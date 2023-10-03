@@ -18,7 +18,7 @@ import { PestRecord } from '../../components/PestRecord';
 import { DataContext } from '../../contexts/Data';
 import { Footer } from '../../components/Footer';
 import defaultImg from './defaultImg';
-import { getPlantById } from '../../api/plantsApi';
+import { getPlantById, savePlant } from '../../api/plantsApi';
 import { getAllSpecies } from '../../api/speciesApi';
 
 /* 
@@ -137,24 +137,28 @@ const RegistrationForm = () => {
   const shelfRef = useRef(); //<
   const obsRef = useRef(); //<
   const imgRef = useRef(); //<
+  const amountRef = useRef();
   const startRef = useRef();
 
   useEffect(() => {
+    (async () => {
+      const speciesObj = await getAllSpecies();
+      setSpecies(await speciesObj);
+    })();
+
     if (state) {
       (async () => {
         const plantObj = await getPlantById(state);
-        const speciesObj = await getAllSpecies();
         setPlant(await plantObj);
-        setSpecies(await speciesObj);
       })();
     }
   }, []);
 
   useEffect(() => {
-    if (!state || (plant && species)) {
-      console.log(plant);
+    if (species && (!state || plant)) {
+      //console.log(plant);
       startRef.current.scrollIntoView({ block: 'start' });
-      console.log('state: ', state);
+      //console.log('state: ', state);
       if (state) {
         updateReference();
         setUpdate(false);
@@ -185,7 +189,8 @@ const RegistrationForm = () => {
     setStage(+stageRef.current.value);
   };
 
-  //function that update the form fields with the datas of the selected plant
+  //when update datas of plant is set:
+  //this function updates the form fields with the datas of the selected plant
   const updateReference = async () => {
     const referenceObj = await getPlantById(state);
     setStage(+referenceObj.stage);
@@ -200,7 +205,7 @@ const RegistrationForm = () => {
     trunkFormationRef.current.value = referenceObj.trunkFormation;
     cupFormationRef.current.value = referenceObj.cupFormation;
     soilTypeRef.current.value = referenceObj.soilType;
-    especieRef.current.value = referenceObj.specie;
+    especieRef.current.value = referenceObj.specie.id;
     vegetationRef.current.value = referenceObj.vegetationType;
     cityRef.current.value = referenceObj.city;
     determiningRef.current.value = referenceObj.determiningName;
@@ -256,7 +261,8 @@ const RegistrationForm = () => {
     const submitObj = {
       /* inserindo campos q faltaram como string no campo "nome comum" */
       /* nomeComum: `${stageRef.current.value};${especieRef.current.value};${leafsRef.current.value};${plantingDateRef.current.value};${donationDateRef.current.value};${shelfRef.current.value};${instDetRef.current.value};${enderecoRef.current.value};${originMatrixRef.current.value};${obsRef.current.value};${fertRecord};${pestRecord}`, */
-      stage: stageRef.current.value,
+      id: state ? state : null,
+      stage: +stageRef.current.value,
       occurrenceDensity: +densityRef.current.value,
       latitude: latitudeRef.current.value,
       longitude: longitudeRef.current.value,
@@ -267,7 +273,7 @@ const RegistrationForm = () => {
       trunkFormation: trunkFormationRef.current.value,
       cupFormation: cupFormationRef.current.value,
       soilType: soilTypeRef.current.value,
-      specie: especieRef.current.value,
+      specie: +especieRef.current.value,
       vegetationType: vegetationRef.current.value,
       city: cityRef.current.value,
       determiningName: determiningRef.current.value,
@@ -276,25 +282,26 @@ const RegistrationForm = () => {
       associatedSpecies: associatedSpeciesRef.current.value,
       pickupAddress: pickupAddressRef.current.value,
       originMatrix: originMatrixRef.current.value,
-      leafs: leafsRef.current.value,
+      leafs: +leafsRef.current.value,
       plantingDate: plantingDateRef.current.value,
       donationDate: donationDateRef.current.value,
-      shelf: shelfRef.current.value,
+      shelf: +shelfRef.current.value,
       observations: obsRef.current.value,
+      image: imgRef.current,
       pestRecord: pestRecord,
       fertRecord: fertRecord
       //imagemMatriz: imgRef.current && imgRef.current.length > 10 ? imgRef.current : loadImg
     };
-    if (state) {
-      console.log('updating database');
-      submitObj.id = state;
-      updateRecord(submitObj);
-    } else {
-      submitToDatabase(submitObj);
-    }
+    const objWithAmount = {
+      submitObj,
+      amount: amountRef.current.value ? amountRef.current.value : 1
+    };
+    console.log(submitObj);
+    savePlant(objWithAmount);
   };
 
-  const submitToDatabase = async (plantObj) => {
+  //gotta move this to the api folder.
+  /*   const submitToDatabase = async (plantObj) => {
     fetch('arvoreMatriz/save', {
       headers: {
         'Content-Type': 'application/json'
@@ -336,9 +343,9 @@ const RegistrationForm = () => {
         console.log(rejection);
         alert(rejection);
       });
-  };
+  }; */
 
-  if (state && (species === null || plant === null)) return <p>loading...</p>;
+  if (species === null || (state && plant === null)) return <p>loading...</p>;
 
   return (
     <Styled.pageStyle>
@@ -366,7 +373,7 @@ const RegistrationForm = () => {
             {/* Matrix inputs */}
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>densidade de ocorrência</label>
-              <InputFText forwardedRef={densityRef} fieldW={22} type="number" />
+              <InputFText forwardedRef={densityRef} fieldW={22} type="number" min={1} />
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
               <label>latitude</label>
@@ -398,13 +405,20 @@ const RegistrationForm = () => {
                   fieldW={22}
                   type="number"
                   placeholder="XX.XX"
+                  min={0}
                 />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[0]}>
               <label>altura do fuste</label>
               <Styled.inputWrapper2 suffix="metros">
-                <InputFText forwardedRef={shaftRef} fieldW={22} type="number" placeholder="XX.XX" />
+                <InputFText
+                  forwardedRef={shaftRef}
+                  fieldW={22}
+                  type="number"
+                  placeholder="XX.XX"
+                  min={0}
+                />
               </Styled.inputWrapper2>
             </Styled.gridCell>
             <Styled.gridCell cStart="3" cEnd="4" visible={inputGroup[0]}>
@@ -439,9 +453,12 @@ const RegistrationForm = () => {
             <Styled.gridCell cStart="3" cEnd="5" visible={inputGroup[0]}>
               <label>espécie</label>
               <Styled.selectInput ref={especieRef} fieldW={46}>
+                <option key={0} value={null}>
+                  não selecionado
+                </option>
                 {species.map((specie, index) => {
                   return (
-                    <option key={index} value={specie}>
+                    <option key={index} value={specie.id}>
                       {specie.name}
                     </option>
                   );
@@ -490,6 +507,7 @@ const RegistrationForm = () => {
                 fieldW={22}
                 type="number"
                 placeholder="XX.XX"
+                min={1}
               />
             </Styled.gridCell>
             <Styled.gridCell cStart="2" cEnd="3" visible={inputGroup[1]}>
@@ -531,7 +549,18 @@ const RegistrationForm = () => {
 
             <Styled.gridCellUp cStart="1" cEnd="2" visible={inputGroup[3]}>
               <label>bancada</label>
-              <InputFText forwardedRef={shelfRef} fieldW={22} type="number" />
+              <InputFText forwardedRef={shelfRef} fieldW={22} type="number" min={1} />
+            </Styled.gridCellUp>
+
+            <Styled.gridCellUp cStart="2" cEnd="3" visible={!state && inputGroup[3]}>
+              <label>quantidade a cadastrar</label>
+              <InputFText
+                forwardedRef={amountRef}
+                fieldW={22}
+                type="number"
+                defaultValue={1}
+                min={1}
+              />
             </Styled.gridCellUp>
 
             {/* Observations and registration*/}
