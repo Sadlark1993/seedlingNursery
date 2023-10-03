@@ -14,6 +14,10 @@ export const containerStyle = styled.div`
     display: flex;
     gap: 2rem;
     width: 100%;
+
+    img {
+      flex-grow: 1;
+    }
   `}
 `;
 

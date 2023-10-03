@@ -17,11 +17,11 @@ export const FertRecordData = ({ record = null }) => {
     <Styled.compStyle>
       <h2>Registro de Adubação</h2>
       <Styled.table>
-        <th>
-          <td>tipo</td>
-          <td>quant.</td>
-          <td>data</td>
-        </th>
+        <tr>
+          <th>tipo</th>
+          <th>quant.</th>
+          <th>data</th>
+        </tr>
         {recordRows.map((row, index) => {
           const datas = row.split('|');
           return (

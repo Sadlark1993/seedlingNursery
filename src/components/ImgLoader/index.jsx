@@ -14,9 +14,11 @@ export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
       (async () => {
         const imgObj = await getPlantImage(idImg);
         setImg(imgObj.image);
+        forwardedRef.current = imgObj.image;
       })();
     } else {
       setImg(defaultImg.base64.split('base64,'));
+      forwardedRef.current = defaultImg.base64.split('base64,');
     }
   }, []);
 

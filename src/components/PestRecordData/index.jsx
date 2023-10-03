@@ -17,10 +17,10 @@ export const PestRecordData = ({ record = null }) => {
     <Styled.compStyle>
       <h2>Registro de Pragas e Doenças</h2>
       <Styled.table>
-        <th>
-          <td>doença</td>
-          <td>data</td>
-        </th>
+        <tr>
+          <th>doença</th>
+          <th>data</th>
+        </tr>
         {recordRows.map((row, index) => {
           const datas = row.split('|');
           return (
