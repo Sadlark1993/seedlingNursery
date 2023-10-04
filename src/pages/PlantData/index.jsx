@@ -144,14 +144,16 @@ export const PlantData = () => {
           </li>
         </Styled.table>
       </Styled.flexContainer>
-      <Container>
+      <Container className="data-container">
         <p>
           <Styled.attKey>observações: </Styled.attKey>
           {plant.observations}
         </p>
         <FertRecordData record={plant.fertRecord} />
         <PestRecordData record={plant.pestRecord} />
-        <SubmitBtn onClick={handleClick}>Atualizar Dados</SubmitBtn>
+        <SubmitBtn className="btn" onClick={handleClick}>
+          Atualizar Dados
+        </SubmitBtn>
       </Container>
     </Styled.compStyle>
   );

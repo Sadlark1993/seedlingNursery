@@ -18,8 +18,8 @@ export const PestRecordData = ({ record = null }) => {
       <h2>Registro de Pragas e Doenças</h2>
       <Styled.table>
         <tr>
-          <th>doença</th>
-          <th>data</th>
+          <th style={{ width: '85%' }}>doença</th>
+          <th style={{ width: '15%' }}>data</th>
         </tr>
         {recordRows.map((row, index) => {
           const datas = row.split('|');

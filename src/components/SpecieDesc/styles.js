@@ -17,6 +17,8 @@ export const containerStyle = styled.div`
 
     img {
       flex-grow: 1;
+      overflow: hidden;
+      max-height: 45rem;
     }
   `}
 `;

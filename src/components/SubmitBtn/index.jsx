@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
 
-export const SubmitBtn = ({ children, onClick }) => {
+export const SubmitBtn = ({ children, onClick, ...args }) => {
   return (
-    <Styled.compStyle type="submit" onClick={onClick}>
+    <Styled.compStyle type="submit" onClick={onClick} {...args}>
       {children}
     </Styled.compStyle>
   );

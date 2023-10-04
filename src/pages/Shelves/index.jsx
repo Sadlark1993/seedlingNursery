@@ -8,7 +8,7 @@ import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ShelvesList } from '../../components/ShelvesList';
 import { PlantsByShelf } from '../../components/PlantsByShelf';
-import { Footer } from '../../components/Footer';
+import { getCountByShelf } from '../../api/plantsApi';
 
 const handleLast = () => {
   console.log('last');
@@ -27,68 +27,43 @@ const handleFirst = () => {
 };
 
 const Shelves = () => {
-  const { plants } = useContext(DataContext);
+  const [plants, setPlants] = useState(null);
   const [shelfId, setShelfId] = useState(1);
-  //amount of seeds/seedlings in each shelf
-  const [count, setCount] = useState([0, 0, 0, 0, 0, 0, 0, 0, 0]);
-  //list of species in each shelf
-  const [species, setSpecies] = useState(['', '', '', '', '', '', '', '', '', '']);
-  const [plantsByShelf, setPlantsByShelf] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
+  const [countPerShelf, setCountPerShelf] = useState(null);
 
   const plantsListRef = useRef();
 
-  useEffect(() => {
-    const plantCount = count;
-    const shelfSpecies = species;
-    plants.forEach((plant) => {
-      const plantShelf = +plant.observacoes.split(';')[5];
-      if (plantShelf) {
-        ++plantCount[plantShelf - 1];
-        const matrix = plants.find((matrix) => +matrix.id === +plant.observacoes.split(';')[8]);
-
-        //if it does't have the specie name AND it does't have more than 4 specie names, concat a specie name
-        if (
-          matrix &&
-          !shelfSpecies[plantShelf - 1].includes(matrix.nomeComum) &&
-          (shelfSpecies[plantShelf - 1].match(/,/g) || []).length < 3
-        ) {
-          shelfSpecies[plantShelf - 1] +=
-            shelfSpecies[plantShelf - 1] === '' ? `${matrix.nomeComum}` : `, ${matrix.nomeComum}`;
-        }
-      }
-    });
-    setCount([...plantCount]);
-    setSpecies([...shelfSpecies]);
-    //console.log('bancada', count, species);
-  }, [plants]);
+  const rowsPerPage = 20;
 
   useEffect(() => {
-    const selectedPlants = plants.filter((plant) => {
-      const plantShelf = +plant.observacoes.split(';')[5];
-      return plantShelf === +shelfId;
-    });
-    setPlantsByShelf(selectedPlants);
-  }, [shelfId, plants]);
+    (async () => {
+      const count = await getCountByShelf();
+      setCountPerShelf(await count);
+    })();
+  }, []);
 
   const handleShelfClick = (id) => {
-    setShelfId(id);
-    plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //setShelfId(id);
+    //plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
+
+  if (!countPerShelf) return <h2>Loading...</h2>;
 
   return (
     <Styled.pageStyle>
       <Section background={true}>
         <Container>
           <PageTitle>Bancadas</PageTitle>
-          <ShelvesList countList={count} speciesList={species} onClick={handleShelfClick} />
+          <ShelvesList countList={countPerShelf} speciesList={[]} onClick={handleShelfClick} />
         </Container>
       </Section>
       <Section background={true} forwardRef={plantsListRef}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
-          {plantsByShelf.length ? (
+          {plants ? (
             <PlantsByShelf
-              datas={plantsByShelf}
+              datas={plants}
               handleFirst={handleFirst}
               handleBack={handleBack}
               handleNext={handleNext}

@@ -18,9 +18,9 @@ export const FertRecordData = ({ record = null }) => {
       <h2>Registro de Adubação</h2>
       <Styled.table>
         <tr>
-          <th>tipo</th>
-          <th>quant.</th>
-          <th>data</th>
+          <th style={{ width: '70%' }}>tipo</th>
+          <th style={{ width: '15%' }}>quant.</th>
+          <th style={{ width: '15%' }}>data</th>
         </tr>
         {recordRows.map((row, index) => {
           const datas = row.split('|');

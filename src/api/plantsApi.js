@@ -61,3 +61,8 @@ export const savePlant = async (obj) => {
       return rejection;
     });
 };
+
+export const getCountByShelf = async () => {
+  const obj = await fetch(rootUri + '/plant/count/byShelf');
+  return await obj.json();
+};
