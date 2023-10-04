@@ -9,8 +9,10 @@ export const compStyle = styled.div`
     transition: 100ms ease-in-out;
     cursor: pointer;
     width: 100%;
+    box-shadow: 2rem 1.3rem 2rem black;
     &:hover {
       transform: scale(1.05);
+      box-shadow: 2.5rem 1.8rem 3.5rem 1rem black;
     }
   `}
 `;
