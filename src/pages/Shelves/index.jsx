@@ -33,9 +33,13 @@ const Shelves = () => {
   const [pageIndex, setPageIndex] = useState(0);
   const [countPerShelf, setCountPerShelf] = useState(null);
 
+  // enable/disable plants list navigation
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+
   const plantsListRef = useRef();
 
-  const rowsPerPage = 20;
+  const rowsPerPage = 5;
 
   useEffect(() => {
     (async () => {
@@ -48,12 +52,37 @@ const Shelves = () => {
     (async () => {
       const obj = await getPlantsByShelf(shelfId, pageIndex, rowsPerPage);
       setPlants(await obj);
+
+      if (pageIndex <= 0) setFirst(false);
+      else setFirst(true);
+
+      if (countPerShelf && (pageIndex + 1) * rowsPerPage >= countPerShelf[shelfId - 1])
+        setLast(false);
+      else setLast(true);
     })();
   }, [shelfId, pageIndex]);
 
   const handleShelfClick = (id) => {
     setShelfId(id);
+    setPageIndex(0);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  // plants navigation functions
+  const handleFirst = () => {
+    setPageIndex(0);
+  };
+
+  const handleBack = () => {
+    setPageIndex((c) => --c);
+  };
+
+  const handleNext = () => {
+    setPageIndex((c) => ++c);
+  };
+
+  const handleLast = () => {
+    setPageIndex(Math.floor(countPerShelf[shelfId - 1] / rowsPerPage));
   };
 
   if (!countPerShelf || !plants) return <h2>Loading...</h2>;
@@ -76,7 +105,11 @@ const Shelves = () => {
               handleBack={handleBack}
               handleNext={handleNext}
               handleLast={handleLast}
-              page={1}
+              first={first}
+              previous={first}
+              next={last}
+              last={last}
+              page={pageIndex + 1}
             />
           ) : (
             <h3 style={{ textAlign: 'center' }}>{`Carregando...`}</h3>

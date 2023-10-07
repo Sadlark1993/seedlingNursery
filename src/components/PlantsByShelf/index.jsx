@@ -13,7 +13,11 @@ export const PlantsByShelf = ({
   handleBack,
   handleNext,
   handleLast,
-  page = 0
+  page = 0,
+  first = true,
+  previous = true,
+  next = true,
+  last = true
 }) => {
   const navigate = useNavigate();
 
@@ -26,7 +30,13 @@ export const PlantsByShelf = ({
   if (!datas.length) return <h2>vazio</h2>;
 
   return (
-    <Container>
+    <Container
+      style={{
+        minHeight: '50rem',
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'space-between'
+      }}>
       <Styled.compStyle key={datas.length}>
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.stage>matriz</Styled.stage>
@@ -38,6 +48,10 @@ export const PlantsByShelf = ({
             handleBack={handleBack}
             handleNext={handleNext}
             handleLast={handleLast}
+            first={first}
+            previous={previous}
+            next={next}
+            last={last}
             page={page}
           />
         </Styled.wrapper>
@@ -53,17 +67,21 @@ export const PlantsByShelf = ({
             <Styled.locationCell key="date">{row.specieName}</Styled.locationCell>
           </Styled.row>
         ))}
-        <Styled.wrapper>
-          <Styled.location></Styled.location>
-          <ContentNavigation
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={page}
-          />
-        </Styled.wrapper>
       </Styled.compStyle>
+      <Styled.wrapper>
+        <Styled.location></Styled.location>
+        <ContentNavigation
+          handleFirst={handleFirst}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          handleLast={handleLast}
+          first={first}
+          previous={previous}
+          next={next}
+          last={last}
+          page={page}
+        />
+      </Styled.wrapper>
     </Container>
   );
 };
@@ -74,5 +92,9 @@ PlantsByShelf.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number
+  page: PropTypes.number,
+  first: PropTypes.bool,
+  previous: PropTypes.bool,
+  next: PropTypes.bool,
+  last: PropTypes.bool
 };
