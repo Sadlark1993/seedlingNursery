@@ -17,8 +17,8 @@ export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
         forwardedRef.current = imgObj.image;
       })();
     } else {
-      setImg(defaultImg.base64.split('base64,'));
-      forwardedRef.current = defaultImg.base64.split('base64,');
+      setImg(defaultImg.base64);
+      forwardedRef.current = defaultImg.base64;
     }
   }, []);
 

@@ -227,7 +227,7 @@ const RegistrationForm = () => {
     setPestKey((c) => ++c);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const fertRecord =
       fertRecordRef.current +
@@ -296,8 +296,15 @@ const RegistrationForm = () => {
       submitObj,
       amount: amountRef.current.value ? amountRef.current.value : 1
     };
-    console.log(submitObj);
-    savePlant(objWithAmount);
+    const response = await savePlant(objWithAmount);
+    if (response.ok) {
+      const obj = await response.json();
+      navigate('/dados', {
+        state: obj[0].id
+      });
+    } else {
+      console.log(response);
+    }
   };
 
   //gotta move this to the api folder.

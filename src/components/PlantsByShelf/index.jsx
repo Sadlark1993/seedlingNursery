@@ -15,27 +15,19 @@ export const PlantsByShelf = ({
   handleLast,
   page = 0
 }) => {
-  const { plants } = useContext(DataContext);
   const navigate = useNavigate();
 
   const handleNavigate = (id) => {
-    navigate('/cadastro', {
+    navigate('/dados', {
       state: id
     });
   };
 
-  //Writes the plants species
-  datas.length &&
-    datas.forEach((plant) => {
-      const selectedPlant = plants.find(
-        (matrix) => +matrix.id === +plant.observacoes.split(';')[8]
-      );
-      plant.nomeComum = selectedPlant ? selectedPlant.nomeComum : 'matriz nao cadastrada';
-    });
+  if (!datas.length) return <h2>vazio</h2>;
 
   return (
     <Container>
-      <Styled.compStyle>
+      <Styled.compStyle key={datas.length}>
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.stage>matriz</Styled.stage>
         <Styled.plantingDate>data de plantio</Styled.plantingDate>
@@ -51,14 +43,14 @@ export const PlantsByShelf = ({
         </Styled.wrapper>
         {datas.map((row) => (
           <Styled.row
-            key={row.id}
+            key={'plant: ' + row.id}
             onClick={() => {
               handleNavigate(row.id);
             }}>
-            <Styled.idCell>{row.id}</Styled.idCell>
-            <Styled.stageCell>{row.observacoes.split(';')[8]}</Styled.stageCell>
-            <Styled.dateCell>{row.observacoes.split(';')[3].replaceAll('-', '/')}</Styled.dateCell>
-            <Styled.locationCell>{row.nomeComum}</Styled.locationCell>
+            <Styled.idCell key="id">{row.id}</Styled.idCell>
+            <Styled.stageCell key="specie">{row.idMatriz}</Styled.stageCell>
+            <Styled.dateCell key="matrix">{row.plantingDate}</Styled.dateCell>
+            <Styled.locationCell key="date">{row.specieName}</Styled.locationCell>
           </Styled.row>
         ))}
         <Styled.wrapper>
@@ -77,7 +69,7 @@ export const PlantsByShelf = ({
 };
 
 PlantsByShelf.propTypes = {
-  datas: PropTypes.arrayOf(PropTypes.object).isRequired,
+  datas: PropTypes.array.isRequired,
   handleFirst: PropTypes.func.isRequired,
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,

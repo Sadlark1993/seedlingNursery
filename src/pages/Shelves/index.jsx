@@ -8,7 +8,8 @@ import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ShelvesList } from '../../components/ShelvesList';
 import { PlantsByShelf } from '../../components/PlantsByShelf';
-import { getCountByShelf } from '../../api/plantsApi';
+import { getCountByShelf, getPlantsByShelf } from '../../api/plantsApi';
+const nulo = false;
 
 const handleLast = () => {
   console.log('last');
@@ -43,12 +44,19 @@ const Shelves = () => {
     })();
   }, []);
 
+  useEffect(() => {
+    (async () => {
+      const obj = await getPlantsByShelf(shelfId, pageIndex, rowsPerPage);
+      setPlants(await obj);
+    })();
+  }, [shelfId, pageIndex]);
+
   const handleShelfClick = (id) => {
-    //setShelfId(id);
-    //plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setShelfId(id);
+    plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
-  if (!countPerShelf) return <h2>Loading...</h2>;
+  if (!countPerShelf || !plants) return <h2>Loading...</h2>;
 
   return (
     <Styled.pageStyle>
@@ -58,7 +66,7 @@ const Shelves = () => {
           <ShelvesList countList={countPerShelf} speciesList={[]} onClick={handleShelfClick} />
         </Container>
       </Section>
-      <Section background={true} forwardRef={plantsListRef}>
+      <Section background={true} forwardRef={plantsListRef} style={{ alignContent: 'start' }}>
         <Container>
           <PageTitle>{`Bancada ${shelfId}`}</PageTitle>
           {plants ? (
@@ -71,7 +79,7 @@ const Shelves = () => {
               page={1}
             />
           ) : (
-            <h3 style={{ textAlign: 'center' }}>{`A bancada ${shelfId} está vazia.`}</h3>
+            <h3 style={{ textAlign: 'center' }}>{`Carregando...`}</h3>
           )}
         </Container>
       </Section>

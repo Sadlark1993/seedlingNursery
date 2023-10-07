@@ -60,6 +60,7 @@ export const row = styled.div`
     box-shadow: 0.4rem 0.4rem 0.8rem #333;
     &:hover {
       transform: scale(1.05);
+      box-shadow: 0.4rem 0.4rem 1.8rem #333;
     }
   `}
 `;

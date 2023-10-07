@@ -36,7 +36,6 @@ export const getPlantImage = async (id) => {
 
 export const savePlant = async (obj) => {
   //in case that the specie isn't identified in the plant obj
-  console.log(obj);
   let matrixSpecie = !obj.submitObj.specie ? 0 : obj.submitObj.specie;
   if (!obj.submitObj.specie && obj.submitObj.originMatrix) {
     const matrix = await getPlantById(obj.submitObj.originMatrix);
@@ -46,7 +45,7 @@ export const savePlant = async (obj) => {
 
   obj.submitObj.specie = null;
 
-  fetch(rootUri + '/plant/' + matrixSpecie + '/number/' + obj.amount, {
+  return await fetch(rootUri + '/plant/' + matrixSpecie + '/number/' + obj.amount, {
     headers: {
       'Content-Type': 'application/json'
     },
@@ -54,6 +53,7 @@ export const savePlant = async (obj) => {
     body: JSON.stringify(obj.submitObj)
   })
     .then((response) => {
+      console.log('api: ' + response);
       return response;
     })
     .catch((rejection) => {
@@ -65,4 +65,12 @@ export const savePlant = async (obj) => {
 export const getCountByShelf = async () => {
   const obj = await fetch(rootUri + '/plant/count/byShelf');
   return await obj.json();
+};
+
+export const getPlantsByShelf = async (id, index, pageSize) => {
+  const response = await fetch(
+    rootUri + '/plant/plants-by-shelf-page/' + index + '/page-size/' + pageSize + '/shelf/' + id
+  );
+
+  return await response.json();
 };
