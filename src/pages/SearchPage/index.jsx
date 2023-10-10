@@ -6,7 +6,7 @@ import { PageTitle } from '../../components/PageTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
-import { getPlantById, getPlantsByMatrix } from '../../api/plantsApi';
+import { getPlantById, getPlantsByAddress, getPlantsByMatrix } from '../../api/plantsApi';
 
 const SearchPage = () => {
   const [plants, setPlants] = useState(null);
@@ -38,6 +38,8 @@ const SearchPage = () => {
       setPlants(obj);
     } else if (+paramSelect.current.value === 2) {
       //console.log('busca por endereco');
+      const obj = await getPlantsByAddress(searchValue.current.value, page, pageSize);
+      setPlants(obj);
     }
   };
 

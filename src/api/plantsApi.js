@@ -82,3 +82,17 @@ export const getPlantsByMatrix = async (id, index, pageSize) => {
 
   return await response.json();
 };
+
+export const getPlantsByAddress = async (address, index, pageSize) => {
+  const response = await fetch(
+    rootUri +
+      '/plant/plants-by-address-page/' +
+      index +
+      '/page-size/' +
+      pageSize +
+      '/address/' +
+      address
+  );
+
+  return await response.json();
+};
