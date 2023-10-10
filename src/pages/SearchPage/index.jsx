@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useContext } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import * as Styled from './styles';
 import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
@@ -6,44 +6,33 @@ import { PageTitle } from '../../components/PageTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
-import { Footer } from '../../components/Footer';
-import { DataContext } from '../../contexts/Data';
+import { getPlantById } from '../../api/plantsApi';
 
 const SearchPage = () => {
-  const { plants } = useContext(DataContext);
-  const [plantsOnDisplay, setPlantsOnDisplay] = useState(plants ? plants : []);
+  const [plants, setPlants] = useState(null);
 
   const paramSelect = useRef();
   const searchValue = useRef();
 
-  useEffect(() => {
-    setPlantsOnDisplay(plants);
-  }, [plants]);
-
-  const handleSearch = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
     //console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
     if (+paramSelect.current.value === 0) {
       //console.log('busca id');
-      setPlantsOnDisplay(
-        plants.length > 0 ? plants.filter((plant) => +plant.id === +searchValue.current.value) : []
-      );
-    } else if (+paramSelect.current.value === 1) {
+      const obj = [await getPlantById(searchValue.current.value)];
+      if (obj[0].id) {
+        obj[0].currentLocation = obj[0].address ? obj[0].address : 'bancada ' + obj[0].shelf;
+        setPlants(obj);
+        return;
+      }
+      window.alert(obj[0].message);
+      return;
+    }
+
+    if (+paramSelect.current.value === 1) {
       //console.log('busca por matriz');
-      const selectedPlants = plants.filter((plant) => {
-        return +plant.observacoes.split(';')[8] === +searchValue.current.value;
-      });
-      setPlantsOnDisplay(selectedPlants);
     } else if (+paramSelect.current.value === 2) {
       //console.log('busca por endereco');
-      setPlantsOnDisplay(
-        plants.filter((plant) =>
-          plant.observacoes
-            .split(';')[7]
-            .toUpperCase()
-            .includes(searchValue.current.value.toUpperCase())
-        )
-      );
     }
   };
 
@@ -79,14 +68,18 @@ const SearchPage = () => {
             </Styled.searchWrapper>
             <SubmitBtn onClick={handleSearch}>buscar</SubmitBtn>
           </Styled.SearchForm>
-          <PlantsBySpecie
-            datas={plantsOnDisplay}
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={1}
-          />
+          {plants ? (
+            <PlantsBySpecie
+              datas={plants}
+              handleFirst={handleFirst}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              handleLast={handleLast}
+              page={1}
+            />
+          ) : (
+            <h2>Nenhum cadastro a ser exibido</h2>
+          )}
         </Container>
       </Section>
     </Styled.pageStyle>
