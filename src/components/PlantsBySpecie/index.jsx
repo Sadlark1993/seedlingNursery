@@ -54,32 +54,38 @@ export const PlantsBySpecie = ({
             {...args}
           />
         </Styled.wrapper>
-        {datas.map((row) => {
-          let stage;
-          switch (+row.stage) {
-            case 0:
-              stage = 'matriz';
-              break;
-            case 1:
-              stage = 'muda';
-              break;
-            case 2:
-              stage = 'semente';
-          }
+        {datas.length ? (
+          datas.map((row) => {
+            let stage;
+            switch (+row.stage) {
+              case 0:
+                stage = 'matriz';
+                break;
+              case 1:
+                stage = 'muda';
+                break;
+              case 2:
+                stage = 'semente';
+            }
 
-          return (
-            <Styled.row
-              key={row.id}
-              onClick={() => {
-                handleNavigate(row.id);
-              }}>
-              <Styled.idCell>{row.id}</Styled.idCell>
-              <Styled.stageCell>{stage}</Styled.stageCell>
-              <Styled.dateCell>{row.plantingDate ? row.plantingDate : '--'}</Styled.dateCell>
-              <Styled.locationCell>{row.currentLocation}</Styled.locationCell>
-            </Styled.row>
-          );
-        })}
+            return (
+              <Styled.row
+                key={row.id}
+                onClick={() => {
+                  handleNavigate(row.id);
+                }}>
+                <Styled.idCell>{row.id}</Styled.idCell>
+                <Styled.stageCell>{stage}</Styled.stageCell>
+                <Styled.dateCell>{row.plantingDate ? row.plantingDate : '--'}</Styled.dateCell>
+                <Styled.locationCell>{row.currentLocation}</Styled.locationCell>
+              </Styled.row>
+            );
+          })
+        ) : (
+          <h2 style={{ gridColumn: '1/-1', margin: '1rem 0' }}>
+            Nenhum cadastro corresponde à pesquisa
+          </h2>
+        )}
         <Styled.wrapper>
           <Styled.location></Styled.location>
           <ContentNavigation

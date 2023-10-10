@@ -6,13 +6,16 @@ import { PageTitle } from '../../components/PageTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
-import { getPlantById } from '../../api/plantsApi';
+import { getPlantById, getPlantsByMatrix } from '../../api/plantsApi';
 
 const SearchPage = () => {
   const [plants, setPlants] = useState(null);
+  const [page, setPage] = useState(0);
 
   const paramSelect = useRef();
   const searchValue = useRef();
+
+  const pageSize = 20;
 
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -31,6 +34,8 @@ const SearchPage = () => {
 
     if (+paramSelect.current.value === 1) {
       //console.log('busca por matriz');
+      const obj = await getPlantsByMatrix(searchValue.current.value, page, pageSize);
+      setPlants(obj);
     } else if (+paramSelect.current.value === 2) {
       //console.log('busca por endereco');
     }

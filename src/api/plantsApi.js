@@ -74,3 +74,11 @@ export const getPlantsByShelf = async (id, index, pageSize) => {
 
   return await response.json();
 };
+
+export const getPlantsByMatrix = async (id, index, pageSize) => {
+  const response = await fetch(
+    rootUri + '/plant/plants-by-matrix-page/' + index + '/page-size/' + pageSize + '/matrix/' + id
+  );
+
+  return await response.json();
+};
