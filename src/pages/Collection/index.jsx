@@ -8,27 +8,10 @@ import { PageTitle } from '../../components/PageTitle';
 import { ContentNavigation } from '../../components/ContentNavigation';
 import { SpecieDesc } from '../../components/SpecieDesc';
 import { PlantsBySpecie } from '../../components/PlantsBySpecie';
-import { Footer } from '../../components/Footer';
 import { SpeciesRegisterForm } from '../../components/SpeciesRegisterForm';
 
 import { getSpeciesList, getSpecie } from '../../api/speciesApi';
 import { getPlantsBySpeciePage } from '../../api/plantsApi';
-
-const handleLast = () => {
-  console.log('last');
-};
-
-const handleNext = () => {
-  console.log('last');
-};
-
-const handleBack = () => {
-  console.log('back');
-};
-
-const handleFirst = () => {
-  console.log('first');
-};
 
 const Collection = () => {
   //species
@@ -199,6 +182,7 @@ const Collection = () => {
       </Section>
       <Section className="start" background={true} forwardRef={plantsListRef}>
         <PlantsBySpecie
+          stages={true}
           datas={plantsList}
           handleFirst={handleFirstPlants}
           handleBack={handlePreviousPlants}

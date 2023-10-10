@@ -18,6 +18,7 @@ export const pageStyle = styled.div`
 
     & .start {
       align-content: start;
+      padding: 6rem 0 4rem 0;
     }
   `}
 `;
