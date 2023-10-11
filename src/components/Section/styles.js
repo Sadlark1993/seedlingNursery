@@ -6,7 +6,7 @@ export const compStyle = styled.div`
     padding: 4rem 0;
     min-height: 60rem;
     display: flex;
-    align-content: center;
+    align-content: start;
     flex-wrap: wrap;
     width: 100%;
   `}

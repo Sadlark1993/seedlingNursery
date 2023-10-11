@@ -19,6 +19,7 @@ export const PlantsBySpecie = ({
   toggleSeedlings,
   toggleSeeds,
   toggleMatrixes,
+  stages = false,
   ...args
 }) => {
   const navigate = useNavigate();
@@ -32,14 +33,19 @@ export const PlantsBySpecie = ({
   return (
     <Container>
       <Styled.compStyle>
-        <PlantStageCheckbox
-          seedlings={seedlings}
-          seeds={seeds}
-          matrixes={matrixes}
-          toggleSeedlings={toggleSeedlings}
-          toggleSeeds={toggleSeeds}
-          toggleMatrixes={toggleMatrixes}
-        />
+        {stages ? (
+          <PlantStageCheckbox
+            seedlings={seedlings}
+            seeds={seeds}
+            matrixes={matrixes}
+            toggleSeedlings={toggleSeedlings}
+            toggleSeeds={toggleSeeds}
+            toggleMatrixes={toggleMatrixes}
+          />
+        ) : (
+          ''
+        )}
+
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.stage>estágio</Styled.stage>
         <Styled.plantingDate>data de plantio</Styled.plantingDate>
@@ -114,5 +120,6 @@ PlantsBySpecie.propTypes = {
   matrixes: PropTypes.number,
   toggleSeedlings: PropTypes.func,
   toggleSeeds: PropTypes.func,
-  toggleMatrixes: PropTypes.func
+  toggleMatrixes: PropTypes.func,
+  stages: PropTypes.bool
 };

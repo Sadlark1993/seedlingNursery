@@ -80,7 +80,9 @@ export const getPlantsByMatrix = async (id, index, pageSize) => {
     rootUri + '/plant/plants-by-matrix-page/' + index + '/page-size/' + pageSize + '/matrix/' + id
   );
 
-  return await response.json();
+  const number = +response.headers.get('table-size');
+  const plantsObj = await response.json();
+  return { list: plantsObj, number: number };
 };
 
 export const getPlantsByAddress = async (address, index, pageSize) => {
@@ -94,5 +96,7 @@ export const getPlantsByAddress = async (address, index, pageSize) => {
       address
   );
 
-  return await response.json();
+  const number = +response.headers.get('table-size');
+  const plantsObj = await response.json();
+  return { list: plantsObj, number: number };
 };

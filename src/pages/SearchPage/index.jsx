@@ -11,7 +11,7 @@ import { getPlantById, getPlantsByAddress, getPlantsByMatrix } from '../../api/p
 const SearchPage = () => {
   const [plants, setPlants] = useState(null);
   const [page, setPage] = useState(0);
-
+  const [count, setCount] = useState(0);
   const paramSelect = useRef();
   const searchValue = useRef();
 
@@ -26,6 +26,7 @@ const SearchPage = () => {
       if (obj[0].id) {
         obj[0].currentLocation = obj[0].address ? obj[0].address : 'bancada ' + obj[0].shelf;
         setPlants(obj);
+        setCount(1);
         return;
       }
       window.alert(obj[0].message);
@@ -35,11 +36,16 @@ const SearchPage = () => {
     if (+paramSelect.current.value === 1) {
       //console.log('busca por matriz');
       const obj = await getPlantsByMatrix(searchValue.current.value, page, pageSize);
-      setPlants(obj);
-    } else if (+paramSelect.current.value === 2) {
+      setPlants(obj.list);
+      setCount(obj.number);
+      return;
+    }
+
+    if (+paramSelect.current.value === 2) {
       //console.log('busca por endereco');
       const obj = await getPlantsByAddress(searchValue.current.value, page, pageSize);
-      setPlants(obj);
+      setPlants(obj.list);
+      setCount(obj.number);
     }
   };
 

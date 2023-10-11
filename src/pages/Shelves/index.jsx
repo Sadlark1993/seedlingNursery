@@ -39,7 +39,7 @@ const Shelves = () => {
 
   const plantsListRef = useRef();
 
-  const rowsPerPage = 5;
+  const rowsPerPage = 20;
 
   useEffect(() => {
     (async () => {
