@@ -183,10 +183,10 @@ const Collection = () => {
             handleNext={handleNextSpecies}
             handleLast={handleLastSpecies}
             page={speciesPage}
-            first={true}
-            previous={true}
-            next={true}
-            last={true}
+            first={first}
+            previous={first}
+            next={last}
+            last={last}
           />
         </Container>
       </Section>
