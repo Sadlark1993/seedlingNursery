@@ -31,7 +31,13 @@ export const PlantsBySpecie = ({
   };
 
   return (
-    <Container>
+    <Container
+      style={{
+        minHeight: '50rem',
+        display: 'flex',
+        flexFlow: 'column',
+        justifyContent: 'space-between'
+      }}>
       <Styled.compStyle>
         {stages ? (
           <PlantStageCheckbox
@@ -92,18 +98,18 @@ export const PlantsBySpecie = ({
             Nenhum cadastro corresponde à pesquisa
           </h2>
         )}
-        <Styled.wrapper>
-          <Styled.location></Styled.location>
-          <ContentNavigation
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={page}
-            {...args}
-          />
-        </Styled.wrapper>
       </Styled.compStyle>
+      <Styled.wrapper style={{ marginTop: '1rem' }}>
+        <Styled.location></Styled.location>
+        <ContentNavigation
+          handleFirst={handleFirst}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          handleLast={handleLast}
+          page={page}
+          {...args}
+        />
+      </Styled.wrapper>
     </Container>
   );
 };

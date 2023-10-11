@@ -122,6 +122,7 @@ const Collection = () => {
   //load list of plants
   const handleSearch = async (specieId) => {
     setSelectedId(specieId);
+    setCurrentPage(1);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 

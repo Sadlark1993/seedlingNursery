@@ -77,7 +77,13 @@ export const getPlantsByShelf = async (id, index, pageSize) => {
 
 export const getPlantsByMatrix = async (id, index, pageSize) => {
   const response = await fetch(
-    rootUri + '/plant/plants-by-matrix-page/' + index + '/page-size/' + pageSize + '/matrix/' + id
+    rootUri +
+      '/plant/plants-by-matrix-page/' +
+      (index - 1) +
+      '/page-size/' +
+      pageSize +
+      '/matrix/' +
+      id
   );
 
   const number = +response.headers.get('table-size');
@@ -89,7 +95,7 @@ export const getPlantsByAddress = async (address, index, pageSize) => {
   const response = await fetch(
     rootUri +
       '/plant/plants-by-address-page/' +
-      index +
+      (index - 1) +
       '/page-size/' +
       pageSize +
       '/address/' +

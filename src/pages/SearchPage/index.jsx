@@ -10,15 +10,32 @@ import { getPlantById, getPlantsByAddress, getPlantsByMatrix } from '../../api/p
 
 const SearchPage = () => {
   const [plants, setPlants] = useState(null);
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [count, setCount] = useState(0);
+  const [first, setFirst] = useState(false);
+  const [last, setLast] = useState(false);
+
   const paramSelect = useRef();
   const searchValue = useRef();
 
   const pageSize = 20;
 
+  useEffect(() => {
+    if (page <= 1) setFirst(false);
+    else setFirst(true);
+
+    if (page * pageSize >= count) setLast(false);
+    else setLast(true);
+    console.log(count);
+  }, [count, page, plants]);
+
+  useEffect(() => {
+    plants && handleSearch();
+  }, [page]);
+
   const handleSearch = async (event) => {
-    event.preventDefault();
+    setPage(1);
+    event && event.preventDefault();
     //console.log(`Param: ${paramSelect.current.value}, search: ${searchValue.current.value}`);
     if (+paramSelect.current.value === 0) {
       //console.log('busca id');
@@ -38,6 +55,7 @@ const SearchPage = () => {
       const obj = await getPlantsByMatrix(searchValue.current.value, page, pageSize);
       setPlants(obj.list);
       setCount(obj.number);
+      console.log('m: ' + obj.number);
       return;
     }
 
@@ -50,19 +68,19 @@ const SearchPage = () => {
   };
 
   const handleLast = () => {
-    console.log('last');
+    setPage(Math.ceil(count / pageSize));
   };
 
   const handleBack = () => {
-    console.log('back');
+    setPage((c) => --c);
   };
 
   const handleNext = () => {
-    console.log('next');
+    setPage((c) => ++c);
   };
 
   const handleFirst = () => {
-    console.log('first');
+    setPage(1);
   };
 
   return (
@@ -88,7 +106,11 @@ const SearchPage = () => {
               handleBack={handleBack}
               handleNext={handleNext}
               handleLast={handleLast}
-              page={1}
+              page={page}
+              first={first}
+              previous={first}
+              next={last}
+              last={last}
             />
           ) : (
             <h2>Nenhum cadastro a ser exibido</h2>
