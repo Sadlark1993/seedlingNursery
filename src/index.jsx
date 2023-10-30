@@ -18,6 +18,7 @@ import { Logo } from './components/Logo';
 import { Navigation } from './components/Navigation';
 import LinksMock from './components/Header/LinksMock';
 import { Footer } from './components/Footer';
+import { DashBoard } from './pages/Dashboard';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -41,6 +42,7 @@ root.render(
           <Route path="/cadastro" element={<RegistrationForm />} />
           <Route path="/login" element={<Home />} />
           <Route path="/dados" element={<PlantData />} />
+          <Route path="/dashboard" element={<DashBoard />} />
         </Routes>
         <Footer>
           {
