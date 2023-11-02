@@ -91,6 +91,16 @@ export const ValvesList = ({
           </h2>
         )}
       </Styled.compStyle>
+      <Styled.navWrapper>
+        <ContentNavigation
+          handleFirst={handleFirst}
+          handleBack={handleBack}
+          handleNext={handleNext}
+          handleLast={handleLast}
+          page={page}
+          {...args}
+        />
+      </Styled.navWrapper>
     </Container>
   );
 };

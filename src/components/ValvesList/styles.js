@@ -106,3 +106,10 @@ export const circle = styled.div`
     margin: 0.15rem auto;
   `}
 `;
+
+export const navWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: end;
+`;
