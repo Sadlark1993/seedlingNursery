@@ -1,0 +1,14 @@
+{
+  "valves": {
+    "content": "valvesList - states",
+    "valve": {
+      "content": "valveData"
+    }
+  },
+  "sensors": {
+    "content": "sensorsList - states",
+    "sensor": {
+      "content": "sensorData"
+    }
+  }
+}
