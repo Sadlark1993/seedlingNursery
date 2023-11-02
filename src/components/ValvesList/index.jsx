@@ -50,7 +50,7 @@ export const ValvesList = ({
   page = 0,
   ...args
 }) => {
-  datas = mockData;
+  //datas = mockData;
   return (
     <Container
       style={{
@@ -65,14 +65,14 @@ export const ValvesList = ({
         <Styled.shelf>bancada</Styled.shelf>
         <Styled.observation>
           <span>observação</span>{' '}
-          <ContentNavigation
+          {/*           <ContentNavigation
             handleFirst={handleFirst}
             handleBack={handleBack}
             handleNext={handleNext}
             handleLast={handleLast}
             page={page}
             {...args}
-          />
+          /> */}
         </Styled.observation>
         {datas.length ? (
           datas.map((row) => (
@@ -91,7 +91,7 @@ export const ValvesList = ({
           </h2>
         )}
       </Styled.compStyle>
-      <Styled.navWrapper>
+      {/*       <Styled.navWrapper>
         <ContentNavigation
           handleFirst={handleFirst}
           handleBack={handleBack}
@@ -100,7 +100,7 @@ export const ValvesList = ({
           page={page}
           {...args}
         />
-      </Styled.navWrapper>
+      </Styled.navWrapper> */}
     </Container>
   );
 };
