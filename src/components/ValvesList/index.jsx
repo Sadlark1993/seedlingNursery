@@ -3,7 +3,7 @@ import * as Styled from './styles';
 import { Container } from '../Container';
 import { ContentNavigation } from '../ContentNavigation';
 
-const mockData = [
+/* const mockData = [
   {
     id: 1,
     shelf: 2,
@@ -39,7 +39,7 @@ const mockData = [
       'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
     currentState: false
   }
-];
+]; */
 
 export const ValvesList = ({
   datas = [],
@@ -65,7 +65,8 @@ export const ValvesList = ({
         <Styled.shelf>bancada</Styled.shelf>
         <Styled.observation>
           <span>observação</span>{' '}
-          {/*           <ContentNavigation
+          {/*           
+          <ContentNavigation
             handleFirst={handleFirst}
             handleBack={handleBack}
             handleNext={handleNext}

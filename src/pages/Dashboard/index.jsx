@@ -8,6 +8,7 @@ import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ValvesList } from '../../components/ValvesList';
 import { getAllValves } from '../../api/dashBoardApi';
+import { SensorsList } from '../../components/SensorsList';
 
 const handleFirst = () => {
   console.log('first');
@@ -53,7 +54,14 @@ export const DashBoard = () => {
             </Styled.buttonStyle>
           </Styled.selector>
           {content ? (
-            ''
+            <SensorsList
+              handleFirst={handleFirst}
+              handleBack={handleBack}
+              handleNext={handleNext}
+              handleLast={handleLast}
+              datas={sensors}
+              page={0}
+            />
           ) : (
             <ValvesList
               handleFirst={handleFirst}
