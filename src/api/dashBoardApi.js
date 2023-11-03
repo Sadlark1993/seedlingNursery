@@ -4,3 +4,8 @@ export const getAllValves = async () => {
   const valvesPromise = await fetch(rootUri + '/valve/all');
   return await valvesPromise.json();
 };
+
+export const getValve = async (id) => {
+  const valvePromise = await fetch(rootUri + '/valve/' + id);
+  return await valvePromise.json();
+};

@@ -16,6 +16,10 @@ export default [
     href: '/cadastro'
   },
   {
+    name: 'Dashboard',
+    href: '/dashboard'
+  },
+  {
     name: 'Sair',
     href: '/'
   }

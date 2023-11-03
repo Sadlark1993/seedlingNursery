@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Container } from '../Container';
 import { ContentNavigation } from '../ContentNavigation';
+import { useNavigate } from 'react-router-dom';
 
 /* const mockData = [
   {
@@ -51,6 +52,13 @@ export const ValvesList = ({
   ...args
 }) => {
   //datas = mockData;
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate('/valve', {
+      state: id
+    });
+  };
+
   return (
     <Container
       style={{
@@ -77,7 +85,7 @@ export const ValvesList = ({
         </Styled.observation>
         {datas.length ? (
           datas.map((row) => (
-            <Styled.row key={row.id}>
+            <Styled.row key={row.id} onClick={() => handleNavigate(row.id)}>
               <Styled.stateCell>
                 <Styled.circle color={row.currentState ? 'green' : 'red'} />
               </Styled.stateCell>

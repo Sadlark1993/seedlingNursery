@@ -1,7 +1,12 @@
 import styled, { css } from 'styled-components';
+import * as BtnStyle from '../../components/SubmitBtn/styles';
 
 export const compStyle = styled.div`
-  ${({ theme }) => css``}
+  ${({ theme }) => css`
+    & ${BtnStyle.compStyle} {
+      margin: 2rem auto;
+    }
+  `}
 `;
 
 export const titleWrapper = styled.div`
