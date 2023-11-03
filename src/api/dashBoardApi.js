@@ -9,3 +9,8 @@ export const getValve = async (id) => {
   const valvePromise = await fetch(rootUri + '/valve/' + id);
   return await valvePromise.json();
 };
+
+export const getIrrigationTime = async (id) => {
+  const valvePromise = await fetch(rootUri + '/irrigation-time/valve/' + id);
+  return await valvePromise.json();
+};
