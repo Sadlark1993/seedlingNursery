@@ -30,3 +30,9 @@ export const submitIrrigationTime = async (irrigationTime, valve) => {
     return response.text;
   }
 };
+
+export const deleteIrrigationTime = async (id) => {
+  const respose = await fetch(rootUri + '/irrigation-time/delete/' + id, {
+    method: 'DELETE'
+  });
+};

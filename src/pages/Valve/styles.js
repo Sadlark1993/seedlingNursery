@@ -78,8 +78,14 @@ export const modalRegister = styled.div`
       margin-bottom: 0.5rem;
     }
 
-    .inputWrapper {
+    .inputsWrapper {
       display: flex;
+    }
+
+    .singleInputWrapper {
+      width: 50%;
+      text-align: center;
+      padding: 0 1rem;
     }
 
     @keyframes modal {

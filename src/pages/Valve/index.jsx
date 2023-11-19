@@ -13,9 +13,13 @@ export const Valve = () => {
   const { state } = useLocation();
   const [valve, setValve] = useState({});
   const [showRegistModal, setShowRegistModal] = useState('');
+  const [showAlterModal, setShowAlaterModal] = useState('');
+  const [currentRecord, setCurrentRecord] = useState(null);
 
   const initialTimeRef = useRef();
   const finalTimeRef = useRef();
+  const initialTimeRef2 = useRef();
+  const finalTimeRef2 = useRef();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,8 +28,10 @@ export const Valve = () => {
     })();
   }, []);
 
+  //********************************** Registration Functions **********************************
   const handleRegister = (event) => {
     if (event.target === event.currentTarget) {
+      setCurrentRecord(null);
       setShowRegistModal(showRegistModal === 'active' ? '' : 'active');
     }
   };
@@ -33,6 +39,7 @@ export const Valve = () => {
   const submitTime = async (event) => {
     event.preventDefault();
     const irrigationTime = {
+      id: null,
       initialTime: initialTimeRef.current.value,
       finalTime: finalTimeRef.current.value
     };
@@ -46,6 +53,39 @@ export const Valve = () => {
       setShowRegistModal(showRegistModal === 'active' ? '' : 'active');
     }
   };
+  //**************************** End Registration Functions ******************************
+
+  //************************* Alteration Functions **************************
+
+  const handleAlter = (event, initial, final, id) => {
+    if (event.target === event.currentTarget) {
+      if (id) {
+        initialTimeRef2.current.value = initial;
+        finalTimeRef2.current.value = final;
+        setCurrentRecord(id);
+      }
+
+      setShowAlaterModal(showAlterModal === 'active' ? '' : 'active');
+    }
+  };
+
+  const alterTime = async (event) => {
+    event.preventDefault();
+    const irrigationTime = {
+      id: currentRecord,
+      initialTime: initialTimeRef2.current.value,
+      finalTime: finalTimeRef2.current.value
+    };
+    const response = await submitIrrigationTime(irrigationTime, state);
+    console.log(response);
+    if ((await response) !== 'ok') {
+      alert('Erro! Horário não cadastrado. ' + response);
+      console.log(response);
+    } else {
+      navigate(0);
+      setShowAlaterModal(showAlterModal === 'active' ? '' : 'active');
+    }
+  };
 
   return (
     <Styled.compStyle>
@@ -55,19 +95,19 @@ export const Valve = () => {
         <Styled.circle color={valve.currentState ? 'green' : 'red'} />
       </Styled.titleWrapper>
       <SubmitBtn onClick={handleRegister}>Cadastrar Horário de Irrigação</SubmitBtn>
-      {valve.id ? <TimesList id={valve.id} /> : <p>Carregando...</p>}
+      {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>}
 
-      {/* IrrigationTime Modal */}
+      {/* IrrigationTime Registration Modal */}
       <Styled.modal className={showRegistModal} onClick={handleRegister}>
         <Styled.modalRegister>
           <h2>Novo Horário de Irrigação</h2>
           <form>
-            <div className="inputWrapper">
-              <div style={{ width: '50%', textAlign: 'center' }}>
+            <div className="inputsWrapper">
+              <div className="singleInputWrapper">
                 <label>horário inicial</label>
                 <InputFText fieldW={13} type="time" forwardedRef={initialTimeRef} />
               </div>
-              <div style={{ width: '50%', textAlign: 'center' }}>
+              <div className="singleInputWrapper">
                 <label>horário final</label>
                 <InputFText fieldW={13} type="time" forwardedRef={finalTimeRef} />
               </div>
@@ -76,6 +116,30 @@ export const Valve = () => {
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
               onClick={submitTime}>
               Cadastrar
+            </SubmitBtn>
+          </form>
+        </Styled.modalRegister>
+      </Styled.modal>
+
+      {/* IrrigationTime Alteration Modal */}
+      <Styled.modal className={showAlterModal} onClick={handleAlter}>
+        <Styled.modalRegister>
+          <h2>Horário de Irrigação {currentRecord}</h2>
+          <form>
+            <div className="inputsWrapper">
+              <div className="singleInputWrapper">
+                <label>horário inicial</label>
+                <InputFText fieldW={13} type="time" forwardedRef={initialTimeRef2} />
+              </div>
+              <div className="singleInputWrapper">
+                <label>horário final</label>
+                <InputFText fieldW={13} type="time" forwardedRef={finalTimeRef2} />
+              </div>
+            </div>
+            <SubmitBtn
+              style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
+              onClick={alterTime}>
+              Mudar
             </SubmitBtn>
           </form>
         </Styled.modalRegister>

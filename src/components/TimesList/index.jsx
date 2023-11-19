@@ -29,7 +29,9 @@ export const TimesList = ({ id, handleClick = (i) => console.log(i) }) => {
         <Styled.final>h. final</Styled.final>
         {times.length ? (
           times.map((row) => (
-            <Styled.row key={row.id} onClick={() => handleClick(row.id)}>
+            <Styled.row
+              key={row.id}
+              onClick={() => handleClick(Event, row.initialTime, row.finalTime, row.id)}>
               <Styled.idCell>{row.id}</Styled.idCell>
               <Styled.initialCell>{row.initialTime}</Styled.initialCell>
               <Styled.finalCell>{row.finalTime}</Styled.finalCell>
