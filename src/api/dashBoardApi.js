@@ -14,3 +14,19 @@ export const getIrrigationTime = async (id) => {
   const valvePromise = await fetch(rootUri + '/irrigation-time/valve/' + id);
   return await valvePromise.json();
 };
+
+export const submitIrrigationTime = async (irrigationTime, valve) => {
+  const response = await fetch(rootUri + '/irrigation-time/valve/' + valve, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(irrigationTime)
+  });
+
+  if (response.ok) {
+    return 'ok';
+  } else {
+    return response.text;
+  }
+};

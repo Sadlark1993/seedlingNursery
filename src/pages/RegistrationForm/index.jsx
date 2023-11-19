@@ -259,8 +259,6 @@ const RegistrationForm = () => {
         : '');
 
     const submitObj = {
-      /* inserindo campos q faltaram como string no campo "nome comum" */
-      /* nomeComum: `${stageRef.current.value};${especieRef.current.value};${leafsRef.current.value};${plantingDateRef.current.value};${donationDateRef.current.value};${shelfRef.current.value};${instDetRef.current.value};${enderecoRef.current.value};${originMatrixRef.current.value};${obsRef.current.value};${fertRecord};${pestRecord}`, */
       id: state ? state : null,
       stage: +stageRef.current.value,
       occurrenceDensity: +densityRef.current.value,
@@ -290,7 +288,6 @@ const RegistrationForm = () => {
       image: imgRef.current,
       pestRecord: pestRecord,
       fertRecord: fertRecord
-      //imagemMatriz: imgRef.current && imgRef.current.length > 10 ? imgRef.current : loadImg
     };
     const objWithAmount = {
       submitObj,
@@ -306,51 +303,6 @@ const RegistrationForm = () => {
       console.log(response);
     }
   };
-
-  //gotta move this to the api folder.
-  /*   const submitToDatabase = async (plantObj) => {
-    fetch('arvoreMatriz/save', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(plantObj)
-    })
-      .then((response) => {
-        console.log('object submit');
-        startRef.current.scrollIntoView({ block: 'start' });
-        navigate('/cadastro', {
-          state: null
-        });
-        location.reload(true);
-      })
-      .catch((rejection) => {
-        console.log(rejection);
-        alert(rejection);
-      });
-  };
-
-  const updateRecord = (plantObj) => {
-    fetch('arvoreMatriz/update', {
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      method: 'POST',
-      body: JSON.stringify(plantObj)
-    })
-      .then((response) => {
-        console.log('object submit');
-        startRef.current.scrollIntoView({ block: 'start' });
-        navigate('/cadastro', {
-          state: null
-        });
-        location.reload(true);
-      })
-      .catch((rejection) => {
-        console.log(rejection);
-        alert(rejection);
-      });
-  }; */
 
   if (species === null || (state && plant === null)) return <p>loading...</p>;
 

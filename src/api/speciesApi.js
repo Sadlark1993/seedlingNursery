@@ -10,7 +10,6 @@ export const getSpeciesList = async (page) => {
 
 //saves specie object to database
 export const saveSpecie = (specie) => {
-  console.log('saving');
   fetch(rootUri + '/specie', {
     headers: {
       'Content-Type': 'application/json'
