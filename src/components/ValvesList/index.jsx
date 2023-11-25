@@ -1,46 +1,8 @@
 import PropTypes from 'prop-types';
-import * as Styled from './styles';
-import { Container } from '../Container';
-import { ContentNavigation } from '../ContentNavigation';
 import { useNavigate } from 'react-router-dom';
 
-/* const mockData = [
-  {
-    id: 1,
-    shelf: 2,
-    observations:
-      'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
-    currentState: true
-  },
-  {
-    id: 2,
-    shelf: 2,
-    observations:
-      'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
-    currentState: false
-  },
-  {
-    id: 3,
-    shelf: 2,
-    observations:
-      'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
-    currentState: false
-  },
-  {
-    id: 4,
-    shelf: 2,
-    observations:
-      'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
-    currentState: false
-  },
-  {
-    id: 5,
-    shelf: 2,
-    observations:
-      'Esta válvula fica no fim da bancada. Ela atualmente é responsável por irrigar os cajueiros e os jatobás',
-    currentState: false
-  }
-]; */
+import * as Styled from './styles';
+import { Container } from '../Container';
 
 export const ValvesList = ({
   datas = [],
@@ -49,6 +11,8 @@ export const ValvesList = ({
   handleNext,
   handleLast,
   page = 0,
+  add = () => console.log('add valve'),
+  deleteV = (id) => console.log('deleted: ' + id),
   ...args
 }) => {
   //datas = mockData;
@@ -72,7 +36,8 @@ export const ValvesList = ({
         <Styled.idNumber>ID</Styled.idNumber>
         <Styled.shelf>bancada</Styled.shelf>
         <Styled.observation>
-          <span>observação</span>{' '}
+          <span>observação</span>
+          <button onClick={add}>+ adicionar </button>
           {/*           
           <ContentNavigation
             handleFirst={handleFirst}
@@ -85,13 +50,20 @@ export const ValvesList = ({
         </Styled.observation>
         {datas.length ? (
           datas.map((row) => (
-            <Styled.row key={row.id} onClick={() => handleNavigate(row.id)}>
-              <Styled.stateCell>
+            <Styled.row key={row.id}>
+              <Styled.stateCell onClick={() => handleNavigate(row.id)}>
                 <Styled.circle color={row.currentState ? 'green' : 'red'} />
               </Styled.stateCell>
-              <Styled.idCell>{row.id}</Styled.idCell>
-              <Styled.shelfCell>{row.shelf}</Styled.shelfCell>
-              <Styled.obsCell>{row.observations}</Styled.obsCell>
+              <Styled.idCell onClick={() => handleNavigate(row.id)}>{row.id}</Styled.idCell>
+              <Styled.shelfCell onClick={() => handleNavigate(row.id)}>
+                {row.shelf}
+              </Styled.shelfCell>
+              <Styled.obsCell onClick={() => handleNavigate(row.id)}>
+                {row.observations}
+              </Styled.obsCell>
+              <Styled.deleteCell onClick={() => deleteV(row.id)}>
+                <img src="./img/icons/garbage.svg" />
+              </Styled.deleteCell>
             </Styled.row>
           ))
         ) : (
@@ -120,5 +92,7 @@ ValvesList.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number
+  page: PropTypes.number,
+  add: PropTypes.func,
+  deleteV: PropTypes.func
 };

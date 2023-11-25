@@ -26,12 +26,27 @@ export const observation = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: relative;
+
+  & > button {
+    padding: 0.5rem 0.8rem;
+    position: absolute;
+    right: 0.3rem;
+    transition: 0.15s ease-in-out;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0.2rem 0.2rem 0.4rem #333;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0.4rem 0.4rem 1rem #333;
+    }
+  }
 `;
 
 export const row = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 5rem 7.5rem 7.5rem 1fr;
+    grid-template-columns: 5rem 7.5rem 7.5rem 1fr 5rem;
     grid-column: 1/-1;
     background-color: white;
     transition: 0.15s ease-in-out;
@@ -90,10 +105,24 @@ export const obsCell = styled.div`
     height: 3rem;
     grid-column: 4/5;
     padding: 0.2rem 0.6rem;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
     overflow: hidden;
   `}
+`;
+
+export const deleteCell = styled.div`
+  border: solid 2px black;
+  border-left: none;
+  width: 100%;
+  height: 3rem;
+  grid-column: 5/6;
+  padding: 0.2rem 0.6rem;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  & > img {
+    height: 2.2rem;
+    width: 100%;
+  }
 `;
 
 export const circle = styled.div`

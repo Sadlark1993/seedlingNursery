@@ -32,7 +32,29 @@ export const submitIrrigationTime = async (irrigationTime, valve) => {
 };
 
 export const deleteIrrigationTime = async (id) => {
-  const respose = await fetch(rootUri + '/irrigation-time/delete/' + id, {
+  await fetch(rootUri + '/irrigation-time/delete/' + id, {
     method: 'DELETE'
   });
+};
+
+export const deleteValve = async (id) => {
+  await fetch(rootUri + '/valve/delete/' + id, {
+    method: 'DELETE'
+  });
+};
+
+export const saveValve = async (valve) => {
+  const response = await fetch(rootUri + '/valve', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(valve)
+  });
+
+  if (response.ok) {
+    return 'ok';
+  } else {
+    return response.text;
+  }
 };

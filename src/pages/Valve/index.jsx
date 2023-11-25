@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './styles';
 import { PageTitle } from '../../components/PageTitle';
-import { getValve, submitIrrigationTime } from '../../api/dashBoardApi';
+import { getValve, submitIrrigationTime, deleteIrrigationTime } from '../../api/dashBoardApi';
 import { useLocation } from 'react-router-dom';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { TimesList } from '../../components/TimesList';
@@ -14,12 +14,15 @@ export const Valve = () => {
   const [valve, setValve] = useState({});
   const [showRegistModal, setShowRegistModal] = useState('');
   const [showAlterModal, setShowAlaterModal] = useState('');
+  const [showDeleteModal, setShowDeleteModal] = useState('');
   const [currentRecord, setCurrentRecord] = useState(null);
 
   const initialTimeRef = useRef();
   const finalTimeRef = useRef();
   const initialTimeRef2 = useRef();
   const finalTimeRef2 = useRef();
+  const deleteRef = useRef();
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -57,9 +60,16 @@ export const Valve = () => {
 
   //************************* Alteration Functions **************************
 
-  const handleAlter = (event, initial, final, id) => {
+  const handleAlter = async (event, initial, final, id) => {
     if (event.target === event.currentTarget) {
       if (id) {
+        //clicked on garbage icon? show delete modal.
+        if (initial === 'delete') {
+          deleteIrrigationTime(id);
+          navigate(0);
+          return;
+        }
+
         initialTimeRef2.current.value = initial;
         finalTimeRef2.current.value = final;
         setCurrentRecord(id);

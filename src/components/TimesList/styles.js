@@ -24,7 +24,7 @@ export const final = styled.div`
 export const row = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 5rem 12.5rem 1fr;
+    grid-template-columns: 5rem 12.5rem 1fr 5rem;
     grid-column: 1/-1;
     background-color: white;
     transition: 0.15s ease-in-out;
@@ -71,8 +71,23 @@ export const finalCell = styled.div`
     height: 3rem;
     grid-column: 3/4;
     padding: 0.2rem 0.6rem;
-    border-top-right-radius: 6px;
-    border-bottom-right-radius: 6px;
     overflow: hidden;
   `}
+`;
+
+export const deleteCell = styled.div`
+  display: block;
+  border: solid 2px black;
+  border-left: none;
+  width: 100%;
+  height: 3rem;
+  grid-column: 4/5;
+  padding: 0.2rem 0.6rem;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+
+  img {
+    height: 2.2rem;
+    width: 100%;
+  }
 `;

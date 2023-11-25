@@ -29,12 +29,22 @@ export const TimesList = ({ id, handleClick = (i) => console.log(i) }) => {
         <Styled.final>h. final</Styled.final>
         {times.length ? (
           times.map((row) => (
-            <Styled.row
-              key={row.id}
-              onClick={() => handleClick(Event, row.initialTime, row.finalTime, row.id)}>
-              <Styled.idCell>{row.id}</Styled.idCell>
-              <Styled.initialCell>{row.initialTime}</Styled.initialCell>
-              <Styled.finalCell>{row.finalTime}</Styled.finalCell>
+            <Styled.row key={row.id}>
+              <Styled.idCell
+                onClick={() => handleClick(Event, row.initialTime, row.finalTime, row.id)}>
+                {row.id}
+              </Styled.idCell>
+              <Styled.initialCell
+                onClick={() => handleClick(Event, row.initialTime, row.finalTime, row.id)}>
+                {row.initialTime}
+              </Styled.initialCell>
+              <Styled.finalCell
+                onClick={() => handleClick(Event, row.initialTime, row.finalTime, row.id)}>
+                {row.finalTime}
+              </Styled.finalCell>
+              <Styled.deleteCell onClick={() => handleClick(Event, 'delete', 'delete', row.id)}>
+                <img src="./img/icons/garbage.svg" />
+              </Styled.deleteCell>
             </Styled.row>
           ))
         ) : (
