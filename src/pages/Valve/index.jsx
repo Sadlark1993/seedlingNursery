@@ -8,14 +8,15 @@ import { useLocation } from 'react-router-dom';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { TimesList } from '../../components/TimesList';
 import { InputFText } from '../../components/InputFText';
+import { Container } from '../../components/Container';
 
 export const Valve = () => {
   const { state } = useLocation();
   const [valve, setValve] = useState({});
   const [showRegistModal, setShowRegistModal] = useState('');
   const [showAlterModal, setShowAlaterModal] = useState('');
-  const [showDeleteModal, setShowDeleteModal] = useState('');
   const [currentRecord, setCurrentRecord] = useState(null);
+  const [editObs, setEditObs] = useState(false);
 
   const initialTimeRef = useRef();
   const finalTimeRef = useRef();
@@ -103,6 +104,7 @@ export const Valve = () => {
       setShowAlaterModal(showAlterModal === 'active' ? '' : 'active');
     }
   };
+  //**************************** End Alteration Functions ******************************
 
   return (
     <Styled.compStyle>
@@ -111,9 +113,21 @@ export const Valve = () => {
         <PageTitle>{`Válvula ${valve.id ? valve.id : 'Carregando...'}`}</PageTitle>
         <Styled.circle color={valve.currentState ? 'green' : 'red'} />
       </Styled.titleWrapper>
+      {editObs ? (
+        <Container>
+          <Styled.textAreaStyle />
+          <Styled.saveButton>salvar</Styled.saveButton>
+        </Container>
+      ) : (
+        <Styled.valveObs>
+          {valve.observations}
+          <div onClick={() => setEditObs(true)}>
+            <img src="./img/icons/edit.svg" />
+          </div>
+        </Styled.valveObs>
+      )}
       <SubmitBtn onClick={handleRegister}>Cadastrar Horário de Irrigação</SubmitBtn>
       {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>}
-
       {/* IrrigationTime Registration Modal */}
       <Styled.modal className={showRegistModal} onClick={handleRegister}>
         <Styled.modalRegister>
