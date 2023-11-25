@@ -59,20 +59,52 @@ export const modalRegister = styled.div`
     h2::after {
       content: ' ';
       display: block;
-      margin: 0.5rem auto 1rem auto;
+      margin: 0.5rem auto 2rem auto;
       height: 0.3rem;
       width: 6rem;
       background-color: ${theme.colors.primaryColor};
     }
 
     input {
-      height: 3rem;
+      height: 2.6rem;
       margin: 0 auto;
+      border: none;
+      border-bottom: solid 1px #333;
+      padding: 0;
+      border-radius: 0%;
+    }
+
+    input:focus {
+      border: none;
+      border-bottom: solid 1px #333;
+      padding: 0;
+      border-radius: 0%;
+      outline: none;
     }
 
     label {
       display: block;
       margin-bottom: 0.5rem;
+    }
+
+    & .shelfWrapper {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: left;
+
+      input {
+        margin: 0 1rem;
+      }
+    }
+
+    button {
+      margin: 0 auto;
+    }
+
+    & .obsWrapper {
+      text-align: left;
+      margin: 1rem 0;
     }
 
     @keyframes modal {
@@ -85,5 +117,15 @@ export const modalRegister = styled.div`
         transform: translate3d(0, 0, 0);
       }
     }
+  `}
+`;
+
+export const textAreaStyle = styled.textarea`
+  ${({ theme }) => css`
+    border-radius: 0.4rem;
+    border-color: ${theme.colors.primaryColor};
+    padding: 1rem;
+    font-size: ${theme.fonts.sizes.small};
+    font-family: ${theme.fonts.family.primaryFont};
   `}
 `;

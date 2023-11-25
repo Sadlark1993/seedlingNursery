@@ -40,6 +40,9 @@ export const Valve = () => {
   };
 
   const submitTime = async (event) => {
+    //can't be null or undefined
+    if (!initialTimeRef.current.value && !finalTimeRef.current.value) return;
+
     event.preventDefault();
     const irrigationTime = {
       id: null,
@@ -81,6 +84,10 @@ export const Valve = () => {
 
   const alterTime = async (event) => {
     event.preventDefault();
+
+    //can't be null or undefined
+    if (!initialTimeRef2.current.value && !finalTimeRef2.current.value) return;
+
     const irrigationTime = {
       id: currentRecord,
       initialTime: initialTimeRef2.current.value,
@@ -115,11 +122,11 @@ export const Valve = () => {
             <div className="inputsWrapper">
               <div className="singleInputWrapper">
                 <label>horário inicial</label>
-                <InputFText fieldW={13} type="time" forwardedRef={initialTimeRef} />
+                <InputFText fieldW={13} type="time" required={true} forwardedRef={initialTimeRef} />
               </div>
               <div className="singleInputWrapper">
                 <label>horário final</label>
-                <InputFText fieldW={13} type="time" forwardedRef={finalTimeRef} />
+                <InputFText fieldW={13} type="time" required={true} forwardedRef={finalTimeRef} />
               </div>
             </div>
             <SubmitBtn
@@ -139,11 +146,16 @@ export const Valve = () => {
             <div className="inputsWrapper">
               <div className="singleInputWrapper">
                 <label>horário inicial</label>
-                <InputFText fieldW={13} type="time" forwardedRef={initialTimeRef2} />
+                <InputFText
+                  fieldW={13}
+                  type="time"
+                  required={true}
+                  forwardedRef={initialTimeRef2}
+                />
               </div>
               <div className="singleInputWrapper">
                 <label>horário final</label>
-                <InputFText fieldW={13} type="time" forwardedRef={finalTimeRef2} />
+                <InputFText fieldW={13} type="time" required={true} forwardedRef={finalTimeRef2} />
               </div>
             </div>
             <SubmitBtn

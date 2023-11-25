@@ -60,13 +60,15 @@ export const DashBoard = () => {
   };
 
   const registerValve = async () => {
-    const valveObj = {
-      shelf: valveShelfRef.current.value,
-      observations: obsRef.current.value
-    };
-    const response = await saveValve(valveObj);
-    if (response !== 'ok') console.log(response);
-    else navigate(0);
+    if (valveShelfRef.current.value && obsRef.current.value.length > 1) {
+      const valveObj = {
+        shelf: valveShelfRef.current.value,
+        observations: obsRef.current.value
+      };
+      const response = await saveValve(valveObj);
+      if (response !== 'ok') console.log(response);
+      else navigate(0);
+    }
   };
 
   return (
@@ -107,22 +109,29 @@ export const DashBoard = () => {
       </Section>
       <Styled.modal className={showRegistModal} onClick={handleRegister}>
         <Styled.modalRegister>
-          <h2>Cadastrar </h2>
+          <h2>Cadastrar Válvula</h2>
           <form>
             <div className="inputsWrapper">
               <div className="shelfWrapper">
-                <label>Bancada</label>
-                <InputFText fieldW={13} type="number" forwardedRef={valveShelfRef} />
+                <label>Bancada:</label>
+                <InputFText
+                  fieldW={5}
+                  type="number"
+                  min={1}
+                  max={10}
+                  forwardedRef={valveShelfRef}
+                  required={true}
+                />
               </div>
               <div className="obsWrapper">
                 <label>Observações</label>
-                <InputFText fieldW={13} type="text" forwardedRef={obsRef} />
+                <Styled.textAreaStyle ref={obsRef} rows="5" cols="30" required={true} />
               </div>
             </div>
             <SubmitBtn
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
               onClick={registerValve}>
-              Mudar
+              Cadastrar
             </SubmitBtn>
           </form>
         </Styled.modalRegister>

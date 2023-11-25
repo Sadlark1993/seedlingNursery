@@ -93,7 +93,7 @@ export const gridCellUp = styled.div`
 export const textAreaStyle = styled.textarea`
   ${({ theme }) => css`
     border-radius: 0.4rem;
-    border-color: black;
+    border-color: ${theme.colors.primaryColor};
     padding: 1rem;
     font-size: ${theme.fonts.sizes.small};
     font-family: ${theme.fonts.family.primaryFont};
