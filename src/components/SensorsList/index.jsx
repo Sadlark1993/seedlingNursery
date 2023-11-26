@@ -36,9 +36,10 @@ export const SensorsList = ({
   handleNext,
   handleLast,
   page = 0,
+  add = () => console.log('add valve'),
   ...args
 }) => {
-  datas = mockData;
+  //datas = mockData;
   return (
     <Container
       style={{
@@ -53,16 +54,7 @@ export const SensorsList = ({
         <Styled.type>tipo</Styled.type>
         <Styled.observation>
           <span>observação</span>
-          {/*
-          <ContentNavigation
-            handleFirst={handleFirst}
-            handleBack={handleBack}
-            handleNext={handleNext}
-            handleLast={handleLast}
-            page={page}
-            {...args}
-          /> 
-          */}
+          <button onClick={add}>+ adicionar </button>
         </Styled.observation>
         {datas.length ? (
           datas.map((row) => (
@@ -89,5 +81,6 @@ SensorsList.propTypes = {
   handleBack: PropTypes.func.isRequired,
   handleNext: PropTypes.func.isRequired,
   handleLast: PropTypes.func.isRequired,
-  page: PropTypes.number
+  page: PropTypes.number,
+  add: PropTypes.func
 };

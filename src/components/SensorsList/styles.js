@@ -26,6 +26,21 @@ export const observation = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+  position: relative;
+
+  & > button {
+    padding: 0.5rem 0.8rem;
+    position: absolute;
+    right: 0.3rem;
+    transition: 0.15s ease-in-out;
+    cursor: pointer;
+    border-radius: 6px;
+    box-shadow: 0.2rem 0.2rem 0.4rem #333;
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0.4rem 0.4rem 1rem #333;
+    }
+  }
 `;
 
 export const row = styled.div`

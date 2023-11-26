@@ -7,7 +7,7 @@ import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ValvesList } from '../../components/ValvesList';
-import { getAllValves, deleteValve, saveValve } from '../../api/dashBoardApi';
+import { getAllValves, getAllSensors, deleteValve, saveValve } from '../../api/dashBoardApi';
 import { SensorsList } from '../../components/SensorsList';
 import { useNavigate } from 'react-router-dom';
 import { InputFText } from '../../components/InputFText';
@@ -45,6 +45,7 @@ export const DashBoard = () => {
     } else {
       (async () => {
         setValves(await getAllValves());
+        setSensors(await getAllSensors());
       })();
     }
   }, [content]);

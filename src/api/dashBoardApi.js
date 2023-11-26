@@ -5,6 +5,11 @@ export const getAllValves = async () => {
   return await valvesPromise.json();
 };
 
+export const getAllSensors = async () => {
+  const sensorsPromise = await fetch(rootUri + '/sensor/all');
+  return await sensorsPromise.json();
+};
+
 export const getValve = async (id) => {
   const valvePromise = await fetch(rootUri + '/valve/' + id);
   return await valvePromise.json();
