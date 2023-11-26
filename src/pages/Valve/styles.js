@@ -3,7 +3,7 @@ import * as BtnStyle from '../../components/SubmitBtn/styles';
 
 export const compStyle = styled.div`
   ${({ theme }) => css`
-    & ${BtnStyle.compStyle} {
+    & > button {
       margin: 2rem auto;
     }
   `}
@@ -149,8 +149,17 @@ export const textAreaStyle = styled.textarea`
 
 export const saveButton = styled.button`
   background: #333;
-  width: 10rem;
-  height: 2.5rem;
+  width: 12rem;
+  height: 3rem;
   color: white;
   border-radius: 4px;
+  margin: 0.5rem 0 2rem 0;
+  cursor: pointer;
+  box-shadow: 0.4rem 0.4rem 0.8rem #333;
+  transition: 100ms ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+    box-shadow: 0.4rem 0.4rem 1.4rem #333;
+  }
 `;

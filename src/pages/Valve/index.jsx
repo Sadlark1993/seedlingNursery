@@ -3,7 +3,12 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './styles';
 import { PageTitle } from '../../components/PageTitle';
-import { getValve, submitIrrigationTime, deleteIrrigationTime } from '../../api/dashBoardApi';
+import {
+  getValve,
+  submitIrrigationTime,
+  deleteIrrigationTime,
+  saveValve
+} from '../../api/dashBoardApi';
 import { useLocation } from 'react-router-dom';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { TimesList } from '../../components/TimesList';
@@ -22,7 +27,7 @@ export const Valve = () => {
   const finalTimeRef = useRef();
   const initialTimeRef2 = useRef();
   const finalTimeRef2 = useRef();
-  const deleteRef = useRef();
+  const valveObsRef = useRef();
 
   const navigate = useNavigate();
 
@@ -106,6 +111,18 @@ export const Valve = () => {
   };
   //**************************** End Alteration Functions ******************************
 
+  const handleEditObs = () => {
+    setEditObs(true);
+    //valveObsRef.current.value = valve.observations;
+  };
+
+  const handleSaveObs = async () => {
+    valve.observations = valveObsRef.current.value;
+    const response = await saveValve(valve);
+    if (response === 'ok') navigate(0);
+    else alert('valve not saved:\n' + response);
+  };
+
   return (
     <Styled.compStyle>
       <Styled.titleWrapper>
@@ -114,14 +131,20 @@ export const Valve = () => {
         <Styled.circle color={valve.currentState ? 'green' : 'red'} />
       </Styled.titleWrapper>
       {editObs ? (
-        <Container>
-          <Styled.textAreaStyle />
-          <Styled.saveButton>salvar</Styled.saveButton>
+        <Container
+          style={{
+            display: 'flex',
+            flexFlow: 'column',
+            flexWrap: 'wrap',
+            alignItems: 'end'
+          }}>
+          <Styled.textAreaStyle ref={valveObsRef} defaultValue={valve.observations} />
+          <Styled.saveButton onClick={handleSaveObs}>salvar</Styled.saveButton>
         </Container>
       ) : (
         <Styled.valveObs>
           {valve.observations}
-          <div onClick={() => setEditObs(true)}>
+          <div onClick={handleEditObs}>
             <img src="./img/icons/edit.svg" />
           </div>
         </Styled.valveObs>

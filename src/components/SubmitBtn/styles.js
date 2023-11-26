@@ -12,5 +12,12 @@ export const compStyle = styled.button`
     color: white;
     background: ${theme.colors.primaryColor};
     cursor: pointer;
+    box-shadow: 0.4rem 0.4rem 0.8rem #333;
+    transition: 100ms ease-in-out;
+
+    &:hover {
+      transform: scale(1.1);
+      box-shadow: 0.8rem 0.8rem 1.4rem #333;
+    }
   `}
 `;
