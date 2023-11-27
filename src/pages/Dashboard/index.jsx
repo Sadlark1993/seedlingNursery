@@ -32,6 +32,7 @@ export const DashBoard = () => {
   const [valves, setValves] = useState([]);
   const [sensors, setSensors] = useState([]);
   const [showRegistModal, setShowRegistModal] = useState('');
+  const [showSensorModal, setShowSensorModal] = useState('');
 
   const valveShelfRef = useRef();
   const obsRef = useRef();
@@ -60,8 +61,15 @@ export const DashBoard = () => {
       setShowRegistModal(showRegistModal === 'active' ? '' : 'active');
   };
 
-  const registerValve = async () => {
-    if (valveShelfRef.current.value && obsRef.current.value.length > 1) {
+  const handleSensorRegister = (event) => {
+    if (event.target === event.currentTarget)
+      setShowSensorModal(showSensorModal === 'active' ? '' : 'active');
+  };
+
+  const registerValve = async (event) => {
+    event.preventDefault();
+    console.log('register\n' + obsRef.current.value);
+    if (valveShelfRef.current.value && obsRef.current.value.length) {
       const valveObj = {
         shelf: valveShelfRef.current.value,
         observations: obsRef.current.value
@@ -93,6 +101,7 @@ export const DashBoard = () => {
               handleLast={handleLast}
               datas={sensors}
               page={0}
+              add={handleSensorRegister}
             />
           ) : (
             <ValvesList
@@ -108,6 +117,8 @@ export const DashBoard = () => {
           )}
         </Container>
       </Section>
+
+      {/* register valve modal */}
       <Styled.modal className={showRegistModal} onClick={handleRegister}>
         <Styled.modalRegister>
           <h2>Cadastrar Válvula</h2>
@@ -128,6 +139,54 @@ export const DashBoard = () => {
                 <label>Observações</label>
                 <Styled.textAreaStyle ref={obsRef} rows="5" cols="30" required={true} />
               </div>
+            </div>
+            <SubmitBtn
+              style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
+              onClick={registerValve}>
+              Cadastrar
+            </SubmitBtn>
+          </form>
+        </Styled.modalRegister>
+      </Styled.modal>
+
+      {/* register sensor modal */}
+      <Styled.modal className={showSensorModal} onClick={handleSensorRegister}>
+        <Styled.modalRegister>
+          <h2>Cadastrar Sensor</h2>
+          <form>
+            <div className="shelfWrapper">
+              <label>ID da localização: </label>
+              <InputFText
+                fieldW={5}
+                type="number"
+                min={1}
+                max={10}
+                forwardedRef={null}
+                required={true}
+              />
+            </div>
+            <div className="shelfWrapper">
+              <label>ID do microcontrolador: </label>
+              <InputFText
+                fieldW={5}
+                type="number"
+                min={1}
+                max={10}
+                forwardedRef={null}
+                required={true}
+              />
+            </div>
+            <div className="shelfWrapper">
+              <label>tipo: </label>
+              <InputFText fieldW={20} type="text" forwardedRef={null} required={true} />
+            </div>
+            <div className="shelfWrapper">
+              <label>unidade de medida </label>
+              <InputFText fieldW={6} type="text" forwardedRef={null} required={true} />
+            </div>
+            <div className="obsWrapper">
+              <label>Observações</label>
+              <Styled.textAreaStyle ref={null} rows="5" cols="30" required={true} />
             </div>
             <SubmitBtn
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}

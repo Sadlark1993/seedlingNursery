@@ -120,7 +120,7 @@ export const Valve = () => {
     valve.observations = valveObsRef.current.value;
     const response = await saveValve(valve);
     if (response === 'ok') navigate(0);
-    else alert('valve not saved:\n' + response);
+    else alert('ERRO. Válvula não foi salva');
   };
 
   return (
@@ -143,10 +143,10 @@ export const Valve = () => {
         </Container>
       ) : (
         <Styled.valveObs>
-          {valve.observations}
           <div onClick={handleEditObs}>
             <img src="./img/icons/edit.svg" />
           </div>
+          {valve.observations}
         </Styled.valveObs>
       )}
       <SubmitBtn onClick={handleRegister}>Cadastrar Horário de Irrigação</SubmitBtn>

@@ -40,7 +40,7 @@ export const savePlant = async (obj) => {
   if (!obj.submitObj.specie && obj.submitObj.originMatrix) {
     const matrix = await getPlantById(obj.submitObj.originMatrix);
     matrixSpecie = await matrix.specie.id;
-    console.log('noSpecie: ' + obj);
+    // console.log('noSpecie: ' + obj);
   }
 
   obj.submitObj.specie = null;
@@ -53,7 +53,7 @@ export const savePlant = async (obj) => {
     body: JSON.stringify(obj.submitObj)
   })
     .then((response) => {
-      console.log('api: ' + response);
+      //console.log('api: ' + response);
       return response;
     })
     .catch((rejection) => {

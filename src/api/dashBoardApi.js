@@ -32,7 +32,7 @@ export const submitIrrigationTime = async (irrigationTime, valve) => {
   if (response.ok) {
     return 'ok';
   } else {
-    return response.text;
+    return response.text();
   }
 };
 
@@ -60,6 +60,6 @@ export const saveValve = async (valve) => {
   if (response.ok) {
     return 'ok';
   } else {
-    return response.text;
+    return response.text();
   }
 };

@@ -15,13 +15,11 @@ export const valveObs = styled.blockquote`
   max-width: 94rem;
 
   div {
-    display: inline-flex;
+    display: flex;
     width: min-content;
     //padding: 0.2rem;
     //border: solid 1px #333;
-    margin-left: 1.4rem;
-    position: relative;
-    top: 1.2rem;
+    margin-bottom: 1rem;
     cursor: pointer;
     box-shadow: 0.4rem 0.4rem 0.8rem #333;
     border-radius: 6px;
