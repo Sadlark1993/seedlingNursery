@@ -1,33 +1,7 @@
 import PropTypes from 'prop-types';
 import * as Styled from './styles';
 import { Container } from '../Container';
-
-const mockData = [
-  {
-    id: 1,
-    idMicrocontroller: 1,
-    idLocation: 2,
-    type: 'umidade',
-    mesure: 'graus',
-    observations: 'esse sensor fica no começo da bancada. Ele deve estar sempre na sombra.'
-  },
-  {
-    id: 2,
-    idMicrocontroller: 1,
-    idLocation: 2,
-    type: 'umidade',
-    mesure: 'graus',
-    observations: 'esse sensor fica no começo da bancada. Ele deve estar sempre na sombra.'
-  },
-  {
-    id: 3,
-    idMicrocontroller: 1,
-    idLocation: 2,
-    type: 'distância',
-    mesure: 'm',
-    observations: 'esse sensor fica no começo da bancada. Ele deve estar sempre na sombra.'
-  }
-];
+import { useNavigate } from 'react-router-dom';
 
 export const SensorsList = ({
   datas = [],
@@ -39,7 +13,13 @@ export const SensorsList = ({
   add = () => console.log('add valve'),
   ...args
 }) => {
-  //datas = mockData;
+  const navigate = useNavigate();
+  const handleNavigate = (id) => {
+    navigate('/sensor', {
+      state: id
+    });
+  };
+
   return (
     <Container
       style={{
@@ -58,7 +38,7 @@ export const SensorsList = ({
         </Styled.observation>
         {datas.length ? (
           datas.map((row) => (
-            <Styled.row key={row.id}>
+            <Styled.row key={row.id} onClick={() => handleNavigate(row.id)}>
               <Styled.idCell>{row.id}</Styled.idCell>
               <Styled.microCell>{row.idMicrocontroller}</Styled.microCell>
               <Styled.typeCell>{row.type}</Styled.typeCell>

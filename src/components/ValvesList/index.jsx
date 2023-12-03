@@ -15,7 +15,6 @@ export const ValvesList = ({
   deleteV = (id) => console.log('deleted: ' + id),
   ...args
 }) => {
-  //datas = mockData;
   const navigate = useNavigate();
   const handleNavigate = (id) => {
     navigate('/valve', {

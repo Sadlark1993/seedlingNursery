@@ -20,6 +20,7 @@ import LinksMock from './components/Header/LinksMock';
 import { Footer } from './components/Footer';
 import { DashBoard } from './pages/Dashboard';
 import { Valve } from './pages/Valve';
+import { Sensor } from './pages/Sensor';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -45,6 +46,7 @@ root.render(
           <Route path="/dados" element={<PlantData />} />
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/valve" element={<Valve />} />
+          <Route path="/sensor" element={<Sensor />} />
         </Routes>
         <Footer>
           {

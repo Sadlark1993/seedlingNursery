@@ -63,3 +63,26 @@ export const saveValve = async (valve) => {
     return response.text();
   }
 };
+
+//************************************* Sensors ************************************/
+
+export const getSensor = async (id) => {
+  const sensorPromise = await fetch(rootUri + '/sensor/' + id);
+  return await sensorPromise.json();
+};
+
+export const saveSensor = async (sensor) => {
+  const response = await fetch(rootUri + '/sensor', {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'POST',
+    body: JSON.stringify(sensor)
+  });
+
+  if (response.ok) {
+    return 'ok';
+  } else {
+    return response.text();
+  }
+};
