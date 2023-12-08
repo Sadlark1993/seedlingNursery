@@ -7,7 +7,13 @@ import { Section } from '../../components/Section';
 import { Container } from '../../components/Container';
 import { PageTitle } from '../../components/PageTitle';
 import { ValvesList } from '../../components/ValvesList';
-import { getAllValves, getAllSensors, deleteValve, saveValve } from '../../api/dashBoardApi';
+import {
+  getAllValves,
+  getAllSensors,
+  deleteValve,
+  saveValve,
+  saveSensor
+} from '../../api/dashBoardApi';
 import { SensorsList } from '../../components/SensorsList';
 import { useNavigate } from 'react-router-dom';
 import { InputFText } from '../../components/InputFText';
@@ -34,8 +40,16 @@ export const DashBoard = () => {
   const [showRegistModal, setShowRegistModal] = useState('');
   const [showSensorModal, setShowSensorModal] = useState('');
 
+  //valve register refs
   const valveShelfRef = useRef();
   const obsRef = useRef();
+
+  //sensor register refs
+  const sensorLocationRef = useRef();
+  const microRef = useRef();
+  const sensorTypeRef = useRef();
+  const mesureTypeRef = useRef();
+  const sensorObsRef = useRef();
 
   const navigate = useNavigate();
 
@@ -68,14 +82,31 @@ export const DashBoard = () => {
 
   const registerValve = async (event) => {
     event.preventDefault();
-    console.log('register\n' + obsRef.current.value);
+    //console.log('register\n' + obsRef.current.value);
     if (valveShelfRef.current.value && obsRef.current.value.length) {
       const valveObj = {
         shelf: valveShelfRef.current.value,
         observations: obsRef.current.value
       };
       const response = await saveValve(valveObj);
-      if (response !== 'ok') console.log(response);
+      if (response !== 'ok') alert(response);
+      else navigate(0);
+    }
+  };
+
+  const registerSensor = async (event) => {
+    event.preventDefault();
+    if (sensorTypeRef.current.value && mesureTypeRef.current.value) {
+      const sensorObj = {
+        idLocation: sensorLocationRef.current.value ? sensorLocationRef.current.value : '',
+        idMicrocontroller: microRef.current.value ? microRef.current.value : '',
+        type: sensorTypeRef.current.value,
+        mesure: mesureTypeRef.current.value,
+        observations: sensorObsRef.current.value ? sensorObsRef.current.value : ''
+      };
+
+      const response = await saveSensor(sensorObj);
+      if (response !== 'ok') alert(response);
       else navigate(0);
     }
   };
@@ -165,20 +196,20 @@ export const DashBoard = () => {
                 type="number"
                 min={1}
                 max={10}
-                forwardedRef={null}
+                forwardedRef={sensorLocationRef}
                 required={true}
               />
             </div>
             <div className="inputWrapper">
               <label>ID do microcontrolador: </label>
-              <InputFText fieldW={8} type="number" min={1} max={10} forwardedRef={null} />
+              <InputFText fieldW={8} type="number" min={1} max={10} forwardedRef={microRef} />
             </div>
             <div className="inputWrapper">
               <label>tipo: </label>
               <InputFText
                 style={{ width: '100%' }}
                 type="text"
-                forwardedRef={null}
+                forwardedRef={sensorTypeRef}
                 required={true}
               />
             </div>
@@ -187,17 +218,17 @@ export const DashBoard = () => {
               <InputFText
                 style={{ width: '100%' }}
                 type="text"
-                forwardedRef={null}
+                forwardedRef={mesureTypeRef}
                 required={true}
               />
             </div>
             <div className="obsWrapper">
               <label>Observações</label>
-              <Styled.textAreaStyle ref={null} rows="5" style={{ width: '100%' }} />
+              <Styled.textAreaStyle ref={sensorObsRef} rows="5" style={{ width: '100%' }} />
             </div>
             <SubmitBtn
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
-              onClick={registerValve}>
+              onClick={registerSensor}>
               Cadastrar
             </SubmitBtn>
           </form>
