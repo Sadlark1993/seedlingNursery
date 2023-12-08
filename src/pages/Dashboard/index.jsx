@@ -123,23 +123,27 @@ export const DashBoard = () => {
         <Styled.modalRegister>
           <h2>Cadastrar Válvula</h2>
           <form>
-            <div className="inputsWrapper">
-              <div className="shelfWrapper">
-                <label>Bancada:</label>
-                <InputFText
-                  fieldW={5}
-                  type="number"
-                  min={1}
-                  max={10}
-                  forwardedRef={valveShelfRef}
-                  required={true}
-                />
-              </div>
-              <div className="obsWrapper">
-                <label>Observações</label>
-                <Styled.textAreaStyle ref={obsRef} rows="5" cols="30" required={true} />
-              </div>
+            <div className="shelfWrapper">
+              <label>Bancada:</label>
+              <InputFText
+                fieldW={5}
+                type="number"
+                min={1}
+                max={10}
+                forwardedRef={valveShelfRef}
+                required={true}
+              />
             </div>
+            <div className="obsWrapper">
+              <label>Observações</label>
+              <Styled.textAreaStyle
+                ref={obsRef}
+                rows="5"
+                style={{ width: '100%' }}
+                required={true}
+              />
+            </div>
+
             <SubmitBtn
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
               onClick={registerValve}>
@@ -154,10 +158,10 @@ export const DashBoard = () => {
         <Styled.modalRegister>
           <h2>Cadastrar Sensor</h2>
           <form>
-            <div className="shelfWrapper">
+            <div className="inputWrapper">
               <label>ID da localização: </label>
               <InputFText
-                fieldW={5}
+                fieldW={8}
                 type="number"
                 min={1}
                 max={10}
@@ -165,28 +169,31 @@ export const DashBoard = () => {
                 required={true}
               />
             </div>
-            <div className="shelfWrapper">
+            <div className="inputWrapper">
               <label>ID do microcontrolador: </label>
+              <InputFText fieldW={8} type="number" min={1} max={10} forwardedRef={null} />
+            </div>
+            <div className="inputWrapper">
+              <label>tipo: </label>
               <InputFText
-                fieldW={5}
-                type="number"
-                min={1}
-                max={10}
+                style={{ width: '100%' }}
+                type="text"
                 forwardedRef={null}
                 required={true}
               />
             </div>
-            <div className="shelfWrapper">
-              <label>tipo: </label>
-              <InputFText fieldW={20} type="text" forwardedRef={null} required={true} />
-            </div>
-            <div className="shelfWrapper">
+            <div className="inputWrapper">
               <label>unidade de medida </label>
-              <InputFText fieldW={6} type="text" forwardedRef={null} required={true} />
+              <InputFText
+                style={{ width: '100%' }}
+                type="text"
+                forwardedRef={null}
+                required={true}
+              />
             </div>
             <div className="obsWrapper">
               <label>Observações</label>
-              <Styled.textAreaStyle ref={null} rows="5" cols="30" required={true} />
+              <Styled.textAreaStyle ref={null} rows="5" style={{ width: '100%' }} />
             </div>
             <SubmitBtn
               style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}

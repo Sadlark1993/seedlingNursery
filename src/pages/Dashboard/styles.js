@@ -47,14 +47,19 @@ export const modal = styled.div`
 export const modalRegister = styled.div`
   ${({ theme }) => css`
     display: flex;
-    padding: 1rem;
+    width: 50rem;
+    padding: 1rem 0;
     background: white;
     border: ${theme.colors.primaryColor} solid 5px;
-    flex-flow: column;
+    //flex-flow: column;
     flex-wrap: wrap;
     align-content: center;
     text-align: center;
     animation: modal 0.4s forwards;
+
+    h2 {
+      margin: 0 auto;
+    }
 
     h2::after {
       content: ' ';
@@ -65,21 +70,25 @@ export const modalRegister = styled.div`
       background-color: ${theme.colors.primaryColor};
     }
 
+    form {
+      width: 100%;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    & .inputWrapper {
+      width: 49.8%;
+      padding: 0.5rem 1rem;
+      text-align: left;
+    }
+
     input {
-      height: 2.6rem;
-      margin: 0 auto;
-      border: none;
-      border-bottom: solid 1px #333;
-      padding: 0;
-      border-radius: 0%;
+      height: 3.5rem;
     }
 
     input:focus {
-      border: none;
-      border-bottom: solid 1px #333;
-      padding: 0;
-      border-radius: 0%;
-      outline: none;
+      border-color: #333;
+      outline-color: #333;
     }
 
     label {
@@ -88,14 +97,28 @@ export const modalRegister = styled.div`
     }
 
     & .shelfWrapper {
+      width: 49.8%;
+      padding: 0.5rem 1rem;
       display: flex;
       flex-wrap: wrap;
       gap: 0.5rem;
       justify-content: left;
+      align-items: center;
+      margin-bottom: 1rem;
 
       input {
         margin: 0 1rem;
+        border: none;
+        border-bottom: solid 1px #333;
+        padding: 0;
+        border-radius: 0%;
+        outline: none;
+        height: 2.6rem;
       }
+    }
+
+    & .addSensorInput {
+      margin-bottom: 0.8rem;
     }
 
     button {
@@ -104,7 +127,9 @@ export const modalRegister = styled.div`
 
     & .obsWrapper {
       text-align: left;
-      margin: 1rem 0;
+      padding: 0.5rem 1rem;
+      text-align: left;
+      width: 100%;
     }
 
     @keyframes modal {
