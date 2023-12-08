@@ -129,6 +129,9 @@ export const Valve = () => {
         <Styled.circle color={valve.currentState ? 'green' : 'red'} />
         <PageTitle>{`Válvula ${valve.id ? valve.id : 'Carregando...'}`}</PageTitle>
         <Styled.circle color={valve.currentState ? 'green' : 'red'} />
+        <Styled.editBtn onClick={handleEditObs}>
+          <img src="./img/icons/edit.svg" />
+        </Styled.editBtn>
       </Styled.titleWrapper>
       {editObs ? (
         <Container
@@ -142,12 +145,7 @@ export const Valve = () => {
           <Styled.saveButton onClick={handleSaveObs}>salvar</Styled.saveButton>
         </Container>
       ) : (
-        <Styled.valveObs>
-          <div onClick={handleEditObs}>
-            <img src="./img/icons/edit.svg" />
-          </div>
-          {valve.observations}
-        </Styled.valveObs>
+        <Styled.valveObs>{valve.observations}</Styled.valveObs>
       )}
       <SubmitBtn onClick={handleRegister}>Cadastrar Horário de Irrigação</SubmitBtn>
       {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>}

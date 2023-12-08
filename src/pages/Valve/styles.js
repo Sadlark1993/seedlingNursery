@@ -9,28 +9,34 @@ export const compStyle = styled.div`
   `}
 `;
 
-export const valveObs = styled.blockquote`
-  display: block;
-  margin: 1rem auto 4rem auto;
-  max-width: 94rem;
+export const titleWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  justify-content: center;
+  position: relative;
+  width: fit-content;
+`;
 
-  div {
-    display: flex;
-    width: min-content;
-    //padding: 0.2rem;
-    //border: solid 1px #333;
-    margin-bottom: 1rem;
-    cursor: pointer;
-    box-shadow: 0.4rem 0.4rem 0.8rem #333;
-    border-radius: 6px;
-    width: 5rem;
-    justify-content: center;
-    align-content: center;
-    transition: 200ms ease-in-out;
-    //border: solid 2px #333;
-  }
+export const editBtn = styled.div`
+  position: absolute;
+  right: -6rem;
+  display: inline-flex;
+  width: min-content;
+  //padding: 0.2rem;
+  //border: solid 1px #333;
+  margin-left: 3rem;
+  cursor: pointer;
+  box-shadow: 0.4rem 0.4rem 0.8rem #333;
+  border-radius: 6px;
+  width: 5rem;
+  justify-content: center;
+  align-content: center;
+  transition: 200ms ease-in-out;
+  //border: solid 2px #333;
+  height: 4rem;
 
-  div:hover {
+  &:hover {
     transform: scale(1.1);
     box-shadow: 0.4rem 0.4rem 1.4rem #333;
   }
@@ -41,11 +47,10 @@ export const valveObs = styled.blockquote`
   }
 `;
 
-export const titleWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin: 0 auto;
-  justify-content: center;
+export const valveObs = styled.blockquote`
+  display: block;
+  margin: 1rem auto 4rem auto;
+  max-width: 94rem;
 `;
 
 export const circle = styled.div`

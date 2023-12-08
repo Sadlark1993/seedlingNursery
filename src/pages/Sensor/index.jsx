@@ -71,6 +71,9 @@ export const Sensor = () => {
     <Styled.compStyle>
       <Styled.titleWrapper>
         <PageTitle>{`Sensor ${sensor.id ? sensor.id : 'Carregando...'}`}</PageTitle>
+        <Styled.editBtn onClick={handleEditObs}>
+          <img src="./img/icons/edit.svg" />
+        </Styled.editBtn>
       </Styled.titleWrapper>
       {editObs ? (
         <Container
@@ -84,14 +87,16 @@ export const Sensor = () => {
           <Styled.saveButton onClick={handleSaveObs}>salvar</Styled.saveButton>
         </Container>
       ) : (
-        <Styled.valveObs>
-          <div onClick={handleEditObs}>
-            <img src="./img/icons/edit.svg" />
-          </div>
-          {sensor.observations}
-        </Styled.valveObs>
+        <Container style={{ minHeight: '60rem' }}>
+          <Styled.valveObs>{sensor.observations}</Styled.valveObs>
+          <Styled.sensorDataWrapper>
+            <span>Microcontrolador: {sensor.idMicrocontroller}</span>
+            <span>Localização: {sensor.idLocation}</span>
+            <span>Tipo: {sensor.type}</span>
+            <span>Unidade de medida: {sensor.mesure}</span>
+          </Styled.sensorDataWrapper>
+        </Container>
       )}
-      <SubmitBtn onClick={handleRegister}>Cadastrar Horário de Irrigação</SubmitBtn>
       {/*  {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>} */}
 
       {/* IrrigationTime Registration Modal */}
