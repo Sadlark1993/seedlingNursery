@@ -5,11 +5,6 @@ export const getAllValves = async () => {
   return await valvesPromise.json();
 };
 
-export const getAllSensors = async () => {
-  const sensorsPromise = await fetch(rootUri + '/sensor/all');
-  return await sensorsPromise.json();
-};
-
 export const getValve = async (id) => {
   const valvePromise = await fetch(rootUri + '/valve/' + id);
   return await valvePromise.json();
@@ -71,6 +66,11 @@ export const getSensor = async (id) => {
   return await sensorPromise.json();
 };
 
+export const getAllSensors = async () => {
+  const sensorsPromise = await fetch(rootUri + '/sensor/all');
+  return await sensorsPromise.json();
+};
+
 export const saveSensor = async (sensor) => {
   const response = await fetch(rootUri + '/sensor', {
     headers: {
@@ -85,4 +85,16 @@ export const saveSensor = async (sensor) => {
   } else {
     return response.text();
   }
+};
+
+export const getRecordsBySensor = async (period, sensorId) => {
+  const response = await fetch(rootUri + '/sensor-record/sensor/' + sensorId, {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    method: 'GET',
+    body: JSON.stringify(period)
+  });
+
+  return response;
 };

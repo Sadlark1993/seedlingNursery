@@ -11,5 +11,5 @@ export const SubmitBtn = ({ children, onClick, ...args }) => {
 
 SubmitBtn.propTypes = {
   children: PropTypes.string.isRequired,
-  onClick: PropTypes.func.isRequired
+  onClick: PropTypes.func
 };

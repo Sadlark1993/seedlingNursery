@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import * as Styled from './styles';
 import { PageTitle } from '../../components/PageTitle';
-import { getSensor, saveSensor } from '../../api/dashBoardApi';
+import { getSensor, saveSensor, getRecordsBySensor } from '../../api/dashBoardApi';
 import { useLocation } from 'react-router-dom';
 import { Container } from '../../components/Container';
 import { SubmitBtn } from '../../components/SubmitBtn';
@@ -12,12 +12,18 @@ export const Sensor = () => {
   const { state } = useLocation();
   const [sensor, setSensor] = useState({});
   const [editObs, setEditObs] = useState(false);
+  const [records, setRecords] = useState([]);
 
+  //edit sensor datas refs
   const sensorObsRef = useRef();
   const microRef = useRef();
   const locationRef = useRef();
   const typeRef = useRef();
   const mesureRef = useRef();
+
+  //time interval refs
+  const initialTRef = useRef();
+  const finalTRef = useRef();
 
   const navigate = useNavigate();
 
@@ -26,8 +32,6 @@ export const Sensor = () => {
       setSensor(await getSensor(state));
     })();
   }, []);
-
-  //********************************** Registration Functions **********************************
 
   const handleEditObs = () => {
     setEditObs((c) => !c);
@@ -43,6 +47,18 @@ export const Sensor = () => {
     const response = await saveSensor(sensor);
     if (response === 'ok') navigate(0);
     else alert('ERRO. Válvula não foi salva');
+  };
+
+  const handleGetRecords = async (event) => {
+    event.preventDefault();
+    console.log(initialTRef.current.value + ' to ' + finalTRef.current.value);
+    const period = {
+      time1: initialTRef.current.value + 'T00:00:00',
+      time2: initialTRef.current.value + 'T23:59:59'
+    };
+
+    const response = await getRecordsBySensor(period, sensor.id);
+    setRecords(response);
   };
 
   return (
@@ -101,11 +117,11 @@ export const Sensor = () => {
           {/* Load data button */}
           <Container>
             <h3>Carregar leituras:</h3>
-            <Styled.loadDataWrapper>
+            <Styled.loadDataWrapper onSubmit={handleGetRecords}>
               <span>de</span>
-              <input type="date" />
+              <input type="date" ref={initialTRef} required={true} />
               <span>até</span>
-              <input type="date" />
+              <input type="date" ref={finalTRef} required={true} />
               <SubmitBtn>buscar</SubmitBtn>
             </Styled.loadDataWrapper>
           </Container>

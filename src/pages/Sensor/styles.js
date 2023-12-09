@@ -94,7 +94,7 @@ export const singleInput = styled.div`
   }
 `;
 
-export const loadDataWrapper = styled.div`
+export const loadDataWrapper = styled.form`
   display: flex;
   flex-wrap: wrap;
   margin-bottom: 2rem;
@@ -207,7 +207,7 @@ export const textAreaStyle = styled.textarea`
 export const saveButton = styled.button`
   background: #333;
   width: 12rem;
-  height: 3rem;
+  height: 3.5rem;
   color: white;
   border-radius: 4px;
   margin: 0.5rem 0 2rem 0;
