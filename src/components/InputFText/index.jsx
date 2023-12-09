@@ -8,7 +8,7 @@ export const InputFText = ({ fieldW, forwardedRef, ...args }) => {
 };
 
 InputFText.propTypes = {
-  fieldW: PropTypes.number.isRequired,
+  fieldW: PropTypes.number,
   forwardedRef: PropTypes.object,
   placeHolder: PropTypes.string,
   type: PropTypes.string

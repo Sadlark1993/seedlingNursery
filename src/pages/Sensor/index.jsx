@@ -5,24 +5,19 @@ import * as Styled from './styles';
 import { PageTitle } from '../../components/PageTitle';
 import { getSensor, saveSensor } from '../../api/dashBoardApi';
 import { useLocation } from 'react-router-dom';
-import { SubmitBtn } from '../../components/SubmitBtn';
-import { TimesList } from '../../components/TimesList';
-import { InputFText } from '../../components/InputFText';
 import { Container } from '../../components/Container';
+import { SubmitBtn } from '../../components/SubmitBtn';
 
 export const Sensor = () => {
   const { state } = useLocation();
   const [sensor, setSensor] = useState({});
-  const [showRegistModal, setShowRegistModal] = useState('');
-  const [showAlterModal, setShowAlaterModal] = useState('');
-  const [currentRecord, setCurrentRecord] = useState(null);
   const [editObs, setEditObs] = useState(false);
 
-  const initialTimeRef = useRef();
-  const finalTimeRef = useRef();
-  const initialTimeRef2 = useRef();
-  const finalTimeRef2 = useRef();
   const sensorObsRef = useRef();
+  const microRef = useRef();
+  const locationRef = useRef();
+  const typeRef = useRef();
+  const mesureRef = useRef();
 
   const navigate = useNavigate();
 
@@ -33,35 +28,18 @@ export const Sensor = () => {
   }, []);
 
   //********************************** Registration Functions **********************************
-  const handleRegister = (event) => {
-    if (event.target === event.currentTarget) {
-      setCurrentRecord(null);
-      setShowRegistModal(showRegistModal === 'active' ? '' : 'active');
-    }
-  };
-
-  //************************* Alteration Functions **************************
-
-  const handleAlter = async (event, initial, final, id) => {
-    if (event.target === event.currentTarget) {
-      if (id) {
-        initialTimeRef2.current.value = initial;
-        finalTimeRef2.current.value = final;
-        setCurrentRecord(id);
-      }
-
-      setShowAlaterModal(showAlterModal === 'active' ? '' : 'active');
-    }
-  };
-  //**************************** End Alteration Functions ******************************
 
   const handleEditObs = () => {
-    setEditObs(true);
+    setEditObs((c) => !c);
     //sensorObsRef.current.value = valve.observations;
   };
 
   const handleSaveObs = async () => {
     sensor.observations = sensorObsRef.current.value;
+    sensor.idMicrocontroller = microRef.current.value;
+    sensor.idLocation = locationRef.current.value;
+    sensor.type = typeRef.current.value;
+    sensor.mesure = mesureRef.current.value;
     const response = await saveSensor(sensor);
     if (response === 'ok') navigate(0);
     else alert('ERRO. Válvula não foi salva');
@@ -84,19 +62,56 @@ export const Sensor = () => {
             alignItems: 'end'
           }}>
           <Styled.textAreaStyle ref={sensorObsRef} defaultValue={sensor.observations} />
+          <Styled.inputsWrapper>
+            <Styled.singleInput>
+              <label>Id do Microcontrolador:</label>
+              <input
+                style={{ width: '8rem' }}
+                ref={microRef}
+                defaultValue={sensor.idMicrocontroller}
+              />
+            </Styled.singleInput>
+            <Styled.singleInput>
+              <label>Id da Localização:</label>
+              <input style={{ width: '8rem' }} ref={locationRef} defaultValue={sensor.idLocation} />
+            </Styled.singleInput>
+            <Styled.singleInput>
+              <label>Tipo:</label>
+              <input style={{ width: '100%' }} ref={typeRef} defaultValue={sensor.type} />
+            </Styled.singleInput>
+            <Styled.singleInput>
+              <label>Unidade de medida:</label>
+              <input style={{ width: '100%' }} ref={mesureRef} defaultValue={sensor.mesure} />
+            </Styled.singleInput>
+          </Styled.inputsWrapper>
           <Styled.saveButton onClick={handleSaveObs}>salvar</Styled.saveButton>
         </Container>
       ) : (
-        <Container style={{ minHeight: '60rem' }}>
-          <Styled.valveObs>{sensor.observations}</Styled.valveObs>
-          <Styled.sensorDataWrapper>
-            <span>Microcontrolador: {sensor.idMicrocontroller}</span>
-            <span>Localização: {sensor.idLocation}</span>
-            <span>Tipo: {sensor.type}</span>
-            <span>Unidade de medida: {sensor.mesure}</span>
-          </Styled.sensorDataWrapper>
-        </Container>
+        <>
+          <Container>
+            <Styled.valveObs>{sensor.observations}</Styled.valveObs>
+            <Styled.sensorDataWrapper>
+              <span>Microcontrolador: {sensor.idMicrocontroller}</span>
+              <span>Localização: {sensor.idLocation}</span>
+              <span>Tipo: {sensor.type}</span>
+              <span>Unidade de medida: {sensor.mesure}</span>
+            </Styled.sensorDataWrapper>
+          </Container>
+
+          {/* Load data button */}
+          <Container>
+            <h3>Carregar leituras:</h3>
+            <Styled.loadDataWrapper>
+              <span>de</span>
+              <input type="date" />
+              <span>até</span>
+              <input type="date" />
+              <SubmitBtn>buscar</SubmitBtn>
+            </Styled.loadDataWrapper>
+          </Container>
+        </>
       )}
+
       {/*  {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>} */}
 
       {/* IrrigationTime Registration Modal */}

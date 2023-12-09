@@ -52,20 +52,71 @@ export const valveObs = styled.blockquote`
   max-width: 94rem;
   border-bottom: #333 solid 1px;
   padding-bottom: 1rem;
+  font-size: 1.8rem;
 `;
 
 export const sensorDataWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   width: 94rem;
-  margin: 0 auto;
+  margin: 0 auto 2rem auto;
   /* padding: 0 2rem; */
 
   & span {
     width: 49.8%;
     font-style: italic;
+    font-size: 1.8rem;
   }
 `;
+
+export const inputsWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+  justify-content: space-between;
+`;
+
+export const singleInput = styled.div`
+  width: 49%;
+  margin-bottom: 1rem;
+
+  label {
+    display: block;
+  }
+
+  input {
+    font-size: 18px;
+    height: 3rem;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    padding: 1rem;
+  }
+`;
+
+export const loadDataWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 2rem;
+  gap: 2rem;
+  align-items: center;
+  border-bottom: solid 1px #333;
+  padding: 1.5rem 0;
+
+  input {
+    height: 3.5rem;
+    padding: 0.5rem 0.5rem;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+
+  button {
+    height: 4.5rem;
+    margin-left: auto;
+  }
+`;
+
+/********************************************* */
 
 export const modal = styled.div`
   ${({ theme }) => css`
@@ -149,6 +200,7 @@ export const textAreaStyle = styled.textarea`
     font-family: ${theme.fonts.family.primaryFont};
     width: 94rem;
     height: 10rem;
+    font-size: 18px;
   `}
 `;
 
