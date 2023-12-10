@@ -11,7 +11,7 @@ export const compStyle = styled.div`
 export const titleWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  margin: 0 auto;
+  margin: 4rem auto 0 auto;
   justify-content: center;
   position: relative;
   width: fit-content;

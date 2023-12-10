@@ -1,12 +1,13 @@
 import { useRef, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import * as Styled from './styles';
 import { PageTitle } from '../../components/PageTitle';
 import { getSensor, saveSensor, getRecordsBySensor } from '../../api/dashBoardApi';
-import { useLocation } from 'react-router-dom';
 import { Container } from '../../components/Container';
 import { SubmitBtn } from '../../components/SubmitBtn';
+import { SensorRecords } from '../../components/SensorRecords';
 
 export const Sensor = () => {
   const { state } = useLocation();
@@ -51,14 +52,17 @@ export const Sensor = () => {
 
   const handleGetRecords = async (event) => {
     event.preventDefault();
-    console.log(initialTRef.current.value + ' to ' + finalTRef.current.value);
+    console.log(
+      initialTRef.current.value + ' to ' + finalTRef.current.value + '. id: ' + sensor.id
+    );
     const period = {
       time1: initialTRef.current.value + 'T00:00:00',
-      time2: initialTRef.current.value + 'T23:59:59'
+      time2: finalTRef.current.value + 'T23:59:59'
     };
 
     const response = await getRecordsBySensor(period, sensor.id);
     setRecords(response);
+    console.log(response);
   };
 
   return (
@@ -127,6 +131,10 @@ export const Sensor = () => {
           </Container>
         </>
       )}
+
+      <Container style={{ minHeight: '60rem' }}>
+        <SensorRecords sensorRecords={records} />
+      </Container>
 
       {/*  {valve.id ? <TimesList id={valve.id} handleClick={handleAlter} /> : <p>Carregando...</p>} */}
 

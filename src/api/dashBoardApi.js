@@ -92,9 +92,9 @@ export const getRecordsBySensor = async (period, sensorId) => {
     headers: {
       'Content-Type': 'application/json'
     },
-    method: 'GET',
+    method: 'POST',
     body: JSON.stringify(period)
   });
 
-  return response;
+  return await response.json();
 };
