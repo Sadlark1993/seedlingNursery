@@ -68,3 +68,22 @@ export const timeCell = styled.div`
 export const valueCell = styled.div`
   grid-column: 4/5;
 `;
+
+export const next = styled.div`
+  ${({ theme, active }) => css`
+    color: ${active ? '#333' : '#b9b9b9b9'};
+    cursor: pointer;
+  `}
+`;
+
+export const prev = styled.div`
+  ${({ theme, active }) => css`
+    color: ${active ? '#333' : '#b9b9b9b9'};
+    cursor: pointer;
+  `}
+`;
+
+export const nav = styled.span`
+  display: flex;
+  gap: 1rem;
+`;
