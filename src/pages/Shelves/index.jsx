@@ -9,7 +9,7 @@ import { PageTitle } from '../../components/PageTitle';
 import { ShelvesList } from '../../components/ShelvesList';
 import { PlantsByShelf } from '../../components/PlantsByShelf';
 import { getCountByShelf, getPlantsByShelf } from '../../api/plantsApi';
-const nulo = false;
+//const nulo = false;
 
 const handleLast = () => {
   console.log('last');
@@ -52,15 +52,17 @@ const Shelves = () => {
     (async () => {
       const obj = await getPlantsByShelf(shelfId, pageIndex, rowsPerPage);
       setPlants(await obj);
-
-      if (pageIndex <= 0) setFirst(false);
-      else setFirst(true);
-
-      if (countPerShelf && (pageIndex + 1) * rowsPerPage >= countPerShelf[shelfId - 1])
-        setLast(false);
-      else setLast(true);
     })();
   }, [shelfId, pageIndex]);
+
+  useEffect(() => {
+    if (pageIndex <= 0) setFirst(false);
+    else setFirst(true);
+
+    if (countPerShelf && (pageIndex + 1) * rowsPerPage >= countPerShelf[shelfId - 1])
+      setLast(false);
+    else setLast(true);
+  }, [countPerShelf, pageIndex, rowsPerPage, shelfId]);
 
   const handleShelfClick = (id) => {
     setShelfId(id);
