@@ -47,3 +47,9 @@ export const table = styled.ul`
 export const attKey = styled.span`
   font-weight: bold;
 `;
+
+/* export const line = styled.li`
+  ${({ active }) => css`
+    display: ${active ? 'block' : 'none'};
+  `}
+`; */
