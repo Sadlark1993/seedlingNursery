@@ -157,15 +157,26 @@ export const Valve = () => {
             <div className="inputsWrapper">
               <div className="singleInputWrapper">
                 <label>horário inicial</label>
-                <InputFText fieldW={13} type="time" required={true} forwardedRef={initialTimeRef} />
+                <InputFText
+                  fieldW={13}
+                  defaultValue="00:00"
+                  type="time"
+                  required={true}
+                  forwardedRef={initialTimeRef}
+                />
               </div>
               <div className="singleInputWrapper">
                 <label>horário final</label>
-                <InputFText fieldW={13} type="time" required={true} forwardedRef={finalTimeRef} />
+                <InputFText
+                  fieldW={13}
+                  defaultValue="00:00"
+                  type="time"
+                  forwardedRef={finalTimeRef}
+                />
               </div>
             </div>
             <SubmitBtn
-              style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
+              style={{ width: '20rem', margin: '1.5rem auto 1rem auto', height: '5rem' }}
               onClick={submitTime}>
               Cadastrar
             </SubmitBtn>
@@ -190,11 +201,11 @@ export const Valve = () => {
               </div>
               <div className="singleInputWrapper">
                 <label>horário final</label>
-                <InputFText fieldW={13} type="time" required={true} forwardedRef={finalTimeRef2} />
+                <InputFText required={true} fieldW={13} type="time" forwardedRef={finalTimeRef2} />
               </div>
             </div>
             <SubmitBtn
-              style={{ width: '20rem', marginBottom: '1rem', height: '5rem' }}
+              style={{ width: '20rem', margin: '1.5rem auto 1rem auto', height: '5rem' }}
               onClick={alterTime}>
               Mudar
             </SubmitBtn>
