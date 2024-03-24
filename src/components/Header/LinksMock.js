@@ -21,6 +21,6 @@ export default [
   },
   {
     name: 'Sair',
-    href: '/'
+    href: '/logout'
   }
 ];

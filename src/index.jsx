@@ -22,6 +22,7 @@ import { DashBoard } from './pages/Dashboard';
 import { Valve } from './pages/Valve';
 import { Sensor } from './pages/Sensor';
 import RegisterUser from './pages/RegisterUser';
+import { Logout } from './pages/Logout';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -59,6 +60,7 @@ root.render(
           <Route path="/valve" element={<Valve />} />
           <Route path="/sensor" element={<Sensor />} />
           <Route path="/cadastrar-usuario" element={<RegisterUser />} />
+          <Route path="/logout" element={<Logout />} />
         </Routes>
         <Footer>
           {
