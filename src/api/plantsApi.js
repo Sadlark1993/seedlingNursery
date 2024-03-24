@@ -15,7 +15,12 @@ export const getPlantsBySpeciePage = async (page, pageSize, specieId, matrix, se
       '/' +
       seedling +
       '/' +
-      seed
+      seed,
+    {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+      }
+    }
   );
   const number = +plantsPromise.headers.get('table-size');
   const plantsObj = await plantsPromise.json();
@@ -24,13 +29,21 @@ export const getPlantsBySpeciePage = async (page, pageSize, specieId, matrix, se
 
 //gets plant object by id
 export const getPlantById = async (id) => {
-  const plantPromise = await fetch(rootUri + '/plant/' + id);
+  const plantPromise = await fetch(rootUri + '/plant/' + id, {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+    }
+  });
   return await plantPromise.json();
 };
 
 //gets plant image by id
 export const getPlantImage = async (id) => {
-  const imagePromise = await fetch(rootUri + '/plant-images/' + id);
+  const imagePromise = await fetch(rootUri + '/plant-images/' + id, {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+    }
+  });
   return await imagePromise.json();
 };
 
@@ -47,7 +60,8 @@ export const savePlant = async (obj) => {
 
   return await fetch(rootUri + '/plant/' + matrixSpecie + '/number/' + obj.amount, {
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     },
     method: 'POST',
     body: JSON.stringify(obj.submitObj)
@@ -63,13 +77,22 @@ export const savePlant = async (obj) => {
 };
 
 export const getCountByShelf = async () => {
-  const obj = await fetch(rootUri + '/plant/count/byShelf');
+  const obj = await fetch(rootUri + '/plant/count/byShelf', {
+    headers: {
+      Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+    }
+  });
   return await obj.json();
 };
 
 export const getPlantsByShelf = async (id, index, pageSize) => {
   const response = await fetch(
-    rootUri + '/plant/plants-by-shelf-page/' + index + '/page-size/' + pageSize + '/shelf/' + id
+    rootUri + '/plant/plants-by-shelf-page/' + index + '/page-size/' + pageSize + '/shelf/' + id,
+    {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+      }
+    }
   );
 
   return await response.json();
@@ -83,7 +106,12 @@ export const getPlantsByMatrix = async (id, index, pageSize) => {
       '/page-size/' +
       pageSize +
       '/matrix/' +
-      id
+      id,
+    {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+      }
+    }
   );
 
   const number = +response.headers.get('table-size');
@@ -99,7 +127,12 @@ export const getPlantsByAddress = async (address, index, pageSize) => {
       '/page-size/' +
       pageSize +
       '/address/' +
-      address
+      address,
+    {
+      headers: {
+        Authorization: 'Bearer ' + localStorage.getItem('Authorization')
+      }
+    }
   );
 
   const number = +response.headers.get('table-size');
