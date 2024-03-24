@@ -8,6 +8,7 @@ export const pageStyle = styled.div`
     & ${InputStyle.compStyle} {
       margin: 0 auto;
       margin-bottom: 2rem;
+      height: 4.6rem;
     }
 
     & ${BtnStyle.compStyle} {

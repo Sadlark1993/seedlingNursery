@@ -4,11 +4,23 @@ import { Container } from '../../components/Container';
 import { WelcomeTitle } from '../../components/WelcomeTitle';
 import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
-import { Footer } from '../../components/Footer';
+import { useRef } from 'react';
+import { login, register } from '../../api/userApi';
 
 function Home() {
-  const handleLogin = () => {
-    console.log('clicked');
+  const userRef = useRef();
+  const passRef = useRef();
+
+  const handleLogin = async () => {
+    console.log('user: ' + userRef.current.value);
+    console.log('pass: ' + passRef.current.value);
+    const cred = { username: userRef.current.value, password: passRef.current.value };
+    const response = await login(cred);
+    if (!response.authority) {
+      window.alert('Credenciais incorretas');
+      passRef.current.value = '';
+      return false;
+    }
   };
 
   return (
@@ -16,12 +28,22 @@ function Home() {
       <Section background={true}>
         <Container>
           <WelcomeTitle>Bem Vindo!</WelcomeTitle>
-          <form>
-            <InputFText fieldW={36} visible={true} placeHolder="email" type="email" />
-            <InputFText fieldW={36} visible={true} placeHolder="password" type="password" />
-            <SubmitBtn onClick={handleLogin}>Login</SubmitBtn>
-            <span>*você precisa estar logado para acessar os dados do viveiro</span>
-          </form>
+          <InputFText
+            fieldW={36}
+            visible={true}
+            placeholder="usuário"
+            type="text"
+            forwardedRef={userRef}
+          />
+          <InputFText
+            fieldW={36}
+            visible={true}
+            placeholder="senha"
+            type="password"
+            forwardedRef={passRef}
+          />
+          <SubmitBtn onClick={handleLogin}>Login</SubmitBtn>
+          <span>*você precisa estar logado para acessar os dados do viveiro</span>
         </Container>
       </Section>
     </Styled.pageStyle>

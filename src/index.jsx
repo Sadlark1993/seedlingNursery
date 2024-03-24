@@ -28,16 +28,26 @@ const logoImg = {
 };
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
+// 'Cadastrar Usuario' so deve aparecer para administradores
+let links = LinksMock;
+if (localStorage.getItem('authority') == 'ADMIN') {
+  links = [{ name: 'Cadastrar Usuário', href: '/acervo' }];
+  LinksMock.forEach((value) => {
+    links.push(value);
+  });
+}
+
 root.render(
   <ThemeProvider theme={theme}>
     <Data>
       <BrowserRouter>
         <GlobalStyles />
         <Header>
-          {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={LinksMock} />]}
+          {[<Logo key="logo" img={logoImg} />, <Navigation key="navigation" links={links} />]}
         </Header>
         <Routes>
-          <Route path="/" element={<Collection />} />
+          <Route path="/" element={<Home />} />
           <Route path="/acervo" element={<Collection />} />
           <Route path="/bancadas" element={<Shelves />} />
           <Route path="/pesquisa" element={<SearchPage />} />
