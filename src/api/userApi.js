@@ -12,13 +12,13 @@ export const login = async (cred) => {
   const respObj = await response.json();
 
   if (response.ok) {
-    const token = await response.headers.get('Authorization').replace('Bearer ', '');
+    const token = response.headers.get('Authorization').replace('Bearer ', '');
     localStorage.setItem('Authorization', token);
     localStorage.setItem('user', respObj.username);
     localStorage.setItem('authority', respObj.authority);
   }
 
-  return await respObj;
+  return response.status;
 };
 
 export const register = async (cred, authority) => {
@@ -35,5 +35,5 @@ export const register = async (cred, authority) => {
     body: JSON.stringify(cred)
   });
 
-  return await response.json();
+  return response.status;
 };

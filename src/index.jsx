@@ -21,6 +21,7 @@ import { Footer } from './components/Footer';
 import { DashBoard } from './pages/Dashboard';
 import { Valve } from './pages/Valve';
 import { Sensor } from './pages/Sensor';
+import RegisterUser from './pages/RegisterUser';
 
 const logoImg = {
   src: './img/icons/ifmt.svg',
@@ -32,7 +33,7 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // 'Cadastrar Usuario' so deve aparecer para administradores
 let links = LinksMock;
 if (localStorage.getItem('authority') == 'ADMIN') {
-  links = [{ name: 'Cadastrar Usuário', href: '/acervo' }];
+  links = [{ name: 'Cadastrar Usuário', href: '/cadastrar-usuario' }];
   LinksMock.forEach((value) => {
     links.push(value);
   });
@@ -57,6 +58,7 @@ root.render(
           <Route path="/dashboard" element={<DashBoard />} />
           <Route path="/valve" element={<Valve />} />
           <Route path="/sensor" element={<Sensor />} />
+          <Route path="/cadastrar-usuario" element={<RegisterUser />} />
         </Routes>
         <Footer>
           {

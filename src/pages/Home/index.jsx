@@ -6,21 +6,23 @@ import { InputFText } from '../../components/InputFText';
 import { SubmitBtn } from '../../components/SubmitBtn';
 import { useRef } from 'react';
 import { login, register } from '../../api/userApi';
+import { useNavigate } from 'react-router-dom';
 
 function Home() {
   const userRef = useRef();
   const passRef = useRef();
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
-    console.log('user: ' + userRef.current.value);
-    console.log('pass: ' + passRef.current.value);
     const cred = { username: userRef.current.value, password: passRef.current.value };
     const response = await login(cred);
-    if (!response.authority) {
+    if (response != 200) {
       window.alert('Credenciais incorretas');
       passRef.current.value = '';
       return false;
     }
+
+    navigate('/acervo');
   };
 
   return (
