@@ -22,7 +22,7 @@ function Home() {
       return false;
     }
 
-    navigate('/acervo');
+    window.location.href = '/acervo';
   };
 
   return (
