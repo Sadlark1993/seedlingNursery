@@ -7,6 +7,9 @@ export const getSpeciesList = async (page) => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+  if (speciesPromise.status == 401 || speciesPromise.status == 403) {
+    window.location.href = '/';
+  }
   const number = +speciesPromise.headers.get('table-size');
   const speciesObj = await speciesPromise.json();
   return { list: speciesObj, number: number };
@@ -22,6 +25,10 @@ export const saveSpecie = (specie) => {
     method: 'POST',
     body: JSON.stringify(specie)
   });
+
+  if (saveSpecie.status == 401 || saveSpecie.status == 403) {
+    window.location.href = '/';
+  }
 };
 
 //get specie object by id
@@ -31,6 +38,11 @@ export const getSpecie = async (id) => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (speciesPromise.status == 401 || speciesPromise.status == 403) {
+    window.location.href = '/';
+  }
+
   return await speciesPromise.json();
 };
 
@@ -40,6 +52,11 @@ export const getSpecieImage = async (id) => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (imagePromise.status == 401 || imagePromise.status == 403) {
+    window.location.href = '/';
+  }
+
   return await imagePromise.json();
 };
 
@@ -49,5 +66,10 @@ export const getAllSpecies = async () => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (speciesPromise.status == 401 || speciesPromise.status == 403) {
+    window.location.href = '/';
+  }
+
   return await speciesPromise.json();
 };

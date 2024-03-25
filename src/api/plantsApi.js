@@ -22,6 +22,11 @@ export const getPlantsBySpeciePage = async (page, pageSize, specieId, matrix, se
       }
     }
   );
+
+  if (plantsPromise.status == 401 || plantsPromise.status == 403) {
+    window.location.href = '/';
+  }
+
   const number = +plantsPromise.headers.get('table-size');
   const plantsObj = await plantsPromise.json();
   return { list: plantsObj, number: number };
@@ -34,6 +39,11 @@ export const getPlantById = async (id) => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (plantPromise.status == 401 || plantPromise.status == 403) {
+    window.location.href = '/';
+  }
+
   return await plantPromise.json();
 };
 
@@ -44,6 +54,11 @@ export const getPlantImage = async (id) => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (imagePromise.status == 401 || imagePromise.status == 403) {
+    window.location.href = '/';
+  }
+
   return await imagePromise.json();
 };
 
@@ -82,6 +97,11 @@ export const getCountByShelf = async () => {
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     }
   });
+
+  if (obj.status == 401 || obj.status == 403) {
+    window.location.href = '/';
+  }
+
   return await obj.json();
 };
 
@@ -94,6 +114,10 @@ export const getPlantsByShelf = async (id, index, pageSize) => {
       }
     }
   );
+
+  if (response.status == 401 || response.status == 403) {
+    window.location.href = '/';
+  }
 
   return await response.json();
 };
@@ -113,6 +137,10 @@ export const getPlantsByMatrix = async (id, index, pageSize) => {
       }
     }
   );
+
+  if (response.status == 401 || response.status == 403) {
+    window.location.href = '/';
+  }
 
   const number = +response.headers.get('table-size');
   const plantsObj = await response.json();
@@ -134,6 +162,10 @@ export const getPlantsByAddress = async (address, index, pageSize) => {
       }
     }
   );
+
+  if (response.status == 401 || response.status == 403) {
+    window.location.href = '/';
+  }
 
   const number = +response.headers.get('table-size');
   const plantsObj = await response.json();

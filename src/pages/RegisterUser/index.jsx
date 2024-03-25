@@ -8,6 +8,10 @@ import { useRef } from 'react';
 import { login, register } from '../../api/userApi';
 
 function RegisterUser() {
+  if (localStorage.getItem('authority') != 'ADMIN') {
+    window.location.href = '/acervo';
+  }
+
   const authorityRef = useRef();
   const userRef = useRef();
   const passRef = useRef();

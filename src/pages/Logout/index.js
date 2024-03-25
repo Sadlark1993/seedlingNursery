@@ -7,6 +7,6 @@ export const Logout = () => {
   localStorage.removeItem('Authorization');
   localStorage.removeItem('authority');
   useEffect(() => {
-    navigate('/');
+    window.location.href = '/';
   });
 };

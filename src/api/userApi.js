@@ -35,5 +35,9 @@ export const register = async (cred, authority) => {
     body: JSON.stringify(cred)
   });
 
+  if (response.status == 401 || response.status == 403) {
+    window.location.href = '/';
+  }
+
   return response.status;
 };
