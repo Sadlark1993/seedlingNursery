@@ -13,6 +13,7 @@ function Home() {
   const passRef = useRef();
   const navigate = useNavigate();
 
+  console.log(location.hostname + ':8080');
   const handleLogin = async () => {
     const cred = { username: userRef.current.value, password: passRef.current.value };
     const response = await login(cred);

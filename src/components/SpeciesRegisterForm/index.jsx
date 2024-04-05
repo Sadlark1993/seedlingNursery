@@ -56,7 +56,7 @@ export const SpeciesRegisterForm = () => {
 
     //console.log(JSON.stringify(specieObject));
 
-    saveSpecie(specieObject);
+    const response = await saveSpecie(specieObject);
     window.location.reload(false);
 
     /* let data = new FormData();

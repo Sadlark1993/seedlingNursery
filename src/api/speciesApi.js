@@ -16,8 +16,8 @@ export const getSpeciesList = async (page) => {
 };
 
 //saves specie object to database
-export const saveSpecie = (specie) => {
-  fetch(rootUri + '/specie', {
+export const saveSpecie = async (specie) => {
+  const response = await fetch(rootUri + '/specie', {
     headers: {
       'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
