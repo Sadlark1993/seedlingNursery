@@ -124,6 +124,8 @@ const Collection = () => {
     setSelectedId(specieId);
     setCurrentPage(1);
     plantsListRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    //eslint wrongly pointing 'process' as an undef error.
+    console.log(process.env.REACT_APP_API_URI);
   };
 
   //Plants list navigation
