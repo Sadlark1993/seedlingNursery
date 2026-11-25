@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 
 import * as Styled from './styles';
 import { getPlantImage } from '../../api/plantsApi';
+import { prepareImage } from '../../utils/prepareImage';
 
 const noPhoto = '/img/mock/noPhoto.png';
 
@@ -29,11 +30,17 @@ export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
     };
   }, [img]);
 
-  const handleChange = () => {
+  const handleChange = async () => {
     const file = inputImg.current.files[0];
     if (!file) return;
-    forwardedRef.current = file;
-    setImg(URL.createObjectURL(file));
+    const { file: prepared, error } = await prepareImage(file);
+    if (error) {
+      alert(error);
+      inputImg.current.value = '';
+      return;
+    }
+    forwardedRef.current = prepared;
+    setImg(URL.createObjectURL(prepared));
   };
 
   return (

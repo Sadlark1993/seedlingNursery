@@ -7,6 +7,7 @@ import { SubmitBtn } from '../SubmitBtn';
 import { Container } from '../Container';
 import { InputFText } from '../InputFText';
 import { saveSpecie } from '../../api/speciesApi';
+import { prepareImage, MAX_UPLOAD_MESSAGE } from '../../utils/prepareImage';
 /* const handleClick = () => {
   console.log("Wow, I'm gonna load some plants!!");
 }; */
@@ -17,10 +18,19 @@ export const SpeciesRegisterForm = () => {
   const nameInput = useRef();
   const scienInput = useRef();
   const descInput = useRef();
+  const preparedImg = useRef(null);
 
-  const handleChange = () => {
+  const handleChange = async () => {
     const image = imgInput.current.files[0];
-    setSrcImg(URL.createObjectURL(image));
+    if (!image) return;
+    const { file, error } = await prepareImage(image);
+    if (error) {
+      alert(error);
+      imgInput.current.value = '';
+      return;
+    }
+    preparedImg.current = file;
+    setSrcImg(URL.createObjectURL(file));
   };
 
   const submitSpecie = async () => {
@@ -36,9 +46,9 @@ export const SpeciesRegisterForm = () => {
       description: descInput.current.value
     };
 
-    const response = await saveSpecie(specieObject, imgInput.current.files[0]);
+    const response = await saveSpecie(specieObject, preparedImg.current);
     if (!response.ok) {
-      alert('Não foi possível cadastrar a espécie.');
+      alert(response.status == 413 ? MAX_UPLOAD_MESSAGE : 'Não foi possível cadastrar a espécie.');
       return;
     }
     window.location.reload(false);

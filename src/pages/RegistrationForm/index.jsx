@@ -18,6 +18,7 @@ import { PestRecord } from '../../components/PestRecord';
 import { DataContext } from '../../contexts/Data';
 import { Footer } from '../../components/Footer';
 import { getPlantById, savePlant } from '../../api/plantsApi';
+import { MAX_UPLOAD_MESSAGE } from '../../utils/prepareImage';
 import { getAllSpecies } from '../../api/speciesApi';
 
 /* 
@@ -300,6 +301,7 @@ const RegistrationForm = () => {
       });
     } else {
       console.log(response);
+      alert(response.status == 413 ? MAX_UPLOAD_MESSAGE : 'Não foi possível salvar o cadastro.');
     }
   };
 
