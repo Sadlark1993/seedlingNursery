@@ -17,7 +17,6 @@ import { FertilizationRecord } from '../../components/FertilizationRecord';
 import { PestRecord } from '../../components/PestRecord';
 import { DataContext } from '../../contexts/Data';
 import { Footer } from '../../components/Footer';
-import defaultImg from './defaultImg';
 import { getPlantById, savePlant } from '../../api/plantsApi';
 import { getAllSpecies } from '../../api/speciesApi';
 
@@ -285,12 +284,12 @@ const RegistrationForm = () => {
       donationDate: donationDateRef.current.value,
       shelf: +shelfRef.current.value,
       observations: obsRef.current.value,
-      image: imgRef.current,
       pestRecord: pestRecord,
       fertRecord: fertRecord
     };
     const objWithAmount = {
       submitObj,
+      image: imgRef.current,
       amount: amountRef.current.value ? amountRef.current.value : 1
     };
     const response = await savePlant(objWithAmount);

@@ -23,40 +23,24 @@ export const SpeciesRegisterForm = () => {
     setSrcImg(URL.createObjectURL(image));
   };
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
-
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
   const submitSpecie = async () => {
     if (!nameInput.current.value || !scienInput.current.value || !descInput.current.value) {
       alert('Preencha todos os campos para cadastrar a espécie.');
       return;
     }
 
-    const base64 = await convertBase64(imgInput.current.files[0]);
-    const img = base64.split('base64,');
     //mounting the object
     const specieObject = {
       name: nameInput.current.value,
       scienName: scienInput.current.value,
-      description: descInput.current.value,
-      image: img[1]
+      description: descInput.current.value
     };
 
-    //console.log(JSON.stringify(specieObject));
-
-    const response = await saveSpecie(specieObject);
+    const response = await saveSpecie(specieObject, imgInput.current.files[0]);
+    if (!response.ok) {
+      alert('Não foi possível cadastrar a espécie.');
+      return;
+    }
     window.location.reload(false);
 
     /* let data = new FormData();

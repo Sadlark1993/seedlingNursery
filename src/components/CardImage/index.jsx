@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 
 import { getSpecieImage } from '../../api/speciesApi';
 
+const noPhoto = '/img/mock/noPhoto.png';
+
 export const CardImage = ({ id, alt }) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
     (async () => {
-      const byte = await getSpecieImage(id);
-      setImage('data:image/jpeg;base64,' + byte.image);
+      const imgObj = await getSpecieImage(id);
+      setImage(imgObj.url || noPhoto);
     })();
   }, [id]);
 

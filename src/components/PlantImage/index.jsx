@@ -3,13 +3,15 @@ import { useEffect, useState } from 'react';
 
 import { getPlantImage } from '../../api/plantsApi';
 
+const noPhoto = '/img/mock/noPhoto.png';
+
 export const PlantImage = ({ id, alt }) => {
   const [image, setImage] = useState('');
 
   useEffect(() => {
     (async () => {
-      const byte = await getPlantImage(id);
-      setImage('data:image/jpeg;base64,' + byte.image);
+      const imgObj = await getPlantImage(id);
+      setImage(imgObj.url || noPhoto);
     })();
   }, [id]);
 

@@ -3,54 +3,42 @@ import { useState, useRef, useEffect } from 'react';
 
 import * as Styled from './styles';
 import { getPlantImage } from '../../api/plantsApi';
-import defaultImg from './defaultImg';
 
+const noPhoto = '/img/mock/noPhoto.png';
+
+// forwardedRef receives the selected File, or null when the image wasn't changed
 export const ImgLoader = ({ idImg, altImg = '', forwardedRef = useRef() }) => {
   const [img, setImg] = useState(null);
   const inputImg = useRef();
 
   useEffect(() => {
+    forwardedRef.current = null;
     if (idImg) {
       (async () => {
         const imgObj = await getPlantImage(idImg);
-        setImg(imgObj.image);
-        forwardedRef.current = imgObj.image;
+        setImg(imgObj.url || noPhoto);
       })();
     } else {
-      setImg(defaultImg.base64);
-      forwardedRef.current = defaultImg.base64;
+      setImg(noPhoto);
     }
   }, []);
 
-  const convertBase64 = (file) => {
-    return new Promise((resolve, reject) => {
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(file);
+  useEffect(() => {
+    return () => {
+      if (img && img.startsWith('blob:')) URL.revokeObjectURL(img);
+    };
+  }, [img]);
 
-      fileReader.onload = () => {
-        resolve(fileReader.result);
-      };
-
-      fileReader.onerror = (error) => {
-        reject(error);
-      };
-    });
-  };
-
-  const handleChange = async () => {
-    const image = await convertBase64(inputImg.current.files[0]);
-    const imgArray = await image.split('base64,');
-    forwardedRef.current = await imgArray[1];
-    setImg(await imgArray[1]);
+  const handleChange = () => {
+    const file = inputImg.current.files[0];
+    if (!file) return;
+    forwardedRef.current = file;
+    setImg(URL.createObjectURL(file));
   };
 
   return (
     <Styled.compStyle>
-      {img ? (
-        <Styled.imgDisp src={'data:image/png;base64,' + img} alt={altImg} />
-      ) : (
-        <h2>Loading...</h2>
-      )}
+      {img ? <Styled.imgDisp src={img} alt={altImg} /> : <h2>Loading...</h2>}
       <Styled.imgInput
         ref={inputImg}
         onChange={handleChange}

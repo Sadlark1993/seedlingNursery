@@ -15,20 +15,24 @@ export const getSpeciesList = async (page) => {
   return { list: speciesObj, number: number };
 };
 
-//saves specie object to database
-export const saveSpecie = async (specie) => {
+//saves specie object to database, with an optional image file
+export const saveSpecie = async (specie, image) => {
+  const body = new FormData();
+  body.append('specie', new Blob([JSON.stringify(specie)], { type: 'application/json' }));
+  if (image) body.append('image', image);
+
   const response = await fetch(rootUri + '/specie', {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     },
     method: 'POST',
-    body: JSON.stringify(specie)
+    body
   });
 
-  if (saveSpecie.status == 401 || saveSpecie.status == 403) {
+  if (response.status == 401 || response.status == 403) {
     window.location.href = '/';
   }
+  return response;
 };
 
 //get specie object by id

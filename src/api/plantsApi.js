@@ -73,13 +73,16 @@ export const savePlant = async (obj) => {
 
   obj.submitObj.specie = null;
 
+  const body = new FormData();
+  body.append('plant', new Blob([JSON.stringify(obj.submitObj)], { type: 'application/json' }));
+  if (obj.image) body.append('image', obj.image);
+
   return await fetch(rootUri + '/plant/' + matrixSpecie + '/number/' + obj.amount, {
     headers: {
-      'Content-Type': 'application/json',
       Authorization: 'Bearer ' + localStorage.getItem('Authorization')
     },
     method: 'POST',
-    body: JSON.stringify(obj.submitObj)
+    body
   })
     .then((response) => {
       //console.log('api: ' + response);
