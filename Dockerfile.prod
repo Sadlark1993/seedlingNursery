@@ -1,0 +1,14 @@
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package.json .npmrc ./
+RUN npm install
+COPY . .
+ENV REACT_APP_API_BASE=/api
+ENV GENERATE_SOURCEMAP=false
+# CI=true would turn the existing lint warnings into build errors
+RUN CI=false npm run build
+
+FROM nginx:1.27-alpine
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
