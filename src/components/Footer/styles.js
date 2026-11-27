@@ -4,8 +4,9 @@ export const compStyle = styled.footer`
   ${({ theme }) => css`
     background: ${theme.colors.primaryColor};
     color: white;
-    height: 17rem;
+    min-height: 17rem;
     width: 100%;
+    padding: 2rem 1.6rem;
     text-align: center;
     display: flex;
     justify-content: center;

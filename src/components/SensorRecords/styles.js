@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 export const compStyle = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 12rem 12rem 12rem 1fr;
+    grid-template-columns: 12rem 12rem 12rem minmax(16rem, 1fr);
     width: 100%;
     font-size: ${theme.fonts.sizes.small};
   `}
@@ -14,6 +14,11 @@ export const compStyle = styled.div`
     li:nth-child(odd) {
       background-color: #d3d3d3;
     }
+  }
+
+  @media ${({ theme }) => theme.media.tablet} {
+    overflow-x: auto;
+    padding: 0.5rem 1.2rem 1.2rem 0.5rem;
   }
 `;
 
@@ -44,12 +49,18 @@ export const row = styled.li`
   padding: 0;
   margin: 0;
   display: grid;
-  grid-template-columns: 12rem 12rem 12rem 1fr;
+  grid-template-columns: 12rem 12rem 12rem minmax(16rem, 1fr);
   height: 3rem;
   width: 100%;
   //border: solid 1px #333;
   border-bottom: none;
   align-items: center;
+
+  @media ${({ theme }) => theme.media.tablet} {
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 export const idCell = styled.div`

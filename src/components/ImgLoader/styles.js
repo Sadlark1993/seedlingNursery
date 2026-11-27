@@ -8,7 +8,7 @@ export const compStyle = styled.div`
 
 export const imgDisp = styled.img`
   ${({ theme }) => css`
-    max-width: 46rem;
+    max-width: min(46rem, 100%);
     display: block;
     margin: 0 auto 1rem auto;
   `}

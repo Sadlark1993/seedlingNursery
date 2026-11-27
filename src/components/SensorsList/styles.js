@@ -3,10 +3,15 @@ import styled, { css } from 'styled-components';
 export const compStyle = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 6.5rem 6.5rem 16rem 1fr;
+    grid-template-columns: 6.5rem 6.5rem 16rem minmax(24rem, 1fr);
     row-gap: 1rem;
     margin-top: 2rem;
   `}
+
+  @media ${({ theme }) => theme.media.tablet} {
+    overflow-x: auto;
+    padding: 0.5rem 1.2rem 1.2rem 0.5rem;
+  }
 `;
 
 export const id = styled.div`
@@ -40,13 +45,18 @@ export const observation = styled.div`
       transform: scale(1.05);
       box-shadow: 0.4rem 0.4rem 1rem #333;
     }
+
+    @media ${({ theme }) => theme.media.tablet} {
+      position: sticky;
+      margin-left: auto;
+    }
   }
 `;
 
 export const row = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 6.5rem 6.5rem 16rem 1fr;
+    grid-template-columns: 6.5rem 6.5rem 16rem minmax(24rem, 1fr);
     grid-column: 1/-1;
     background-color: white;
     transition: 0.15s ease-in-out;
@@ -58,6 +68,12 @@ export const row = styled.div`
       box-shadow: 0.4rem 0.4rem 1.8rem #333;
     }
   `}
+
+  @media ${({ theme }) => theme.media.tablet} {
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 export const idCell = styled.div`

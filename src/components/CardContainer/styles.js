@@ -9,6 +9,10 @@ export const containerStyle = styled.div`
     gap: 4rem 2rem;
     color: ${theme.colors.primaryColor};
 
+    @media ${theme.media.tablet} {
+      justify-content: center;
+    }
+
     h3 {
       height: fit-content;
       margin: 0 auto;

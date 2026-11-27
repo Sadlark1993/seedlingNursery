@@ -5,6 +5,7 @@ export const compStyle = styled.input`
     display: block;
     height: 6.4rem;
     width: ${fieldW ? fieldW : 1}rem;
+    max-width: 100%;
     padding: 0.6rem;
     font-size: ${theme.fonts.sizes.small};
     border: solid 1px black;

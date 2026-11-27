@@ -4,7 +4,7 @@ import * as CheckboxStyle from '../PlantStageCheckbox/styles';
 export const compStyle = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 7rem 12rem 12rem 1fr;
+    grid-template-columns: 7rem 12rem 12rem minmax(20rem, 1fr);
     row-gap: 1rem;
 
     & ${CheckboxStyle.compStyle} {
@@ -12,6 +12,15 @@ export const compStyle = styled.div`
       margin-bottom: 4rem;
     }
   `}
+
+  @media ${({ theme }) => theme.media.tablet} {
+    overflow-x: auto;
+    padding: 0.5rem 1.2rem 1.2rem 0.5rem;
+    & ${CheckboxStyle.compStyle} {
+      grid-column: 1 / -1;
+      margin: 0 0 1rem 0;
+    }
+  }
 `;
 
 export const idNumber = styled.span`
@@ -52,7 +61,7 @@ export const idCell = styled.div`
 export const row = styled.div`
   ${({ theme }) => css`
     display: grid;
-    grid-template-columns: 7rem 12rem 12rem 1fr;
+    grid-template-columns: 7rem 12rem 12rem minmax(20rem, 1fr);
     grid-column: 1/-1;
     background-color: white;
     cursor: pointer;
@@ -63,6 +72,12 @@ export const row = styled.div`
       box-shadow: 0.4rem 0.4rem 1.8rem #333;
     }
   `}
+
+  @media ${({ theme }) => theme.media.tablet} {
+    &:hover {
+      transform: none;
+    }
+  }
 `;
 
 export const stageCell = styled.div`

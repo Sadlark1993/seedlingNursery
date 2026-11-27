@@ -27,6 +27,7 @@ export const pageStyle = styled.div`
       margin: 0 auto 2rem;
       display: block;
       width: 36rem;
+      max-width: 100%;
 
       select {
         height: 3rem;

@@ -39,7 +39,37 @@ export const gridFourColumns = styled.form`
     row-gap: 2rem;
     margin-top: 4rem;
     grid-auto-flow: column; /* thats new to me. */
+
+    @media ${theme.media.tablet} {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      grid-auto-flow: row;
+    }
+
+    @media ${theme.media.mobile} {
+      grid-template-columns: minmax(0, 1fr);
+    }
   `}
+`;
+
+const responsiveCell = (theme, cStart, cEnd) => css`
+  @media ${theme.media.tablet} {
+    grid-column: ${cEnd - cStart > 1 ? '1 / -1' : 'auto'};
+
+    & > input,
+    & > select,
+    & > textarea,
+    & > div > input {
+      width: 100%;
+    }
+
+    & > div {
+      width: 100%;
+    }
+  }
+
+  @media ${theme.media.mobile} {
+    grid-column: 1 / -1;
+  }
 `;
 
 export const selectInput = styled.select`
@@ -47,6 +77,7 @@ export const selectInput = styled.select`
     display: block;
     height: 4.4rem;
     width: ${fieldW}rem;
+    max-width: 100%;
     padding: 0.6rem;
     font-size: ${theme.fonts.sizes.small};
     border: solid 1px black;
@@ -69,6 +100,8 @@ export const gridCell = styled.div`
     & > span {
       margin: 0 0 0.5rem 0.5rem;
     }
+
+    ${responsiveCell(theme, cStart, cEnd)}
   `}
 `;
 
@@ -87,6 +120,8 @@ export const gridCellUp = styled.div`
     & > span {
       margin: 0 0 0.5rem 0.5rem;
     }
+
+    ${responsiveCell(theme, cStart, cEnd)}
   `}
 `;
 
@@ -97,6 +132,7 @@ export const textAreaStyle = styled.textarea`
     padding: 1rem;
     font-size: ${theme.fonts.sizes.small};
     font-family: ${theme.fonts.family.primaryFont};
+    max-width: 100%;
   `}
 `;
 

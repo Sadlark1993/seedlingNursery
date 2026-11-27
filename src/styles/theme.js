@@ -27,5 +27,9 @@ export const theme = {
     xxlarge: '4.6rem',
     huge: '5.6rem',
     xhuge: '6.4rem'
+  },
+  media: {
+    tablet: '(max-width: 1024px)',
+    mobile: '(max-width: 600px)'
   }
 };

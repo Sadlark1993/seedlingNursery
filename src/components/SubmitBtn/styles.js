@@ -5,6 +5,7 @@ export const compStyle = styled.button`
     display: block;
     height: 6.4rem;
     width: 36rem;
+    max-width: 100%;
     padding: 0.6rem;
     border: none;
     border-radius: 5px;

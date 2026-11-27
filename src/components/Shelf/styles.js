@@ -14,6 +14,15 @@ export const compStyle = styled.div`
       transform: scale(1.05);
       box-shadow: 2.5rem 1.8rem 3.5rem 1rem black;
     }
+
+    @media ${theme.media.mobile} {
+      flex-wrap: wrap;
+      box-shadow: 0.6rem 0.6rem 1.2rem black;
+      &:hover {
+        transform: none;
+        box-shadow: 0.6rem 0.6rem 1.2rem black;
+      }
+    }
   `}
 `;
 
@@ -27,6 +36,11 @@ export const idNumber = styled.div`
     border-right: solid 1px white;
     font-size: ${theme.fonts.sizes.xxlarge};
     font-weight: bold;
+
+    @media ${theme.media.mobile} {
+      width: 7rem;
+      font-size: ${theme.fonts.sizes.large};
+    }
   `}
 `;
 
@@ -40,6 +54,13 @@ export const count = styled.div`
     font-size: ${theme.fonts.sizes.medium};
     font-weight: bold;
     padding-left: 2rem;
+
+    @media ${theme.media.mobile} {
+      width: auto;
+      flex-grow: 1;
+      border-right: none;
+      padding: 1.5rem;
+    }
   `}
 `;
 
@@ -52,5 +73,12 @@ export const speciesList = styled.div`
     font-weight: bold;
     padding-left: 2rem;
     overflow: hidden;
+
+    @media ${theme.media.mobile} {
+      flex-basis: 100%;
+      border-top: solid 1px white;
+      padding: 1rem 1.5rem;
+      font-size: ${theme.fonts.sizes.small};
+    }
   `}
 `;

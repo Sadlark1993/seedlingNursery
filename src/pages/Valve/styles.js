@@ -16,6 +16,12 @@ export const titleWrapper = styled.div`
   justify-content: center;
   position: relative;
   width: fit-content;
+  max-width: 100%;
+
+  @media ${({ theme }) => theme.media.mobile} {
+    align-items: flex-start;
+    padding: 0 1.2rem;
+  }
 `;
 
 export const editBtn = styled.div`
@@ -45,12 +51,22 @@ export const editBtn = styled.div`
     height: 4rem;
     width: 4rem;
   }
+
+  @media ${({ theme }) => theme.media.mobile} {
+    position: static;
+    margin-left: 1rem;
+  }
 `;
 
 export const valveObs = styled.blockquote`
   display: block;
   margin: 1rem auto 4rem auto;
   max-width: 94rem;
+
+  @media ${({ theme }) => theme.media.tablet} {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
 `;
 
 export const circle = styled.div`
@@ -94,6 +110,9 @@ export const modalRegister = styled.div`
     flex-wrap: wrap;
     align-content: center;
     text-align: center;
+    max-width: 92vw;
+    max-height: 90vh;
+    overflow-y: auto;
     animation: modal 0.4s forwards;
 
     h2::after {
@@ -125,6 +144,17 @@ export const modalRegister = styled.div`
       padding: 0 1rem;
     }
 
+    @media ${theme.media.mobile} {
+      .inputsWrapper {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .singleInputWrapper {
+        width: 100%;
+      }
+    }
+
     @keyframes modal {
       from {
         opacity: 0;
@@ -146,6 +176,7 @@ export const textAreaStyle = styled.textarea`
     font-size: ${theme.fonts.sizes.small};
     font-family: ${theme.fonts.family.primaryFont};
     width: 94rem;
+    max-width: 100%;
     height: 10rem;
   `}
 `;

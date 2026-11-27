@@ -10,6 +10,12 @@ export const compStyle = styled.div`
     border: solid 0.1rem ${theme.colors.primaryColor};
     padding: 1.4rem;
 
+    @media ${theme.media.mobile} {
+      height: auto;
+      max-height: 40rem;
+      padding: 0.8rem;
+    }
+
     &::-webkit-scrollbar {
       width: 18px;
     }
@@ -47,6 +53,17 @@ export const rowStyle = styled.div`
       border-radius: 5px;
       cursor: pointer;
     }
+
+    @media ${theme.media.mobile} {
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      padding-bottom: 1.4rem;
+      border-bottom: solid 1px #b9b9b9;
+
+      & > ${InputStyle.compStyle}:first-child {
+        width: 100%;
+      }
+    }
   `}
 `;
 
@@ -54,6 +71,11 @@ export const inputWrapper = styled.div`
   ${({ theme }) => css`
     position: relative;
     height: fit-content;
+
+    ${InputStyle.compStyle} {
+      padding-right: 3rem;
+    }
+
     &::after {
       content: 'kg';
       position: absolute;

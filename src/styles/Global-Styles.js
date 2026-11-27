@@ -19,6 +19,10 @@ export const GlobalStyles = createGlobalStyle`
     color: black;
   }
 
+  img {
+    max-width: 100%;
+  }
+
   ${'' /* end of reset */}
 
   html {

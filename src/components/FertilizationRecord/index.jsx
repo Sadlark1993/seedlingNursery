@@ -47,7 +47,7 @@ export const FertilizationRecord = ({
             <Styled.rowStyle key={index}>
               <InputFText fieldW={54} type="text" defaultValue={record2[0]} />
               <Styled.inputWrapper>
-                <InputFText fieldW={8} type="number" defaultValue={record2[1]} />
+                <InputFText fieldW={10} type="number" defaultValue={record2[1]} />
               </Styled.inputWrapper>
               <InputFText fieldW={14} type="text" defaultValue={record2[2]} />
             </Styled.rowStyle>
@@ -56,7 +56,7 @@ export const FertilizationRecord = ({
       <Styled.rowStyle key={-1}>
         <InputFText fieldW={54} type="text" forwardedRef={descriptionRef} placeholder="tipo" />
         <Styled.inputWrapper>
-          <InputFText fieldW={8} type="number" forwardedRef={amountRef} placeholder="XX.XX" />
+          <InputFText fieldW={10} type="number" forwardedRef={amountRef} placeholder="XX.XX" />
         </Styled.inputWrapper>
         <InputFText fieldW={14} forwardedRef={dateRef} type="date" />
         <button onClick={handlePlus}>+</button>

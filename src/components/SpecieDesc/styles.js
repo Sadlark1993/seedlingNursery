@@ -15,6 +15,11 @@ export const containerStyle = styled.div`
     gap: 2rem;
     width: 100%;
 
+    @media ${theme.media.tablet} {
+      flex-direction: column;
+      align-items: center;
+    }
+
     img {
       flex-grow: 1;
       overflow: hidden;
@@ -27,7 +32,9 @@ export const imageStyle = styled.img`
   ${({ theme }) => css`
     display: block;
     width: 46rem;
+    max-width: 100%;
     height: 42.5rem;
+    object-fit: cover;
     overflow: hidden;
   `}
 `;
@@ -36,6 +43,7 @@ export const contentContainer = styled.div`
   ${({ theme }) => css`
     display: block;
     width: 46rem;
+    max-width: 100%;
   `}
 `;
 
@@ -53,6 +61,7 @@ export const sepRectangle = styled.div`
     display: block;
     background: ${theme.colors.primaryColor};
     width: 46rem;
+    max-width: 100%;
     height: 2rem;
     border-radius: 3px;
   `};
@@ -98,6 +107,7 @@ export const fullSeparator = styled.div`
     display: block;
     background: ${theme.colors.primaryColor};
     width: 96rem;
+    max-width: 100%;
     height: 2rem;
     border-radius: 3px;
     margin: 0 auto;

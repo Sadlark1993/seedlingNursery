@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 export const compStyle = styled.header`
   ${({ theme }) => css`
+    position: relative;
     display: flex;
     padding: 2rem;
     width: 100%;

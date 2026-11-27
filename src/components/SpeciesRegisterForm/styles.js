@@ -15,6 +15,11 @@ export const containerStyle = styled.form`
     display: flex;
     gap: 2rem;
     width: 100%;
+
+    @media ${theme.media.tablet} {
+      flex-direction: column;
+      align-items: center;
+    }
   `}
 `;
 
@@ -22,7 +27,9 @@ export const imageStyle = styled.img`
   ${({ theme }) => css`
     display: block;
     width: 46rem;
+    max-width: 100%;
     height: 42.5rem;
+    object-fit: cover;
     overflow: hidden;
     margin-bottom: 0.5rem;
   `}
@@ -32,6 +39,7 @@ export const contentContainer = styled.div`
   ${({ theme }) => css`
     display: block;
     width: 46rem;
+    max-width: 100%;
   `}
 `;
 
@@ -59,6 +67,7 @@ export const sepRectangle = styled.div`
     display: block;
     background: ${theme.colors.primaryColor};
     width: 46rem;
+    max-width: 100%;
     height: 2rem;
     border-radius: 3px;
   `};
@@ -115,6 +124,7 @@ export const fullSeparator = styled.div`
     display: block;
     background: ${theme.colors.primaryColor};
     width: 96rem;
+    max-width: 100%;
     height: 2rem;
     border-radius: 3px;
     margin: 0 auto;
@@ -129,5 +139,6 @@ export const textAreaStyle = styled.textarea`
     font-size: ${theme.fonts.sizes.small};
     font-family: ${theme.fonts.family.primaryFont};
     margin: 2rem 0;
+    max-width: 100%;
   `}
 `;

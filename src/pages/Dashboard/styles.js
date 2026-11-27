@@ -8,9 +8,11 @@ export const selector = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 2rem;
 
   button {
     width: 36rem;
+    max-width: 100%;
     height: 6.4rem;
     border: solid 2px #333;
   }
@@ -48,6 +50,9 @@ export const modalRegister = styled.div`
   ${({ theme }) => css`
     display: flex;
     width: 50rem;
+    max-width: 92vw;
+    max-height: 90vh;
+    overflow-y: auto;
     padding: 1rem 0;
     background: white;
     border: ${theme.colors.primaryColor} solid 5px;
@@ -130,6 +135,13 @@ export const modalRegister = styled.div`
       padding: 0.5rem 1rem;
       text-align: left;
       width: 100%;
+    }
+
+    @media ${theme.media.mobile} {
+      & .inputWrapper,
+      & .shelfWrapper {
+        width: 100%;
+      }
     }
 
     @keyframes modal {

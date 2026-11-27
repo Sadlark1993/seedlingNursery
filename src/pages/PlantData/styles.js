@@ -30,8 +30,27 @@ export const flexContainer = styled.div`
   ${({ theme }) => css`
     display: flex;
     gap: 20px;
-    width: 94rem;
+    width: 100%;
+    max-width: 94rem;
     margin: 0 auto 4rem auto;
+
+    @media ${theme.media.tablet} {
+      flex-direction: column;
+      align-items: center;
+      padding: 0 2rem;
+
+      img {
+        flex-grow: 0;
+      }
+
+      ul {
+        width: 100%;
+      }
+    }
+
+    @media ${theme.media.mobile} {
+      padding: 0 1.2rem;
+    }
   `}
 `;
 
